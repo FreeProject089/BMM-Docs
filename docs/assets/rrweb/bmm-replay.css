@@ -98,11 +98,47 @@
   color: var(--md-default-bg-color, #fff);
   background: var(--md-accent-fg-color, #4051b5);
 }
+/* Secondary control buttons (restart, speed, fullscreen) */
+.bmm-replay-restart,
+.bmm-replay-speed,
+.bmm-replay-fs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 30px;
+  flex: 0 0 auto;
+  padding: 0 8px;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.14));
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--md-default-fg-color, inherit);
+  background: transparent;
+  font-size: .74rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.bmm-replay-restart:hover,
+.bmm-replay-speed:hover,
+.bmm-replay-fs:hover {
+  background: var(--md-default-fg-color--lightest, rgba(0,0,0,.06));
+}
+
 .bmm-replay-seek {
   flex: 1 1 auto;
   accent-color: var(--md-accent-fg-color, #4051b5);
   cursor: pointer;
 }
+
+/* Fullscreen: center the scaled recording on a dark backdrop */
+.bmm-replay-stage:fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: auto !important;
+  background: #0d0d12;
+}
+.bmm-replay-stage:fullscreen .bmm-replay-mount { position: relative; inset: auto; }
 .bmm-replay-time {
   flex: 0 0 auto;
   font-size: .72rem;
