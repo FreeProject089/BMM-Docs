@@ -1,0 +1,36 @@
+{
+  "_note": "PLACEHOLDER coordinates. Replace the .png, then adjust \"xy\" only \u2014 numbers and labels are referenced by docs/features/themes.md and .fr.md.",
+  "image": "themes.png",
+  "boxes": [
+    {
+      "n": 1,
+      "xy": [
+        40,
+        96,
+        260,
+        150
+      ],
+      "label": "Installed"
+    },
+    {
+      "n": 2,
+      "xy": [
+        340,
+        96,
+        560,
+        150
+      ],
+      "label": "Editor"
+    },
+    {
+      "n": 3,
+      "xy": [
+        640,
+        96,
+        860,
+        150
+      ],
+      "label": "Catalogue"
+    }
+  ]
+}

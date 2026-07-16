@@ -30,19 +30,49 @@ simply invent.
 
 ## Permissions
 
-Eight, in read/write pairs across four domains:
+**Writes are gated. Reads are not.** That asymmetry is the thing to understand before you
+reason about any of the rest.
 
-```
-app.read       app.write
-catalog.read   catalog.write
-mods.read      mods.write
-profiles.read  profiles.write
-```
+A write endpoint demands a specific permission — `POST /api/mods/enable` requires
+`mods.write`, `POST /api/profiles/create` requires `profiles.write`. A caller without the
+grant gets an error naming exactly which permission it lacked, rather than a silent no-op.
 
-A write endpoint demands the matching `*.write` — `POST /api/mods/enable` requires
-`mods.write`, `POST /api/profiles/create` requires `profiles.write`. A plugin calling
-without the grant gets a permission error naming exactly which one it lacked, rather than a
-silent no-op.
+A read endpoint (`GET /api/mods`, `/api/profiles`, `/api/plugins`, `/api/mods/active`)
+requires **no token at all**. What protects it isn't a permission — it's CORS and the
+loopback bind: the API listens on `127.0.0.1` only, and in a release build only the Tauri
+WebView origins and `bettercommunity.ch` may call it from a browser. A random website you
+visit cannot read your mod list. A program running on your PC can — but it could read BMM's
+files directly anyway, so nothing is lost there.
+
+These are the permissions the code actually enforces:
+
+| Permission | Gates |
+|---|---|
+| `mods.write` | Enable / disable / delete a mod |
+| `profiles.write` | Create / activate / delete a profile |
+| `modpacks.write` | Enable / disable / create a modpack |
+| `plugins.read` | `plugins/compare` |
+| `plugins.write` | `plugins/apply` |
+| `catalog.read` · `catalog.write` | [App Catalog](../features/apps.md) |
+| `app.read` · `app.write` | App-level actions |
+| `repo.write` | [Server Repo](../features/repo.md) actions |
+
+!!! bug "The in-app help lists a different set — trust this table"
+
+    **Plugins → API** says the available permissions are *app.read, app.write, catalog.read,
+    catalog.write, mods.read, mods.write, profiles.read, profiles.write*.
+
+    That list is wrong in both directions, and it's a real BMM bug, not a docs one:
+
+    - **`mods.read` and `profiles.read` do nothing.** No route asks for them, because reads
+      aren't gated. Granting a plugin "read-only" access to your mods grants it nothing it
+      didn't already have — and withholding it prevents nothing.
+    - **`plugins.read`, `plugins.write`, `modpacks.write` and `repo.write` are missing from
+      the list**, yet the code enforces all four. A plugin author needing `repo.write` has no
+      way to discover it exists from the UI.
+
+    Read from `src-tauri/src/api/mod.rs` (`require_permission` filters), not from the help
+    text.
 
 Grant them per plugin in **Plugins → Permissions**, or over the API itself:
 

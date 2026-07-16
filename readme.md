@@ -87,11 +87,12 @@ invents its own names for buttons is worse than no guide.
 
 ## Status
 
-**All 16 pages are written, in both languages** — the prose is done and quotes BMM's own
+**All 18 pages are written, in both languages** — the prose is done and quotes BMM's own
 strings rather than paraphrasing them.
 
 The API reference is read from the source, not from memory: `src-tauri/src/api/mod.rs`
-(port, bearer auth, permission filters) and `src-tauri/src/models/plugin.rs` (the manifest).
+(port, bearer auth, permission filters), `src-tauri/src/models/plugin.rs` (the manifest) and
+`src-tauri/src/commands/scheduler.rs` (triggers, OS task registration).
 When those change, re-read them — don't trust the page.
 
 What's missing is **real screenshots**. Every `docs/assets/screens/*.png` is a placeholder,

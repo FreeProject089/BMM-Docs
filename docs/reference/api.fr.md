@@ -31,19 +31,48 @@ qu'un appelant pourrait inventer.
 
 ## Les permissions
 
-Huit, par paires lecture/écriture sur quatre domaines :
+**Les écritures sont contrôlées. Les lectures ne le sont pas.** Cette asymétrie est la chose
+à comprendre avant de raisonner sur le reste.
 
-```
-app.read       app.write
-catalog.read   catalog.write
-mods.read      mods.write
-profiles.read  profiles.write
-```
+Un endpoint d'écriture exige une permission précise : `POST /api/mods/enable` demande
+`mods.write`, `POST /api/profiles/create` demande `profiles.write`. Un appelant sans
+l'autorisation reçoit une erreur qui nomme exactement celle qui manque, plutôt qu'un silence.
 
-Un endpoint d'écriture exige le `*.write` correspondant : `POST /api/mods/enable` demande
-`mods.write`, `POST /api/profiles/create` demande `profiles.write`. Un plugin qui appelle
-sans l'autorisation reçoit une erreur qui nomme exactement celle qui lui manque, plutôt
-qu'un silence.
+Un endpoint de lecture (`GET /api/mods`, `/api/profiles`, `/api/plugins`, `/api/mods/active`)
+n'exige **aucun token**. Ce qui le protège n'est pas une permission — c'est le CORS et
+l'écoute en loopback : l'API n'écoute que sur `127.0.0.1`, et en build de release seules les
+origines du WebView Tauri et `bettercommunity.ch` peuvent l'appeler depuis un navigateur. Un
+site web quelconque ne peut pas lire ta liste de mods. Un programme tournant sur ton PC, si —
+mais il pourrait de toute façon lire les fichiers de BMM directement : rien n'est perdu là.
+
+Voici les permissions que le code exige réellement :
+
+| Permission | Contrôle |
+|---|---|
+| `mods.write` | Activer / désactiver / supprimer un mod |
+| `profiles.write` | Créer / activer / supprimer un profil |
+| `modpacks.write` | Activer / désactiver / créer un modpack |
+| `plugins.read` | `plugins/compare` |
+| `plugins.write` | `plugins/apply` |
+| `catalog.read` · `catalog.write` | [App Catalog](../features/apps.md) |
+| `app.read` · `app.write` | Actions au niveau de l'app |
+| `repo.write` | Actions [Dépôt Serveur](../features/repo.md) |
+
+!!! bug "L'aide de l'app annonce une autre liste — fie-toi à ce tableau"
+
+    **Plugins → API** indique comme permissions disponibles : *app.read, app.write,
+    catalog.read, catalog.write, mods.read, mods.write, profiles.read, profiles.write*.
+
+    Cette liste est fausse dans les deux sens, et c'est un vrai bug de BMM, pas de la doc :
+
+    - **`mods.read` et `profiles.read` ne font rien.** Aucune route ne les demande, puisque
+      les lectures ne sont pas contrôlées. Accorder à un plugin un accès « lecture seule » à
+      tes mods ne lui accorde rien qu'il n'avait déjà — et le lui refuser n'empêche rien.
+    - **`plugins.read`, `plugins.write`, `modpacks.write` et `repo.write` manquent à la
+      liste**, alors que le code les exige toutes les quatre. Un auteur de plugin qui a
+      besoin de `repo.write` n'a aucun moyen de découvrir son existence depuis l'interface.
+
+    Lis `src-tauri/src/api/mod.rs` (les filtres `require_permission`), pas le texte d'aide.
 
 Accorde-les par plugin dans **Plugins → Permissions**, ou via l'API :
 

@@ -77,6 +77,8 @@ plugins:
             Mapper: Mapper
             BetterCommunity: BetterCommunity
             Settings: Paramètres
+            Scheduling & automation: Planification & automatisation
+            Themes & Appearance: Thèmes & Apparence
             Credits: Crédits
             API reference: Référence API
             Troubleshooting: Dépannage
@@ -112,10 +114,12 @@ nav:
       - features/modpacks.md
       - features/repo.md
       - features/plugins.md
+      - features/scheduler.md
       - features/apps.md
       - features/mapper.md
       - features/community.md
       - features/settings.md
+      - features/themes.md
   - Reference:
       - reference/api.md
       - reference/troubleshooting.md
