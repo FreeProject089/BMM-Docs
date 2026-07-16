@@ -22,7 +22,8 @@ for a release.
     They are, however, **bounded**: a plugin acts through the [API](../reference/api.md) with
     its own token, and only does what you've granted it — `mods.write`, `profiles.write`, and
     so on. Review those grants in **Plugins → Permissions**. A plugin that only reads your
-    mod list needs `mods.read`, and nothing else.
+    mod list needs no grant at all: reads aren't permission-gated, so there is nothing to
+    give it. What a grant buys a plugin is the ability to *change* things.
 
 ## Strict mode
 

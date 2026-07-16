@@ -22,7 +22,8 @@ version.
     Ils sont toutefois **bornés** : un plugin agit via l'[API](../reference/api.md) avec son
     propre token, et ne fait que ce que tu lui as accordé — `mods.write`, `profiles.write`,
     etc. Relis ces autorisations dans **Plugins → Permissions**. Un plugin qui se contente de
-    lire ta liste de mods a besoin de `mods.read`, et de rien d'autre.
+    lire ta liste de mods n'a besoin d'aucune autorisation : les lectures ne sont pas
+    contrôlées, il n'y a donc rien à lui donner. Une autorisation sert à *modifier*.
 
 ## Le mode strict {#strict-mode}
 

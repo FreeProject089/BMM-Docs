@@ -57,22 +57,17 @@ These are the permissions the code actually enforces:
 | `app.read` · `app.write` | App-level actions |
 | `repo.write` | [Server Repo](../features/repo.md) actions |
 
-!!! bug "The in-app help lists a different set — trust this table"
+!!! note "There is no `mods.read` or `profiles.read`"
 
-    **Plugins → API** says the available permissions are *app.read, app.write, catalog.read,
-    catalog.write, mods.read, mods.write, profiles.read, profiles.write*.
+    Every scope above is a write scope, except for the read scopes on `plugins`, `app` and
+    `catalog` — the only three domains whose GET routes are gated. Since reads elsewhere
+    aren't gated, a `mods.read` scope would be a grant that unlocks nothing, so it doesn't
+    exist. To give a plugin read-only access to your mods, grant it nothing at all: it can
+    already call `GET /api/mods`.
 
-    That list is wrong in both directions, and it's a real BMM bug, not a docs one:
-
-    - **`mods.read` and `profiles.read` do nothing.** No route asks for them, because reads
-      aren't gated. Granting a plugin "read-only" access to your mods grants it nothing it
-      didn't already have — and withholding it prevents nothing.
-    - **`plugins.read`, `plugins.write`, `modpacks.write` and `repo.write` are missing from
-      the list**, yet the code enforces all four. A plugin author needing `repo.write` has no
-      way to discover it exists from the UI.
-
-    Read from `src-tauri/src/api/mod.rs` (`require_permission` filters), not from the help
-    text.
+    Earlier builds advertised `mods.read` / `profiles.read` in **Plugins → API** and omitted
+    `modpacks.write`, `plugins.read`, `plugins.write` and `repo.write`. The in-app list now
+    matches this table.
 
 Grant them per plugin in **Plugins → Permissions**, or over the API itself:
 
@@ -99,7 +94,6 @@ Grant them per plugin in **Plugins → Permissions**, or over the API itself:
 | `GET /api/status` | What it's doing right now. |
 | `GET /api/mods` | Every mod in the [Library](../features/library.md). |
 | `GET /api/mods/active` | Only what's enabled on the current profile. |
-| `GET /api/mods/{id}` | One mod. |
 | `GET /api/profiles` | Every [profile](../features/profiles.md). |
 | `GET /api/modpacks` | Every [modpack](../features/modpacks.md). |
 | `GET /api/plugins` | Installed plugins. |
@@ -112,8 +106,8 @@ Grant them per plugin in **Plugins → Permissions**, or over the API itself:
 |---|---|
 | `POST /api/mods/enable` · `/api/mods/disable` | Turn a mod on or off. `mods.write`. |
 | `POST /api/mod/check-updates` | Ask the linked [repos](../features/repo.md) about updates. |
-| `POST /api/profiles/create` · `/api/profiles/activate` | `profiles.write`. |
-| `POST /api/modpacks/create` · `/enable` · `/disable` | `catalog.write`. |
+| `POST /api/profiles` (create) · `/api/profiles/activate` | `profiles.write`. |
+| `POST /api/modpacks/create` · `/enable` · `/disable` | `modpacks.write`. |
 | `POST /api/plugins/apply` | Run a plugin's mod list. |
 | `POST /api/plugins/compare` | What *would* change — without changing it. |
 | `POST /api/launchpack/run` | Launch a pack. |

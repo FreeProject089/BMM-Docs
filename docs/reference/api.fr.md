@@ -58,21 +58,17 @@ Voici les permissions que le code exige réellement :
 | `app.read` · `app.write` | Actions au niveau de l'app |
 | `repo.write` | Actions [Dépôt Serveur](../features/repo.md) |
 
-!!! bug "L'aide de l'app annonce une autre liste — fie-toi à ce tableau"
+!!! note "Il n'existe ni `mods.read` ni `profiles.read`"
 
-    **Plugins → API** indique comme permissions disponibles : *app.read, app.write,
-    catalog.read, catalog.write, mods.read, mods.write, profiles.read, profiles.write*.
+    Toutes les permissions ci-dessus sont des permissions d'écriture, sauf les permissions de
+    lecture de `plugins`, `app` et `catalog` — les trois seuls domaines dont les routes GET
+    sont contrôlées. Les lectures n'étant pas contrôlées ailleurs, une permission `mods.read`
+    n'ouvrirait rien : elle n'existe donc pas. Pour donner à un plugin un accès en lecture
+    seule à tes mods, ne lui accorde rien : il peut déjà appeler `GET /api/mods`.
 
-    Cette liste est fausse dans les deux sens, et c'est un vrai bug de BMM, pas de la doc :
-
-    - **`mods.read` et `profiles.read` ne font rien.** Aucune route ne les demande, puisque
-      les lectures ne sont pas contrôlées. Accorder à un plugin un accès « lecture seule » à
-      tes mods ne lui accorde rien qu'il n'avait déjà — et le lui refuser n'empêche rien.
-    - **`plugins.read`, `plugins.write`, `modpacks.write` et `repo.write` manquent à la
-      liste**, alors que le code les exige toutes les quatre. Un auteur de plugin qui a
-      besoin de `repo.write` n'a aucun moyen de découvrir son existence depuis l'interface.
-
-    Lis `src-tauri/src/api/mod.rs` (les filtres `require_permission`), pas le texte d'aide.
+    Les versions précédentes annonçaient `mods.read` / `profiles.read` dans **Plugins → API**
+    et omettaient `modpacks.write`, `plugins.read`, `plugins.write` et `repo.write`. La liste
+    affichée dans l'app correspond désormais à ce tableau.
 
 Accorde-les par plugin dans **Plugins → Permissions**, ou via l'API :
 
@@ -99,7 +95,6 @@ Accorde-les par plugin dans **Plugins → Permissions**, ou via l'API :
 | `GET /api/status` | Ce qu'il est en train de faire. |
 | `GET /api/mods` | Chaque mod de la [Bibliothèque](../features/library.md). |
 | `GET /api/mods/active` | Seulement ce qui est actif sur le profil courant. |
-| `GET /api/mods/{id}` | Un mod. |
 | `GET /api/profiles` | Chaque [profil](../features/profiles.md). |
 | `GET /api/modpacks` | Chaque [modpack](../features/modpacks.md). |
 | `GET /api/plugins` | Les plugins installés. |
@@ -112,8 +107,8 @@ Accorde-les par plugin dans **Plugins → Permissions**, ou via l'API :
 |---|---|
 | `POST /api/mods/enable` · `/api/mods/disable` | Active ou désactive un mod. `mods.write`. |
 | `POST /api/mod/check-updates` | Interroge les [dépôts](../features/repo.md) liés. |
-| `POST /api/profiles/create` · `/api/profiles/activate` | `profiles.write`. |
-| `POST /api/modpacks/create` · `/enable` · `/disable` | `catalog.write`. |
+| `POST /api/profiles` (création) · `/api/profiles/activate` | `profiles.write`. |
+| `POST /api/modpacks/create` · `/enable` · `/disable` | `modpacks.write`. |
 | `POST /api/plugins/apply` | Exécute la liste de mods d'un plugin. |
 | `POST /api/plugins/compare` | Ce qui *changerait* — sans rien changer. |
 | `POST /api/launchpack/run` | Lance un pack. |
