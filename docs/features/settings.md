@@ -81,20 +81,44 @@ Show what you're doing in BMM on your Discord profile, or turn it off. Purely co
 
 ### Launch Packs
 
-Bundle several apps/executables into one pack you can launch together — handy for "start the
-game, the voice-attack tool, and the map app" in one click. Create, edit, and delete packs
-here; run them from here, the [API](../reference/api.md), or a deeplink.
+A Launch Pack is a **named list of executables that start together**. Give it a name, add the
+`.exe` paths (a game, a voice-attack tool, a map app…), pick an icon, and one click — or one
+[deeplink](../reference/api.md), or a [scheduled task](scheduler.md) — fires all of them.
+
+!!! tip "Build your 'sit down to play' routine"
+
+    The point isn't launching apps; it's launching *your setup* in the right order without
+    hunting for five shortcuts. Make one pack per game. Pair it with the [Scheduler](scheduler.md)
+    (a Launch Pack is a schedulable action) and "6pm: enable my multiplayer modpack, then start
+    everything" becomes a single automation.
 
 ### Scheduling & automation
 
 Save tasks — apply a modpack, run a launch pack, export your data — and trigger them on a
-schedule or on demand. See [Scheduler](scheduler.md) for the full picture.
+schedule or on demand. It goes well beyond a timer: conditions, loops, and "wait until" steps
+let you build real workflows. See [Scheduler](scheduler.md) for the full picture.
 
-### Storage tools: integrity & benchmark
+### Storage Manager & benchmark
 
-Beyond the Smart I/O limits above, this area holds the **SHA recalculation** control (rebuild
-the per-file hashes the integrity engine checks against) and the **benchmark** (measure how
-fast BMM moves files on your hardware — the same engine Auto-Calibration uses).
+Two related tools live here, both about how BMM moves files.
+
+**Smart I/O limits** (above) pace mod activation so it doesn't hog your disk. The **Storage
+Manager** is where you set the per-disk ceilings, and **SHA recalculation** rebuilds the
+per-file hashes the [integrity](library.md) check compares against — run it if you've edited a
+mod's files outside BMM and want its hashes to match reality again.
+
+The **benchmark** is the tool worth understanding. It doesn't run a generic disk speed test —
+it runs BMM's **actual activation, deactivation and cancel operations** against a controlled
+workspace and reports the real throughput. That's why **Auto-Calibration** uses it to set your
+I/O limits: it measures the exact work mod activation does, on your exact hardware.
+
+!!! tip "Sandbox vs real, and when to run it"
+
+    Run the benchmark on the **sandbox** dataset (synthetic, safe, reproducible) to compare
+    hardware or settings; run it on **real** (your active profile's mods) to see what a big
+    activation actually costs *you*. Sizes go **S → XL**, or **Custom** for an exact dataset
+    size. Run it once after a hardware change, let Auto-Calibration set your limits, and forget
+    it.
 
 ### Tags
 

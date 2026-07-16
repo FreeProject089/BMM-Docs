@@ -85,22 +85,48 @@ Affiche ce que tu fais dans BMM sur ton profil Discord, ou coupe-le. Purement co
 
 ### Launch Packs
 
-Regroupe plusieurs apps/exécutables en un pack que tu lances ensemble — pratique pour « lancer
-le jeu, l'outil de reconnaissance vocale et l'app de carte » en un clic. Crée, édite et
-supprime des packs ici ; lance-les depuis ici, l'[API](../reference/api.md), ou un deeplink.
+Un Launch Pack est une **liste nommée d'exécutables qui démarrent ensemble**. Donne-lui un nom,
+ajoute les chemins `.exe` (un jeu, un outil de reconnaissance vocale, une app de carte…),
+choisis une icône, et un clic — ou un [deeplink](../reference/api.md), ou une [tâche
+planifiée](scheduler.md) — les lance tous.
+
+!!! tip "Construis ta routine « je m'installe pour jouer »"
+
+    Le but n'est pas de lancer des apps ; c'est de lancer *ta config* dans le bon ordre sans
+    chercher cinq raccourcis. Fais un pack par jeu. Couple-le au [Planificateur](scheduler.md)
+    (un Launch Pack est une action planifiable) et « 18h : active mon modpack multi, puis lance
+    tout » devient une seule automatisation.
 
 ### Planification & automatisation
 
 Enregistre des tâches — appliquer un modpack, lancer un launch pack, exporter tes données — et
-déclenche-les sur planning ou à la demande. Voir [Planificateur](scheduler.md) pour le tableau
-complet.
+déclenche-les sur planning ou à la demande. Ça va bien au-delà d'une minuterie : conditions,
+boucles et étapes « attendre que » permettent de vrais workflows. Voir
+[Planificateur](scheduler.md) pour le tableau complet.
 
-### Outils de stockage : intégrité & benchmark
+### Storage Manager & benchmark
 
-Au-delà des limites Smart I/O ci-dessus, cette zone tient le contrôle de **recalcul SHA**
-(reconstruire les hachages par fichier que vérifie le moteur d'intégrité) et le **benchmark**
-(mesurer la vitesse à laquelle BMM déplace les fichiers sur ton matériel — le moteur qu'utilise
-l'auto-calibration).
+Deux outils liés vivent ici, tous deux sur la façon dont BMM déplace les fichiers.
+
+Les **limites Smart I/O** (ci-dessus) rythment l'activation des mods pour ne pas monopoliser ton
+disque. Le **Storage Manager** est là où tu fixes les plafonds par disque, et le **recalcul
+SHA** reconstruit les hachages par fichier que compare la vérification d'[intégrité](library.md)
+— lance-le si tu as édité les fichiers d'un mod hors de BMM et veux que ses hachages collent à
+nouveau à la réalité.
+
+Le **benchmark** est l'outil qui vaut le coup d'être compris. Il ne lance pas un test de vitesse
+disque générique — il exécute les **vraies opérations d'activation, désactivation et annulation**
+de BMM contre un espace de travail contrôlé et rapporte le débit réel. C'est pourquoi
+l'**auto-calibration** l'utilise pour fixer tes limites d'E/S : il mesure exactement le travail
+que fait l'activation, sur ton matériel exact.
+
+!!! tip "Sandbox vs réel, et quand le lancer"
+
+    Lance le benchmark sur le jeu de données **sandbox** (synthétique, sûr, reproductible) pour
+    comparer du matériel ou des réglages ; lance-le sur **réel** (les mods de ton profil actif)
+    pour voir ce qu'une grosse activation te coûte vraiment. Les tailles vont de **S → XL**, ou
+    **Custom** pour une taille de données exacte. Lance-le une fois après un changement de
+    matériel, laisse l'auto-calibration fixer tes limites, et oublie-le.
 
 ### Tags
 
