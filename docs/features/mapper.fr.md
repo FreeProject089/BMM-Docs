@@ -20,15 +20,60 @@ pas.** Neuf fois sur dix, l'archive a un dossier de trop — l'auteur a zippé l
 contenant au lieu de son contenu — donc le jeu cherche `Data/textures/` et trouve
 `MonMod-v3/Data/textures/`.
 
+Le Mapper sert aussi dans l'autre sens : un mod qui pose ses fichiers à sa racine alors que le
+jeu les attend sous `Mods/aircraft/…`, ou un mod qui mélange les dossiers de deux jeux dans
+une seule archive.
+
+## Ce qu'il change réellement
+
+C'est la chose à comprendre avant de toucher à quoi que ce soit : **le Mapper édite le mod,
+pas le jeu.** Quand tu remappes un élément, BMM le déplace *à l'intérieur du dossier du mod*
+pour que la structure du mod reflète l'endroit attendu par le jeu. Le répertoire du jeu est
+seulement *lu* ici — affiché à droite pour te donner une cible. Rien n'est écrit dans le jeu
+tant que tu ne [synchronises](library.md) pas le profil ensuite, exactement comme d'habitude.
+
+C'est pour ça que le Mapper est sûr pour expérimenter : le pire des cas est un mod mal formé,
+que tu peux reformer à nouveau — jamais un dossier de jeu rempli de fichiers perdus.
+
+## Les deux arbres
+
+L'écran est divisé. À gauche, l'**arbre de fichiers du mod** — chaque dossier et fichier que
+le mod livre réellement. À droite, l'**arbre du répertoire du jeu**, la structure que le jeu
+lit. Ton travail est de faire ressembler la gauche à la droite.
+
+Des filtres en haut te laissent restreindre les grands arbres, pour trouver le dossier mal
+placé sans faire défiler des centaines de textures.
+
+## Remapper
+
+Choisis un élément dans l'arbre du mod et pointe-le vers le dossier du jeu auquel il
+appartient. BMM l'y déplace *dans le mod*, en créant au passage les dossiers parents
+manquants. Quelques opérations complémentaires complètent le tout :
+
+| Action | Rôle |
+|---|---|
+| **Remapper / déplacer** | Déplacer un fichier ou dossier vers un autre chemin dans le mod (le correctif central). |
+| **Nouveau dossier** | Créer un dossier dans le mod — utile pour introduire le niveau `Mods/…` qui manque à un mod mal zippé. |
+| **Renommer** | Renommer un fichier ou dossier sur place. |
+| **Supprimer** | Retirer un élément du mod (ex. un readme perdu ou un dossier laissé par un installeur). |
+| **Ouvrir dans l'Explorateur** | Sauter à l'élément sur le disque — côté mod ou côté jeu — pour l'inspecter directement. |
+
+Après un remap, BMM re-scanne le mod pour que l'arbre reflète immédiatement la nouvelle
+structure.
+
 ## Vérifie avant de valider
 
 Le **Diagnostic de structure** du Mapper existe pour une seule raison :
 
 > Vérifie l'emplacement final de tes fichiers avant d'appliquer les changements.
 
-Sers-t'en. Deviner un chemin puis appliquer, c'est comme ça qu'on se retrouve avec des
-fichiers éparpillés dans un dossier de jeu que plus rien ne suit — exactement la situation
-que toute la conception de BMM cherche à éviter.
+Sers-t'en. Il montre où chaque fichier va atterrir **avant** de déplacer quoi que ce soit, pour
+que tu confirmes que `skin.dds` va bien tomber dans `Mods/aircraft/F-16C/textures/` et pas un
+niveau à côté. Deviner un chemin puis appliquer, c'est comme ça qu'on obtient un mod qui ne se
+charge toujours pas — le Diagnostic est là pour ne jamais avoir à deviner.
 
-<!-- TODO(contenu) : l'interaction glisser-pour-remapper et les stats de sous-dossiers
-     attendent une capture. -->
+!!! tip "Corrige le paquet une fois, profite partout"
+
+    Comme le Mapper reforme le mod lui-même, le correctif est permanent : chaque profil qui
+    utilise ce mod, et chaque future synchro, obtient la structure corrigée. Tu remappes une
+    fois, pas à chaque activation.
