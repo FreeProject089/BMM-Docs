@@ -45,10 +45,12 @@ BMM prévient explicitement, et ça mérite d'être répété.
 
 ## Les rendre tiens
 
-Un profil accepte une **icône** et une **image de fond** (avec une étape de recadrage pour
-respecter le format). Ce n'est pas de la déco gratuite : avec cinq profils, un coup d'œil à
-une icône va plus vite que lire cinq noms — et se tromper de profil est précisément
-l'erreur que cet écran existe pour éviter.
+Chaque profil accepte une **couleur d'accent**, une **icône** (un préréglage ou ta propre
+image), et une **image de fond** pour la carte (avec une étape de recadrage pour respecter le
+format). Ce n'est pas de la déco gratuite : avec cinq profils, un coup d'œil à une couleur et
+une icône va plus vite que lire cinq noms — et se tromper de profil est précisément l'erreur
+que cet écran existe pour éviter. Donne à ton profil *Test* risqué une couleur que tu ne
+confondras jamais avec ton profil principal.
 
 ## Ton premier profil
 

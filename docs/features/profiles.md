@@ -42,10 +42,11 @@ BMM warns about this explicitly, and it's worth repeating.
 
 ## Making them yours
 
-Profiles take an **icon** and a **background image** (with a crop step to fit the format).
-This isn't decoration for its own sake: with five profiles, a glance at an icon beats
-reading five names — and picking the wrong profile is the mistake this screen exists to
-prevent.
+Each profile takes an **accent colour**, an **icon** (a preset or your own image), and a
+**background image** for the card (with a crop step to fit the format). This isn't decoration
+for its own sake: with five profiles, a glance at a colour and icon beats reading five names —
+and picking the wrong profile is the mistake this screen exists to prevent. Give your risky
+*Testing* profile a colour you'll never confuse with your main one.
 
 ## Your first profile
 
