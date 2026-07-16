@@ -14,6 +14,12 @@ version you have, and launches them — without you managing downloads by hand.
 | **2** | **Install** | One click. |
 | **3** | **Sources** | Where the catalog comes from. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/apps.bmmreplay"
+     data-title="Installing an app from the catalog (placeholder clip)"></div>
+
+*Placeholder recording — a focused clip of this screen will replace it.*
+
 ## Reading a card
 
 Each app shows the essentials at a glance: a thumbnail, its **category** (game, utility, or

@@ -14,6 +14,12 @@ screen shows its blog, not the whole of it.
 <!-- TODO(content): capture + annotate the BetterCommunity screen (feed, filter chips,
      search) as ../assets/screens/community.annotated.png, like the other feature pages. -->
 
+<div class="bmm-replay"
+     data-src="../assets/replays/community.bmmreplay"
+     data-title="Reading the community blog (placeholder clip)"></div>
+
+*Placeholder recording — a focused clip of this screen will replace it.*
+
 ## The feed
 
 Opening the page loads every post into a single scrollable feed, newest first. Each card

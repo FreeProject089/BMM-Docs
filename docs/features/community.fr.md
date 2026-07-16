@@ -14,6 +14,12 @@ Catalog](apps.md) ; cet écran en montre le blog, pas la totalité.
 <!-- TODO(content): capturer + annoter l'écran BetterCommunity (fil, puces de filtre,
      recherche) en ../assets/screens/community.annotated.png, comme les autres pages. -->
 
+<div class="bmm-replay"
+     data-src="../assets/replays/community.bmmreplay"
+     data-title="Lire le blog communautaire (clip placeholder)"></div>
+
+*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
+
 ## Le fil
 
 Ouvrir la page charge tous les articles dans un fil unique et défilable, du plus récent au

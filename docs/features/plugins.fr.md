@@ -23,6 +23,12 @@ version.
     propre token, et ne fait que ce que tu lui as accordé. Relis ces autorisations dans
     **Plugins → Permissions**.
 
+<div class="bmm-replay"
+     data-src="../assets/replays/plugins.bmmreplay"
+     data-title="Accorder et utiliser un plugin (clip placeholder)"></div>
+
+*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
+
 ## Ce que tu peux accorder à un plugin
 
 Chaque autorisation est une capacité d'**écriture** — le pouvoir de *modifier* quelque chose.
