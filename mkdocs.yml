@@ -122,6 +122,7 @@ nav:
       - features/themes.md
   - Reference:
       - reference/api.md
+      - reference/tips.md
       - reference/troubleshooting.md
       - reference/credits.md
 
