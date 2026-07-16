@@ -1,0 +1,8 @@
+{
+  "image": "library.png",
+  "boxes": [
+    { "n": 1, "xy": [40, 96, 260, 150], "label": "Search" },
+    { "n": 2, "xy": [340, 96, 560, 150], "label": "Filters" },
+    { "n": 3, "xy": [640, 96, 860, 150], "label": "Install" }
+  ]
+}

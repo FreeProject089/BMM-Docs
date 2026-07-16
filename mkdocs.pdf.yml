@@ -1,0 +1,28 @@
+# The PDF build. Everything comes from mkdocs.yml; this only bolts the renderer on top.
+#
+# It's a separate file because mkdocs imports every plugin listed in a config, even a
+# disabled one — and mkdocs-with-pdf pulls in WeasyPrint, which needs GTK system libraries
+# (libgobject/pango/cairo). Listing it in the main config made `mkdocs serve` fail on any
+# Windows machine without GTK, which is most of them. So: contributors use mkdocs.yml and
+# never install GTK; CI (ubuntu, with the libs) builds the PDF with
+#     mkdocs build -f mkdocs.pdf.yml
+INHERIT: mkdocs.yml
+
+plugins:
+  - search:
+      lang: [en, fr]
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: fr
+          name: Français
+          build: true
+  - with-pdf:
+      cover_title: BetterModsManager
+      cover_subtitle: Documentation
+      output_path: pdf/bettermodsmanager.pdf

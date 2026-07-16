@@ -1,0 +1,74 @@
+name: Docs
+
+# Builds the bilingual site + a single PDF, and publishes to GitHub Pages on main.
+# A PR gets the same build (and the PDF as an artifact) without publishing, so a broken
+# link or a stale screenshot annotation is caught before it reaches the site.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      # mkdocs-with-pdf renders through WeasyPrint, which needs real system libs — without
+      # these the PDF step fails with an opaque cairo/pango error rather than a missing-dep one.
+      - name: System deps for the PDF renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0 libffi-dev shared-mime-info
+
+      - run: pip install -r requirements.txt
+
+      # The call-outs are generated from JSON specs. If someone edits a spec (or retakes a
+      # screenshot) and forgets to re-render, the site would ship a picture that disagrees
+      # with its own numbering — so fail here instead.
+      - name: Screenshot annotations are up to date
+        run: python tools/annotate.py --check
+
+      - name: Build site + PDF
+        env:
+          ENABLE_PDF: "1"
+        run: mkdocs build --strict   # --strict: a broken internal link fails the build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bettermodsmanager-pdf
+          path: site/pdf/bettermodsmanager.pdf
+          if-no-files-found: error
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,127 @@
+site_name: BetterModsManager — Documentation
+site_description: Guide complet de BetterModsManager, de zéro / The complete BetterModsManager guide, from zero
+site_url: https://freeproject089.github.io/bmm-docs/
+repo_url: https://github.com/FreeProject089/bmm-docs
+edit_uri: edit/main/docs/
+
+# The docs live in their own repo. Screenshots are committed under docs/assets/screens/ as
+# RAW captures; the numbered call-outs are drawn by tools/annotate.py from a JSON spec at
+# build time, so an annotation is versioned text — re-runnable when the UI moves, instead of
+# a hand-painted PNG nobody can update. See CONTRIBUTING.md.
+
+theme:
+  name: material
+  language: en
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # BMM is an orange-on-dark app; the docs follow it, and default to the reader's OS choice.
+    - media: "(prefers-color-scheme)"
+      toggle: { icon: material/brightness-auto, name: Follow system / Suivre le système }
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep orange
+      accent: amber
+      toggle: { icon: material/brightness-7, name: Dark mode / Mode sombre }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep orange
+      accent: amber
+      toggle: { icon: material/brightness-4, name: Light mode / Mode clair }
+  features:
+    # No navigation.instant: it breaks mkdocs-static-i18n's language switcher (the build
+    # warns, and the FR/EN toggle stops following you page to page). Instant nav isn't
+    # worth losing the switcher on a bilingual site.
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+
+plugins:
+  - search:
+      lang: [en, fr]
+  # One tree, two languages: a page has an .fr.md sibling; anything not translated yet falls
+  # back to English rather than 404ing, so the FR site is always complete-looking and the
+  # gaps are visible in the build log.
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: fr
+          name: Français
+          build: true
+          nav_translations:
+            Getting started: Premiers pas
+            Features: Fonctionnalités
+            Reference: Référence
+            Install BMM: Installer BMM
+            First launch: Premier lancement
+            Library: Bibliothèque
+            .MM Lists: Listes .MM
+            Profiles: Profils
+            Modpacks: Modpacks
+            Server Repo: Dépôt Serveur
+            Plugins & API: Plugins & API
+            App Catalog: App Catalog
+            Mapper: Mapper
+            BetterCommunity: BetterCommunity
+            Settings: Paramètres
+            Credits: Crédits
+            Troubleshooting: Dépannage
+  # NOTE: the PDF plugin is deliberately NOT here — see mkdocs.pdf.yml. It renders through
+  # WeasyPrint, which needs GTK system libraries; mkdocs imports a listed plugin even when
+  # it's disabled, so keeping it in this file made `mkdocs serve` die on Windows with
+  # "cannot load library 'libgobject-2.0-0'". Contributors get a config that just works;
+  # CI adds the PDF via the inheriting config.
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Getting started:
+      - index.md
+      - getting-started/install.md
+      - getting-started/first-launch.md
+  - Features:
+      - features/library.md
+      - features/modlist.md
+      - features/profiles.md
+      - features/modpacks.md
+      - features/repo.md
+      - features/plugins.md
+      - features/apps.md
+      - features/mapper.md
+      - features/community.md
+      - features/settings.md
+  - Reference:
+      - reference/troubleshooting.md
+      - reference/credits.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/FreeProject089
+extra_css:
+  - assets/extra.css
