@@ -44,8 +44,8 @@ connecting:
 > Link this mod to one or more repos so BMM can detect updates for it.
 
 One mod can point at several repos. That's deliberate: if a source disappears, the mod is
-still tracked by the other. See [Mod updates](modlist.md) for the check flow and the global
-update repositories setting.
+still tracked by the other. There's also a **global update repositories** setting in
+[Settings](settings.md) — list a repo there and *every* installed mod is checked against it.
 
 ### Direct downloads have no version
 

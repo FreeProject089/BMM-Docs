@@ -39,7 +39,7 @@ seconds". Limits are per-disk, so a fast NVMe and a slow external drive get thei
 
 Check for a new BMM version, opt into **pre-releases**, or turn **auto-update** off.
 Pre-releases get fixes first and bugs first — the toggle is there so it's your call, not a
-surprise. A separate control checks your *mods* for updates (see [Mod updates](modlist.md)),
+surprise. A separate control checks your *mods* for updates (see [Server Repo](repo.md)),
 distinct from updating the app itself.
 
 ### Data

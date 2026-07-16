@@ -42,7 +42,7 @@ ont chacun leur plafond.
 Vérifie une nouvelle version de BMM, opte pour les **pré-versions**, ou coupe la **mise à jour
 automatique**. Les pré-versions reçoivent les correctifs en premier et les bugs en premier —
 l'interrupteur existe pour que ce soit ton choix, pas une surprise. Un contrôle distinct
-vérifie tes *mods* (voir [Mises à jour de mods](modlist.md)), à ne pas confondre avec la mise
+vérifie tes *mods* (voir [Dépôt Serveur](repo.md)), à ne pas confondre avec la mise
 à jour de l'app elle-même.
 
 ### Données

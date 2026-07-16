@@ -45,8 +45,8 @@ est une étape distincte de se connecter :
 > Lie ce mod à un ou plusieurs dépôts pour que BMM détecte ses mises à jour.
 
 Un mod peut viser plusieurs dépôts. C'est voulu : si une source disparaît, le mod reste suivi
-par l'autre. Vois [Mises à jour de mods](modlist.md) pour le flux de vérification et le réglage
-des dépôts de mise à jour globaux.
+par l'autre. Il existe aussi un réglage de **dépôts de mise à jour globaux** dans les
+[Paramètres](settings.md) — mets-y un dépôt et *chaque* mod installé est vérifié contre lui.
 
 ### Un téléchargement direct n'a pas de version
 

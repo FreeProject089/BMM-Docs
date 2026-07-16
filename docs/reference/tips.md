@@ -47,7 +47,7 @@ a name:
 
 | Section | What it tells you |
 |---|---|
-| **Identity / Content ID** | The mod's stable, cross-machine id, with a **copy** button. A status badge says how sure BMM is: `DECLARED` (a `bmm.json` pins it — most reliable), `PRECISE` (a content hash), `APPROXIMATE` (path + size only, may drift), or `NOT COMPUTED`. See [Mod Identity](../features/mapper.md) territory — a mod meant for sharing wants `DECLARED`. |
+| **Identity / Content ID** | The mod's stable, cross-machine id, with a **copy** button. A status badge says how sure BMM is: `DECLARED` (a `bmm.json` pins it — most reliable), `PRECISE` (a content hash), `APPROXIMATE` (path + size only, may drift), or `NOT COMPUTED`. A mod meant for sharing wants `DECLARED` — ship a `bmm.json` with it. |
 | **Conflicts** | Every other mod that ships a file this one also ships, tagged **Intra** (same profile) or **Extra** (another profile), and **Active** or not, with the overlapping file count. Click through to the global conflict view. |
 | **Dependencies** | Mods this one relies on — editable, with suggestions as you type. |
 | **Integrity check** | Verify the mod's files on disk against their stored SHA-256 hashes; BMM reports any file that's changed or missing. |
