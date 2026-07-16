@@ -29,6 +29,40 @@ lists) is a different way of arranging what the Library holds.
     A `.zip` is kept zipped. BMM extracts it to a temporary cache only when something
     actually needs the files, so a big library doesn't cost you disk space you're not using.
 
+## Conflicts
+
+Two mods that ship the **same file** are in conflict. This isn't a bug in either of them —
+it's what happens when two people edit the same thing — and BMM's job is to make sure you
+find out *before* you commit, not after the game breaks.
+
+When you enable a mod that overlaps another, BMM stops and says:
+
+> Activating this mod will overwrite files from the following mods.
+
+You then get the detail, not just a warning: **Conflicting Files** lists the exact paths that
+exist in both mods, because *these files exist in both mods and create a direct conflict*.
+
+### The rule
+
+**The last mod activated wins.** Its version of the shared file overwrites the other's. That
+is why the **Activation Order** matters and why BMM lets you set it: the order *is* the
+resolution. Two people with the same mods in a different order do not have the same game.
+
+### Global Conflict View
+
+Rather than discovering conflicts one at a time, the global view shows every overlap in the
+current profile at once. Worth a look after a big import — a `.MM` list or a modpack can
+bring in a dozen mods that have never met.
+
+### Linked mods
+
+Separate from conflicts, and easy to confuse with them:
+
+> The following mods are linked to this one and could be disabled.
+
+That's a dependency, not an overlap. BMM asks rather than cascading silently — if you disable
+a mod that others build on, you get to choose whether they go too.
+
 ## What "installed" means here
 
 A mod in the Library is *available*; a mod is *installed* only relative to a

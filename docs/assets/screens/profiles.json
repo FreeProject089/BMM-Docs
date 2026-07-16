@@ -1,0 +1,36 @@
+{
+  "_note": "PLACEHOLDER coordinates. Replace the .png with a real capture, then adjust \"xy\" only \u2014 the numbers and labels are referenced by docs/features/profiles.md and .fr.md.",
+  "image": "profiles.png",
+  "boxes": [
+    {
+      "n": 1,
+      "xy": [
+        40,
+        96,
+        260,
+        150
+      ],
+      "label": "Profile card"
+    },
+    {
+      "n": 2,
+      "xy": [
+        340,
+        96,
+        560,
+        150
+      ],
+      "label": "Game folder"
+    },
+    {
+      "n": 3,
+      "xy": [
+        640,
+        96,
+        860,
+        150
+      ],
+      "label": "New profile"
+    }
+  ]
+}

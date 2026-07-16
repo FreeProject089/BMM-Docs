@@ -1,5 +1,11 @@
-# community
+# BetterCommunity
 
-!!! warning "Page à écrire / Page not written yet"
+> News & posts from the BetterCommunity blogs.
 
-    Cette page attend sa capture annotée et son contenu. / This page is awaiting its annotated screenshot and content.
+The project's blogs, read inside BMM: announcements, release notes, and posts from the
+people building it. Posts carry comments and an edit history, so you can see what changed
+after publication.
+
+BetterCommunity is also the web platform behind [Server Repos](repo.md) and the community
+catalogs the [App Catalog](apps.md) reads — this screen is its front page, not the whole of
+it.

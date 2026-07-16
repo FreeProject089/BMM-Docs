@@ -34,6 +34,41 @@ contient.
     chose a réellement besoin des fichiers — une grosse bibliothèque ne te coûte donc pas
     d'espace disque que tu n'utilises pas.
 
+## Les conflits {#conflicts}
+
+Deux mods qui livrent le **même fichier** sont en conflit. Ce n'est un bug ni de l'un ni de
+l'autre — c'est ce qui arrive quand deux personnes modifient la même chose — et le travail de
+BMM est de te le faire savoir *avant* que tu valides, pas après que le jeu a cassé.
+
+Quand tu actives un mod qui en recouvre un autre, BMM s'arrête et annonce :
+
+> Activer ce mod va écraser des fichiers des mods suivants.
+
+Tu obtiens ensuite le détail, pas juste un avertissement : **Fichiers en conflit** liste les
+chemins exacts présents dans les deux mods, car *ces fichiers existent dans les deux mods et
+créent un conflit direct*.
+
+### La règle
+
+**Le dernier mod activé gagne.** Sa version du fichier partagé écrase celle de l'autre. C'est
+pour ça que l'**ordre d'activation** compte et que BMM te laisse le fixer : l'ordre *est* la
+résolution. Deux personnes avec les mêmes mods dans un ordre différent n'ont pas le même jeu.
+
+### Vue globale des conflits
+
+Plutôt que de découvrir les conflits un par un, la vue globale montre d'un coup tous les
+chevauchements du profil courant. À regarder après un gros import : une liste `.MM` ou un
+modpack peuvent amener une douzaine de mods qui ne se sont jamais croisés.
+
+### Mods liés
+
+À distinguer des conflits, et facile à confondre :
+
+> Les mods suivants sont liés à celui-ci et pourraient être désactivés.
+
+C'est une dépendance, pas un chevauchement. BMM demande au lieu de désactiver en cascade en
+silence — si tu coupes un mod sur lequel d'autres s'appuient, tu choisis s'ils tombent avec.
+
 ## Ce que « installé » veut dire ici
 
 Un mod dans la Bibliothèque est *disponible* ; un mod n'est *installé* que par rapport à un

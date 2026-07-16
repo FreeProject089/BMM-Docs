@@ -87,7 +87,15 @@ invents its own names for buttons is worse than no guide.
 
 ## Status
 
-Written: Library (EN/FR). The other 11 views are scaffolded and marked — see the `warning`
-admonition on each page. The blocker is captures, not prose: `docs/assets/screens/library.png`
-is a **placeholder** standing in for a real one, so the annotation pipeline could be proven
-end-to-end before any real screenshot existed. Replace it, keep the spec.
+**All 15 pages are written, in both languages** — the prose is done and quotes BMM's own
+strings rather than paraphrasing them.
+
+What's missing is **real screenshots**. Every `docs/assets/screens/*.png` is a placeholder,
+and every `*.json` spec has placeholder coordinates. That's the whole remaining job:
+
+1. Capture the screen (see the guidelines above).
+2. Drop the PNG over the placeholder, same filename.
+3. Open the `.json` and fix the `xy` of each box.
+
+Nothing else moves: the numbers, the labels and both language pages already reference them.
+`python tools/annotate.py` re-renders, and CI fails if you forget.
