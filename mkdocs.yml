@@ -132,3 +132,9 @@ extra:
       link: https://github.com/FreeProject089
 extra_css:
   - assets/extra.css
+  - assets/rrweb/rrweb.min.css
+  - assets/rrweb/bmm-replay.css
+
+extra_javascript:
+  - assets/rrweb/rrweb.min.js
+  - assets/rrweb/bmm-replay.js

@@ -1,0 +1,1 @@
+docs/assets/replays/*.bmmreplay filter=lfs diff=lfs merge=lfs -text

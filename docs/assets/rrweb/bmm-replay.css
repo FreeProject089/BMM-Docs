@@ -1,0 +1,113 @@
+/* bmm-replay.css — styles for the inline .bmmreplay player. Theme-aware via
+   MkDocs Material CSS variables (works in both light and dark schemes). */
+
+.bmm-replay {
+  margin: 1.2em 0;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.12));
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--md-code-bg-color, #1e1e2a);
+}
+
+/* Poster (before play) */
+.bmm-replay-poster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 180px;
+  padding: 28px 20px;
+  text-align: center;
+  background:
+    radial-gradient(120% 120% at 50% 0%,
+      var(--md-primary-fg-color, #3f51b5) 0%,
+      transparent 60%),
+    var(--md-code-bg-color, #1e1e2a);
+}
+
+.bmm-replay-play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  background: var(--md-accent-fg-color, #4051b5);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.bmm-replay-play:hover { transform: scale(1.06); box-shadow: 0 8px 28px rgba(0,0,0,.45); }
+.bmm-replay-play svg { margin-left: 3px; }
+
+.bmm-replay-title {
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--md-primary-bg-color, #fff);
+}
+.bmm-replay-hint,
+.bmm-replay-loading,
+.bmm-replay-error {
+  font-size: .78rem;
+  color: var(--md-default-fg-color--light, rgba(255,255,255,.7));
+}
+.bmm-replay-error { color: var(--md-typeset-del-color, #ff5252); padding: 24px; }
+.bmm-replay-loading { display: flex; align-items: center; gap: 8px; padding: 40px; }
+
+.bmm-replay-spin {
+  width: 14px; height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: bmm-replay-spin .7s linear infinite;
+}
+@keyframes bmm-replay-spin { to { transform: rotate(360deg); } }
+
+/* Stage (during playback) */
+.bmm-replay-stage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0d0d12;
+}
+.bmm-replay-mount { position: absolute; inset: 0; }
+.bmm-replay-mount .replayer-wrapper { background: #fff; }
+.bmm-replay-mount iframe { border: 0; }
+
+/* Control bar */
+.bmm-replay-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--md-default-bg-color, #17171e);
+  border-top: 1px solid var(--md-default-fg-color--lightest, rgba(0,0,0,.12));
+}
+.bmm-replay-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  flex: 0 0 auto;
+  border: none; border-radius: 8px;
+  cursor: pointer;
+  color: var(--md-default-bg-color, #fff);
+  background: var(--md-accent-fg-color, #4051b5);
+}
+.bmm-replay-seek {
+  flex: 1 1 auto;
+  accent-color: var(--md-accent-fg-color, #4051b5);
+  cursor: pointer;
+}
+.bmm-replay-time {
+  flex: 0 0 auto;
+  font-size: .72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-default-fg-color--light, rgba(0,0,0,.6));
+  min-width: 84px;
+  text-align: right;
+}
