@@ -13,6 +13,12 @@ you're not looking.
 | **2** | **Rules** | *Whether* it runs, and what it does. |
 | **3** | **New task** | One task, one job. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/scheduler.bmmreplay"
+     data-title="Building an automation (placeholder clip)"></div>
+
+*Placeholder recording — a focused clip of this screen will replace it.*
+
 ## A task has three parts
 
 **Trigger → rules → action.** The trigger asks *when*, the rules ask *whether*, the action is

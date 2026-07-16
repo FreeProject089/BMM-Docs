@@ -17,6 +17,12 @@ Son vrai rôle est écrit sur l'écran vide :
 | **2** | **Dossier du jeu** | Là où ce profil se déploie. Voir l'avertissement ci-dessous. |
 | **3** | **Nouveau profil** | Un par *configuration*, pas un par jeu — tu peux en avoir plusieurs. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/profiles.bmmreplay"
+     data-title="Créer et changer de profils (clip placeholder)"></div>
+
+*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
+
 ## Pourquoi plusieurs profils pour un même jeu
 
 Parce que basculer ne coûte rien et revenir en arrière est immédiat. Un découpage typique :

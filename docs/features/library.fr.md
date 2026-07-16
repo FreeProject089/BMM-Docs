@@ -13,6 +13,12 @@ contient.
 | **2** | **Filtres** | Restreint par jeu, catégorie ou état d'installation. |
 | **3** | **Installer** | Ajoute le mod sélectionné au profil sur lequel tu es. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/library.bmmreplay"
+     data-title="La Bibliothèque en action (clip placeholder)"></div>
+
+*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
+
 ## Ajouter ton premier mod
 
 === "Depuis un fichier"

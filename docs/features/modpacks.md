@@ -13,6 +13,12 @@ on or off.
 | **2** | **Export** | Produces a file you can hand to someone. |
 | **3** | **Import** | Reads someone else's pack. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/modpacks.bmmreplay"
+     data-title="Building and applying a modpack (placeholder clip)"></div>
+
+*Placeholder recording — a focused clip of this screen will replace it.*
+
 ## Modpack or profile?
 
 They solve different problems, and using the wrong one is the usual confusion:

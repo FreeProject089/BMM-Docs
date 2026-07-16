@@ -12,6 +12,12 @@ lists) is a different way of arranging what the Library holds.
 | **2** | **Filters** | Narrow by game, category, or install state. |
 | **3** | **Install** | Adds the selected mod to the profile you're currently on. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/library.bmmreplay"
+     data-title="The Library in action (placeholder clip)"></div>
+
+*Placeholder recording — a focused clip of this screen will replace it.*
+
 ## Adding your first mod
 
 === "From a file"

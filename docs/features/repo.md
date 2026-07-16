@@ -15,6 +15,12 @@ hand stays at the version you installed, forever, silently.
 | **2** | **Browse** | Official and partner repos. |
 | **3** | **Add** | Point BMM at a repo URL. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/repo.bmmreplay"
+     data-title="Syncing from and hosting a repo (placeholder clip)"></div>
+
+*Placeholder recording — a focused clip of this screen will replace it.*
+
 ## Connecting to a repo
 
 Browse the official and partner list, or paste a repo URL directly. Once connected, the

@@ -16,6 +16,12 @@ silence.
 | **2** | **Parcourir** | Dépôts officiels et partenaires. |
 | **3** | **Ajouter** | Pointe BMM vers l'URL d'un dépôt. |
 
+<div class="bmm-replay"
+     data-src="../assets/replays/repo.bmmreplay"
+     data-title="Synchroniser et héberger un dépôt (clip placeholder)"></div>
+
+*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
+
 ## Se connecter à un dépôt
 
 Parcours la liste officielle et partenaire, ou colle une URL de dépôt directement. Une fois
