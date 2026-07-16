@@ -94,5 +94,49 @@ The scheduler ships one, and it's a good shape to copy:
 Start there, swap the notification for a real action, and add a condition so it only fires
 when it should.
 
-<!-- TODO(content): the value-compare condition's operands and the loop/repeat options need
-     their own capture + spec. -->
+## Conditions — *whether*
+
+A task can carry conditions so it only acts when the state is right. Each condition can be
+**negated** ("*not* online"), and they're used two ways: to gate an action (`if`), or to hold
+until something becomes true (`waitFor`, below).
+
+| Condition | True when |
+|---|---|
+| `always` | Always — the default, no gate. |
+| `profileActive` | A specific profile is the active one. |
+| `modEnabled` · `modDisabled` | A specific mod is on / off. |
+| `modpackActive` · `modpackInactive` | Every mod in a modpack is on / off. |
+| `allModsActive` | Every mod in the active profile is on. |
+| `appRunning` · `appNotRunning` | A process (by name) is / isn't running. |
+| `online` | The machine has an internet connection. |
+| `dayOfWeek` | Today is one of the days you picked. |
+| `timeRange` · `timeReached` | The clock is inside a range / has passed a time. |
+| `fileExists` · `fileHash` · `fileSize` · `fileType` | File checks — a path exists, or its hash (blake3/sha256), size or type matches. |
+| `commandSucceeds` | An external command runs and exits `0`. |
+| `value` | A captured number compares against a threshold (below). |
+
+### The `value` condition
+
+`value` compares a number BMM captured earlier in the run — for example a disk's measured
+write speed (`disk.write_mbps`) or a benchmark result (`benchmark.mbps`) — against a threshold
+you set, using one of six operators:
+
+`>` · `<` · `>=` · `<=` · `==` · `!=`
+
+So "*if `disk.write_mbps` `<` 50, show a warning*" becomes a real rule. If the source value was
+never captured, the condition is simply false — it won't fire on missing data.
+
+## Loops & waiting
+
+Beyond a flat list of actions, a task can branch and repeat:
+
+| Block | What it does |
+|---|---|
+| **`if`** | Runs one set of steps when a condition holds, another (`else`) when it doesn't. |
+| **`repeat`** | Runs its steps repeatedly — `while` a condition holds, `until` one does, or a fixed number of `times`. `everySec` sets the gap between iterations, and **`maxIters` is a hard safety cap** so a `while`/`until` loop can never run forever. |
+| **`waitFor`** | Pauses until a condition becomes true, polling every `pollSec`, up to `timeoutSec`. On timeout it either **aborts** the task or **continues** anyway — your choice. |
+
+The bundled example is a `repeat` in `times` mode (loop 3×). Swap the mode to `while`/`until`
+and give it a `value` or `appRunning` condition, and you have automations like "*keep checking
+until the game process exits, then export my data*".
+

@@ -37,16 +37,18 @@ une minuterie et devient utile. Les conditions :
 
 | Condition | Vraie quand |
 |---|---|
-| `Toujours` | Sans condition. |
+| `Toujours` | Sans condition (par défaut). |
 | `Profil actif` | Un [profil](profiles.md) donné est le courant. |
 | `Mod activé` / `Mod désactivé` | L'état d'un mod donné. |
-| `Modpack actif` | Un [modpack](modpacks.md) est appliqué. |
+| `Modpack actif` / `Modpack inactif` | Tous les mods d'un [modpack](modpacks.md) sont on / off. |
 | `Tous les mods du profil actif sont on` | Rien n'est éteint dans le profil. |
-| `App en cours d'exécution` | Un processus tourne — le jeu, par exemple. |
-| `Jour de la semaine` | Lundi…dimanche. |
-| `Heure comprise dans` | Une plage horaire. |
-| `Comparaison de valeur` | `si X > Y` — une comparaison numérique. |
-| `La commande réussit` | Une commande externe sort en 0. |
+| `App en cours` / `App non lancée` | Un processus (par nom) tourne ou non — le jeu, par exemple. |
+| `En ligne` | La machine a une connexion internet. |
+| `Jour de la semaine` | Aujourd'hui est un des jours choisis. |
+| `Plage horaire` / `Heure atteinte` | L'horloge est dans une plage / a dépassé une heure. |
+| `Fichier existe` / `hash` / `taille` / `type` | Vérifs de fichier — un chemin existe, ou son hash (blake3/sha256), sa taille ou son type correspond. |
+| `La commande réussit` | Une commande externe s'exécute et sort en `0`. |
+| `Comparaison de valeur` | Un nombre capté se compare à un seuil (plus bas). |
 
 !!! warning "La première qui correspond gagne"
 
@@ -96,5 +98,30 @@ Le planificateur en fournit un, et c'est une bonne forme à copier :
 Pars de là, remplace la notification par une vraie action, et ajoute une condition pour
 qu'elle ne se déclenche que quand il le faut.
 
-<!-- TODO(contenu) : les opérandes de la comparaison de valeur et les options de boucle
-     attendent leur capture + spec. -->
+### La condition `Comparaison de valeur`
+
+Elle compare un nombre que BMM a capté plus tôt dans l'exécution — par exemple la vitesse
+d'écriture mesurée d'un disque (`disk.write_mbps`) ou un résultat de benchmark
+(`benchmark.mbps`) — à un seuil que tu fixes, via l'un de six opérateurs :
+
+`>` · `<` · `>=` · `<=` · `==` · `!=`
+
+Ainsi « *si `disk.write_mbps` `<` 50, affiche un avertissement* » devient une vraie règle. Si
+la valeur source n'a jamais été captée, la condition est simplement fausse — elle ne se
+déclenche pas sur une donnée manquante. Chaque condition peut aussi être **niée**.
+
+## Boucles & attente
+
+Au-delà d'une liste plate d'actions, une tâche peut se ramifier et se répéter :
+
+| Bloc | Rôle |
+|---|---|
+| **`si`** | Exécute un jeu d'étapes quand une condition tient, un autre (`sinon`) quand elle ne tient pas. |
+| **`répéter`** | Exécute ses étapes en boucle — `tant que` une condition tient, `jusqu'à` ce qu'une tienne, ou un nombre fixe de `fois`. `everySec` fixe l'écart entre itérations, et **`maxIters` est un plafond de sécurité strict** pour qu'une boucle `tant que`/`jusqu'à` ne tourne jamais indéfiniment. |
+| **`attendre`** | Met en pause jusqu'à ce qu'une condition devienne vraie, en sondant toutes les `pollSec`, jusqu'à `timeoutSec`. Au timeout, elle **abandonne** la tâche ou **continue** quand même — au choix. |
+
+L'exemple fourni est un `répéter` en mode `fois` (boucle 3×). Change le mode en
+`tant que`/`jusqu'à` avec une condition `Comparaison de valeur` ou `App en cours`, et tu
+obtiens des automatisations comme « *continue de vérifier jusqu'à ce que le processus du jeu
+sorte, puis exporte mes données* ».
+
