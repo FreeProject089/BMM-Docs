@@ -45,4 +45,22 @@ porté par la liste. Coche **profil auto** et il construit un [profil](profiles.
 plutôt que de tout mélanger à ta configuration actuelle — ce qui est presque toujours ce
 qu'on veut en essayant la config de quelqu'un d'autre.
 
-<!-- TODO(contenu) : la partie « règles de conflit » du format mérite sa propre page. -->
+## Ce qui voyage réellement dans un `.MM`
+
+C'est un seul fichier JSON. À côté des métadonnées de la liste (nom, jeu, auteur, date),
+chaque mod porte tout le nécessaire pour le reproduire :
+
+| Par mod | À quoi ça sert |
+|---|---|
+| **Liens de téléchargement** | Une ou plusieurs URL — étiquetées `github`, `google_drive`, `direct`, `mega`, ou `other` — pour que le destinataire récupère le mod sans le posséder d'abord. |
+| **Arbre de fichiers** | La disposition des fichiers du mod (chemins et tailles), et des **hachages** par fichier optionnels. C'est ce qui alimente la vérification et ce que BMM compare pour trouver les [conflits](library.md#conflicts). |
+| **Notes d'installation** | Les instructions de placement ou de configuration attachées par l'auteur. |
+| **Ordre** | La place du mod dans la liste. |
+
+!!! note "« Règles de conflit » = l'ordre"
+
+    Un `.MM` ne porte pas de règlement séparé pour les conflits. Ce qu'il porte, c'est
+    l'**ordre**, et l'ordre *est* la résolution : quand deux mods livrent le même fichier,
+    celui activé en dernier gagne (voir [conflits](library.md#conflicts)). Reproduire « à
+    l'identique » la config de quelqu'un, c'est reproduire son ordre — ce que fait justement
+    l'import d'un `.MM`.

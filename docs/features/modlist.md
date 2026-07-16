@@ -44,4 +44,21 @@ the order the list carries. Tick **auto-profile** and it builds a dedicated
 [profile](profiles.md) for the list rather than mixing it into your current one — which is
 almost always what you want when trying someone else's setup.
 
-<!-- TODO(content): the conflict-rules section of the format needs its own page. -->
+## What actually travels in a `.MM`
+
+It's a single JSON file. Alongside the list metadata (name, game, author, date), each mod
+carries everything needed to reproduce it:
+
+| Per mod | What it's for |
+|---|---|
+| **Download links** | One or more URLs — tagged `github`, `google_drive`, `direct`, `mega`, or `other` — so the recipient can fetch the mod without owning it first. |
+| **File tree** | The mod's file layout (paths and sizes), and optional per-file **hashes**. This is what powers verification and what BMM compares to find [conflicts](library.md#conflicts). |
+| **Install notes** | Any placement or special-setup instructions the author attached. |
+| **Order** | The mod's place in the list. |
+
+!!! note "\"Conflict rules\" = the order"
+
+    A `.MM` doesn't carry a separate rulebook for clashes. What it carries is the **order**,
+    and the order *is* the resolution: when two mods ship the same file, the one activated
+    later wins (see [conflicts](library.md#conflicts)). Reproducing someone's setup
+    "exactly" means reproducing their order — which is exactly what importing a `.MM` does.
