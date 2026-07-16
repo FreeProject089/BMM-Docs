@@ -1,8 +1,8 @@
 site_name: BetterModsManager — Documentation
 site_description: Guide complet de BetterModsManager, de zéro / The complete BetterModsManager guide, from zero
-site_url: https://freeproject089.github.io/bmm-docs/
-repo_url: https://github.com/FreeProject089/bmm-docs
-edit_uri: edit/main/docs/
+site_url: https://freeproject089.github.io/BMM-Docs/
+repo_url: https://github.com/FreeProject089/BMM-Docs
+edit_uri: edit/master/docs/
 
 # The docs live in their own repo. Screenshots are committed under docs/assets/screens/ as
 # RAW captures; the numbered call-outs are drawn by tools/annotate.py from a JSON spec at

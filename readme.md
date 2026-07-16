@@ -4,8 +4,8 @@ The user guide for [BetterModsManager](https://github.com/FreeProject089), in **
 French**, built with MkDocs Material. Every page is meant to be readable by someone who has
 never opened the app.
 
-**Live site:** https://freeproject089.github.io/bmm-docs/ · **PDF:** built by CI on every
-push to `main` (see the workflow's artifacts).
+**Live site:** https://freeproject089.github.io/BMM-Docs/ · **PDF:** built by CI on every
+push to `master` (see the workflow's artifacts).
 
 ## Run it locally
 

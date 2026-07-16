@@ -1,12 +1,12 @@
 name: Docs
 
-# Builds the bilingual site + a single PDF, and publishes to GitHub Pages on main.
+# Builds the bilingual site + a single PDF, and publishes to GitHub Pages on master.
 # A PR gets the same build (and the PDF as an artifact) without publishing, so a broken
 # link or a stale screenshot annotation is caught before it reaches the site.
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -58,12 +58,12 @@ jobs:
           if-no-files-found: error
 
       - uses: actions/upload-pages-artifact@v3
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         with:
           path: site
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
     environment:
