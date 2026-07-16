@@ -23,17 +23,28 @@ becomes something BMM *writes to*, not something you maintain by hand.
 ## 3. Add a mod and turn it on
 
 Drag a `.zip` or a mod folder anywhere onto the window. It lands in the
-[Library](../features/library.md). Then enable it — that's what puts it in the game, for
-*this* profile.
+[Library](../features/library.md). Then enable it — a single click on the card's toggle, or a
+**double-click anywhere on the card**, is what puts it in the game, for *this* profile.
+
+Select a card (single click) and the **detail panel** opens: version, author, description, its
+cross-machine identity, any conflicts with other mods, dependencies, tags, and an integrity
+check. You don't need any of it on day one — but it's there when you do.
 
 If the game acts like the mod isn't there, it's almost always packaging, not BMM: see the
 [Mapper](../features/mapper.md).
 
 ## Coming from another manager?
 
-BMM's onboarding covers **importing from OvGME**. Do that before rebuilding a setup by hand.
+Don't rebuild a setup by hand if you don't have to. BMM imports existing profiles from:
+
+- **OvGME** — it scans your OvGME data folder and brings the profiles over.
+- **OMM / Open Mod Manager** — import an `.omm` or `.omx` profile directly.
+
+Do that first; then tidy up in BMM.
 
 !!! tip "Practise without risk"
 
-    **Help & other → Interactive Tutorial Hub** ships with small bundled games and a mod
-    pack, so you can learn the whole flow without touching a real install.
+    **Help & other → Interactive Tutorial Hub** ships with small bundled games and a mod pack,
+    so you can learn the whole flow — profiles, activation, conflicts, sharing — without
+    touching a real install. New guides cover **Storage & Smart I/O** and **Data & Backup**
+    too.

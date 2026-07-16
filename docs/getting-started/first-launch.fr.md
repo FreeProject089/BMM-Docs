@@ -22,18 +22,31 @@ devient une cible d'écriture pour BMM, pas quelque chose que tu maintiens à la
 ## 3. Ajouter un mod et l'activer
 
 Glisse un `.zip` ou un dossier de mod n'importe où sur la fenêtre. Il atterrit dans la
-[Bibliothèque](../features/library.md). Puis active-le — c'est ça qui le met dans le jeu,
+[Bibliothèque](../features/library.md). Puis active-le — un simple clic sur l'interrupteur de
+la carte, ou un **double-clic n'importe où sur la carte**, c'est ça qui le met dans le jeu,
 pour *ce* profil.
+
+Sélectionne une carte (clic simple) et le **panneau détail** s'ouvre : version, auteur,
+description, son identité cross-machine, ses conflits éventuels avec d'autres mods, ses
+dépendances, ses tags, et une vérification d'intégrité. Rien de tout ça n'est nécessaire le
+premier jour — mais c'est là quand tu en as besoin.
 
 Si le jeu fait comme si le mod n'existait pas, c'est presque toujours l'empaquetage, pas BMM :
 voir le [Mapper](../features/mapper.md).
 
 ## Tu viens d'un autre gestionnaire ?
 
-L'onboarding de BMM couvre l'**import depuis OvGME**. Fais-le avant de reconstruire une
-configuration à la main.
+Ne reconstruis pas une configuration à la main si tu peux l'éviter. BMM importe les profils
+existants depuis :
+
+- **OvGME** — il scanne ton dossier de données OvGME et rapatrie les profils.
+- **OMM / Open Mod Manager** — importe un profil `.omm` ou `.omx` directement.
+
+Fais-le d'abord ; tu peaufineras ensuite dans BMM.
 
 !!! tip "S'entraîner sans risque"
 
-    **Help & other → Interactive Tutorial Hub** embarque de petits jeux et un pack de mods :
-    tu apprends tout le flux sans toucher à une vraie installation.
+    **Help & other → Interactive Tutorial Hub** embarque de petits jeux et un pack de mods : tu
+    apprends tout le flux — profils, activation, conflits, partage — sans toucher à une vraie
+    installation. De nouveaux guides couvrent aussi **Stockage & Smart I/O** et **Données &
+    Sauvegarde**.
