@@ -2,8 +2,9 @@
 
 > Customise every colour, font and element of BMM. Share themes in one click.
 
-Not a light/dark switch. BMM ships seven built-in themes and an editor that can rebuild the
-app's entire look — then export it as a file someone else imports in one click.
+Not a light/dark switch. BMM ships **twelve** built-in themes (dark and light) and an editor
+that can rebuild the app's entire look — then export it as a file someone else imports in one
+click.
 
 ![The Theme Editor](../assets/screens/themes.annotated.png)
 
@@ -40,6 +41,14 @@ Pick the one that matches how far you want to go. You can stop at the first.
 
     Raw CSS, for when the fields don't reach. Everything the other two tabs do lands here in
     the end.
+
+!!! tip "Point at what you want to change"
+
+    Don't hunt for the right variable. Click the **eyedropper**, then click **any element in
+    BMM** — the editor jumps straight to it. It's the fastest answer to "how do I recolour
+    *that* button". Building a light theme? Set the theme's **mode** to *light* and BMM applies
+    automatic contrast patches so text stays readable. (More controls in
+    [Tips & controls](../reference/tips.md).)
 
 ## Assets
 

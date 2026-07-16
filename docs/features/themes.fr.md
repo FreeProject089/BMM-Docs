@@ -2,8 +2,9 @@
 
 > Personnalise chaque couleur, police et élément de BMM. Partage tes thèmes en un clic.
 
-Ce n'est pas un interrupteur clair/sombre. BMM livre sept thèmes intégrés et un éditeur
-capable de refaire toute l'allure de l'app — puis de l'exporter en un fichier que quelqu'un
+Ce n'est pas un interrupteur clair/sombre. BMM livre **douze** thèmes intégrés (sombres et
+clairs) et un éditeur capable de refaire toute l'allure de l'app — puis de l'exporter en un
+fichier que quelqu'un
 importe en un clic.
 
 ![L'éditeur de thèmes](../assets/screens/themes.annotated.png)
@@ -43,6 +44,14 @@ Prends celui qui correspond à jusqu'où tu veux aller. Tu peux t'arrêter au pr
 
     Du CSS brut, pour quand les champs ne suffisent plus. Tout ce que font les deux autres
     onglets finit ici de toute façon.
+
+!!! tip "Pointe ce que tu veux changer"
+
+    Ne cherche pas la bonne variable. Clique la **pipette**, puis clique **n'importe quel
+    élément dans BMM** — l'éditeur y saute directement. C'est la réponse la plus rapide à
+    « comment je recolorie *ce* bouton ». Tu construis un thème clair ? Mets le **mode** du
+    thème sur *clair* et BMM applique des correctifs de contraste automatiques pour que le texte
+    reste lisible. (Plus de contrôles dans [Astuces & contrôles](../reference/tips.md).)
 
 ## Les assets
 
