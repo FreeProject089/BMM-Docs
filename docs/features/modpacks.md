@@ -26,6 +26,30 @@ They solve different problems, and using the wrong one is the usual confusion:
 A modpack can also **mix mods from different profiles** — BMM's *multi-profile* option
 exists exactly for the pack that doesn't belong to a single setup.
 
+## Options that matter when you build one
+
+Two settings on the create/export dialog change how a pack behaves — both worth a deliberate
+choice:
+
+**Dependency Mode** — what happens to the dependencies of the mods you picked:
+
+| Mode | Includes |
+|---|---|
+| **All** | Every dependency of every mod in the pack, automatically. Safest for sharing. |
+| **Manual** | You decide per mod. For when you know exactly what you want and don't want extras pulled in. |
+| **None** | No auto-dependencies at all. The pack is *only* the mods you ticked. |
+
+**Skip Integrity Check** — off by default, and best left there. When on, applying the pack
+**skips file verification** (faster) but also means BMM won't catch or repair a broken mod.
+Turn it on only for a pack you fully trust and apply often; leave it off when correctness
+matters.
+
+!!! tip "Sharing? Use Dependency Mode: All"
+
+    A pack you send someone should carry its own dependencies, or it'll import with half its
+    mods "not installed". `All` is the safe default for anything leaving your machine; save
+    `Manual`/`None` for personal packs where you're managing dependencies yourself.
+
 ## Sharing one: the hash is the point
 
 When you export, BMM doesn't ship the mods — it ships a **signature**:
@@ -46,4 +70,5 @@ If a pack's mods go missing or get corrupted, the card says so — *Some mods ar
 corrupted* — and offers **Repair**. Use it before debugging the game: a pack that can't fully
 apply is a far more likely explanation than the game itself.
 
-<!-- TODO(content): the export dialog's options need a capture + spec. -->
+(This is also the safety net **Skip Integrity Check** turns off — another reason to leave it
+on unless you have a specific reason not to.)

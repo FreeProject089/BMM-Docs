@@ -26,6 +26,31 @@ Ils résolvent des problèmes différents, et se tromper est la confusion habitu
 Un modpack peut aussi **mélanger des mods de profils différents** — l'option *multi-profil*
 existe précisément pour le pack qui n'appartient pas à une seule configuration.
 
+## Les options qui comptent à la création
+
+Deux réglages du dialogue de création/export changent le comportement d'un pack — chacun
+mérite un choix délibéré :
+
+**Mode de dépendances** — ce qu'il advient des dépendances des mods choisis :
+
+| Mode | Inclut |
+|---|---|
+| **Toutes** | Toutes les dépendances de tous les mods du pack, automatiquement. Le plus sûr pour partager. |
+| **Manuel** | Tu décides par mod. Pour quand tu sais exactement ce que tu veux, sans extras tirés au passage. |
+| **Aucune** | Aucune dépendance auto. Le pack, c'est *seulement* les mods cochés. |
+
+**Ignorer la vérification d'intégrité** — coupée par défaut, et mieux vaut la laisser ainsi.
+Activée, l'application du pack **saute la vérification des fichiers** (plus rapide) mais BMM ne
+détectera ni ne réparera un mod cassé. Ne l'active que pour un pack de confiance appliqué
+souvent ; laisse-la coupée quand la justesse compte.
+
+!!! tip "Tu partages ? Mode de dépendances : Toutes"
+
+    Un pack que tu envoies doit porter ses propres dépendances, sinon il s'importera avec la
+    moitié de ses mods « non installés ». `Toutes` est le défaut sûr pour tout ce qui quitte ta
+    machine ; garde `Manuel`/`Aucune` pour les packs perso où tu gères les dépendances
+    toi-même.
+
 ## Le partager : tout repose sur le hash
 
 À l'export, BMM n'envoie pas les mods — il envoie une **signature** :
@@ -48,4 +73,5 @@ manquants ou corrompus* — et propose **Réparer**. Utilise-le avant de débogu
 pack qui ne s'applique pas entièrement est une explication bien plus probable que le jeu
 lui-même.
 
-<!-- TODO(contenu) : les options du dialogue d'export attendent une capture + spec. -->
+(C'est aussi le filet de sécurité que **Ignorer la vérification d'intégrité** désactive — une
+raison de plus de la laisser active sauf motif précis.)
