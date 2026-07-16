@@ -20,10 +20,36 @@ version.
     d'avoir confiance, comme pour n'importe quel autre exécutable.
 
     Ils sont toutefois **bornés** : un plugin agit via l'[API](../reference/api.md) avec son
-    propre token, et ne fait que ce que tu lui as accordé — `mods.write`, `profiles.write`,
-    etc. Relis ces autorisations dans **Plugins → Permissions**. Un plugin qui se contente de
-    lire ta liste de mods n'a besoin d'aucune autorisation : les lectures ne sont pas
-    contrôlées, il n'y a donc rien à lui donner. Une autorisation sert à *modifier*.
+    propre token, et ne fait que ce que tu lui as accordé. Relis ces autorisations dans
+    **Plugins → Permissions**.
+
+## Ce que tu peux accorder à un plugin
+
+Chaque autorisation est une capacité d'**écriture** — le pouvoir de *modifier* quelque chose.
+Il n'y a pas de permission de « lecture » à distribuer pour tes mods ou profils, parce que la
+lecture n'est de toute façon pas contrôlée (l'API n'écoute que sur ta propre machine). Une
+autorisation donne à un plugin le droit d'agir, pas de regarder.
+
+| Autorisation | Permet au plugin de |
+|---|---|
+| `mods.write` | Activer / désactiver / éditer / supprimer des mods |
+| `profiles.write` | Créer / activer / éditer / supprimer des profils |
+| `modpacks.write` | Créer / activer / désactiver / éditer / supprimer des modpacks |
+| `repo.write` | Connecter / déconnecter / synchroniser / générer des dépôts serveur |
+| `plugins.read` · `plugins.write` | Comparer une modlist · en appliquer une |
+| `app.read` · `app.write` | Lire les apps installées · installer / lancer / désinstaller |
+| `catalog.read` · `catalog.write` | Lire le catalogue local · créer / éditer / supprimer des entrées |
+
+Accorde l'ensemble le plus étroit qui fait le travail. Un plugin qui réclame `repo.write` alors
+qu'il ne fait qu'activer des mods mérite un second regard.
+
+!!! tip "L'API n'est pas réservée aux plugins"
+
+    La même API locale répond à tes propres scripts, un fichier `.bat`, PowerShell, ou un
+    deeplink `bmm://` sur une page web — n'importe quoi sur ton PC. Les interrupteurs
+    **globaux** dans **Plugins → Permissions** (et le mode bac à sable dans
+    [Paramètres](settings.md)) gouvernent *tous* ces appelants d'un coup, pas seulement les
+    plugins installés.
 
 ## Le mode strict {#strict-mode}
 

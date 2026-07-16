@@ -20,10 +20,35 @@ for a release.
     way you'd treat any other executable.
 
     They are, however, **bounded**: a plugin acts through the [API](../reference/api.md) with
-    its own token, and only does what you've granted it — `mods.write`, `profiles.write`, and
-    so on. Review those grants in **Plugins → Permissions**. A plugin that only reads your
-    mod list needs no grant at all: reads aren't permission-gated, so there is nothing to
-    give it. What a grant buys a plugin is the ability to *change* things.
+    its own token, and only does what you've granted it. Review those grants in
+    **Plugins → Permissions**.
+
+## What you can grant a plugin
+
+Every grant is a **write** capability — the power to *change* something. There's no "read"
+permission to hand out for your mods or profiles, because reading isn't gated in the first
+place (the API only listens on your own machine). A grant buys a plugin the ability to act,
+not to look.
+
+| Grant | Lets the plugin |
+|---|---|
+| `mods.write` | Enable / disable / edit / delete mods |
+| `profiles.write` | Create / activate / edit / delete profiles |
+| `modpacks.write` | Create / enable / disable / edit / delete modpacks |
+| `repo.write` | Connect / disconnect / sync / generate server repos |
+| `plugins.read` · `plugins.write` | Compare a modlist · apply one |
+| `app.read` · `app.write` | Read installed apps · install / launch / uninstall them |
+| `catalog.read` · `catalog.write` | Read the local catalog · create / edit / delete entries |
+
+Grant the narrowest set that does the job. A plugin asking for `repo.write` when all it does
+is toggle mods is worth a second look.
+
+!!! tip "The API isn't only for plugins"
+
+    The same local API answers your own scripts, a `.bat` file, PowerShell, or a `bmm://`
+    deeplink on a web page — anything on your PC. The **global** switches in
+    **Plugins → Permissions** (and the sandbox mode in [Settings](settings.md)) govern *all*
+    of those callers at once, not just installed plugins.
 
 ## Strict mode
 
