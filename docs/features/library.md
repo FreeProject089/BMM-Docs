@@ -70,5 +70,17 @@ A mod in the Library is *available*; a mod is *installed* only relative to a
 profile doesn't delete the mod, it just stops that profile from using it. The mod stays in
 the Library, ready for another profile.
 
-<!-- TODO(content): the per-mod detail panel, the bulk actions bar, and the right-click menu
-     still need their own capture + spec before they can be documented honestly. -->
+## Controls worth knowing
+
+The Library rewards a few gestures:
+
+- **Single-click** a card to select it and open its **detail panel** — version, author, its
+  cross-machine identity, conflicts, dependencies, an integrity check, and tags.
+- **Double-click** a card to toggle it on or off instantly.
+- **Right-click** a card *while it's activating* to cancel the operation.
+- **Drag & drop** a `.zip` or folder onto the window to add it.
+
+There's no multi-select in the list itself — you pick one mod at a time. When you need a
+batch (building a [modpack](modpacks.md), or importing a [`.MM` list](modlist.md)), the
+selection modal gives you checkboxes and a select-all. Full detail in
+[Tips & controls](../reference/tips.md).

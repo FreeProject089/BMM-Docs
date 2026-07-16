@@ -76,5 +76,18 @@ Un mod dans la Bibliothèque est *disponible* ; un mod n'est *installé* que par
 désinstaller depuis un profil ne supprime pas le mod, ça arrête juste ce profil de
 l'utiliser. Le mod reste en Bibliothèque, prêt pour un autre profil.
 
-<!-- TODO(contenu) : le panneau de détail d'un mod, la barre d'actions groupées et le menu
-     clic-droit attendent leur capture + spec avant d'être documentés honnêtement. -->
+## Contrôles à connaître
+
+La Bibliothèque récompense quelques gestes :
+
+- **Clic simple** sur une carte pour la sélectionner et ouvrir son **panneau détail** —
+  version, auteur, identité cross-machine, conflits, dépendances, vérification d'intégrité, et
+  tags.
+- **Double-clic** sur une carte pour l'activer ou la désactiver instantanément.
+- **Clic droit** sur une carte *pendant son activation* pour annuler l'opération.
+- **Glisser-déposer** un `.zip` ou un dossier sur la fenêtre pour l'ajouter.
+
+Il n'y a pas de multi-sélection dans la liste elle-même — tu prends un mod à la fois. Quand tu
+as besoin d'un lot (construire un [modpack](modpacks.md), ou importer une [liste
+`.MM`](modlist.md)), le modal de sélection te donne des cases à cocher et un tout-sélectionner.
+Détail complet dans [Astuces & contrôles](../reference/tips.md).
