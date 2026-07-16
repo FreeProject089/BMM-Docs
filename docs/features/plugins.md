@@ -16,9 +16,13 @@ for a release.
 !!! warning "Community plugins are not reviewed"
 
     BMM says it plainly on the banner: these plugins are created by the community and are
-    **not officially reviewed**. A plugin runs with BMM's reach — it can enable, disable and
-    delete. Install from people you have some reason to trust, the same way you'd treat any
-    other executable.
+    **not officially reviewed**. Install from people you have some reason to trust, the same
+    way you'd treat any other executable.
+
+    They are, however, **bounded**: a plugin acts through the [API](../reference/api.md) with
+    its own token, and only does what you've granted it — `mods.write`, `profiles.write`, and
+    so on. Review those grants in **Plugins → Permissions**. A plugin that only reads your
+    mod list needs `mods.read`, and nothing else.
 
 ## Strict mode
 

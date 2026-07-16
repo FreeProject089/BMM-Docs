@@ -16,11 +16,15 @@ version.
 !!! warning "Les plugins communautaires ne sont pas relus"
 
     BMM le dit franchement sur sa bannière : ces plugins sont créés par la communauté et ne
-    sont **pas officiellement relus**. Un plugin s'exécute avec la portée de BMM — il peut
-    activer, désactiver, supprimer. Installe depuis des gens en qui tu as une raison d'avoir
-    confiance, comme pour n'importe quel autre exécutable.
+    sont **pas officiellement relus**. Installe depuis des gens en qui tu as une raison
+    d'avoir confiance, comme pour n'importe quel autre exécutable.
 
-## Le mode strict
+    Ils sont toutefois **bornés** : un plugin agit via l'[API](../reference/api.md) avec son
+    propre token, et ne fait que ce que tu lui as accordé — `mods.write`, `profiles.write`,
+    etc. Relis ces autorisations dans **Plugins → Permissions**. Un plugin qui se contente de
+    lire ta liste de mods a besoin de `mods.read`, et de rien d'autre.
+
+## Le mode strict {#strict-mode}
 
 Certains plugins appliquent une liste de mods. Le mode *strict* décide du sort de tout le
 reste :

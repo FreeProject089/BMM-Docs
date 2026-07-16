@@ -78,6 +78,7 @@ plugins:
             BetterCommunity: BetterCommunity
             Settings: Paramètres
             Credits: Crédits
+            API reference: Référence API
             Troubleshooting: Dépannage
   # NOTE: the PDF plugin is deliberately NOT here — see mkdocs.pdf.yml. It renders through
   # WeasyPrint, which needs GTK system libraries; mkdocs imports a listed plugin even when
@@ -116,6 +117,7 @@ nav:
       - features/community.md
       - features/settings.md
   - Reference:
+      - reference/api.md
       - reference/troubleshooting.md
       - reference/credits.md
 
