@@ -36,6 +36,11 @@ flowchart LR
 Because the game folder is output, a game update, a reinstall, or a bad mod can wipe it and
 lose nothing. You switch a profile back on; you never re-download.
 
+:::tip[The whole app in one sentence]
+Your mods are the source of truth; the game folder is disposable output BMM can rebuild — so
+nothing you do to the game can cost you a mod.
+:::
+
 ## Map of this section
 
 | Page | The question it answers |

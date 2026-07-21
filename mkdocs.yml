@@ -89,6 +89,11 @@ plugins:
   # "cannot load library 'libgobject-2.0-0'". Contributors get a config that just works;
   # CI adds the PDF via the inheriting config.
 
+# BCWEB-style `:::tip[…] … :::` callout directives are rewritten to Material admonitions before
+# parsing (same authoring syntax as the in-app docs). See tools/md_directives.py.
+hooks:
+  - tools/md_directives.py
+
 markdown_extensions:
   - admonition
   - pymdownx.details
