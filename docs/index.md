@@ -6,6 +6,11 @@ original files more than it has to.
 If you're new, read this page. It's short, and it explains the one idea the rest of the app
 is built on. Skipping it is why people get lost on screen three.
 
+!!! tip "Two ways to read these docs"
+    The **Getting started** and **Features** sections teach you how to *use* BMM. The new
+    **[How it works](how-it-works/index.md)** section is for the curious and for contributors —
+    it explains *why* BMM behaves the way it does, with diagrams. Read whichever half you came for.
+
 ## The one idea: your mods and your setups are separate things
 
 Most mod managers put mods *in the game*. BMM keeps them apart:

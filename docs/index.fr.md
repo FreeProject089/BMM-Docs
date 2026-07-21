@@ -7,6 +7,12 @@ Si tu débutes, lis cette page. Elle est courte, et elle explique l'idée unique
 tout le reste est bâti. La sauter, c'est la raison pour laquelle on se perd au troisième
 écran.
 
+!!! tip "Deux façons de lire cette doc"
+    Les sections **Premiers pas** et **Fonctionnalités** t'apprennent à *utiliser* BMM. La
+    nouvelle section **[Comment ça marche](how-it-works/index.md)** s'adresse aux curieux et aux
+    contributeurs — elle explique *pourquoi* BMM se comporte ainsi, avec des diagrammes. Lis la
+    moitié qui t'intéresse.
+
 ## L'idée unique : tes mods et tes configurations sont deux choses distinctes
 
 La plupart des gestionnaires de mods mettent les mods *dans le jeu*. BMM les garde à part :

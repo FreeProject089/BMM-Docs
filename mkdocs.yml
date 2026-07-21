@@ -22,13 +22,13 @@ theme:
       toggle: { icon: material/brightness-auto, name: Follow system / Suivre le système }
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: deep orange
-      accent: amber
+      primary: blue
+      accent: light blue
       toggle: { icon: material/brightness-7, name: Dark mode / Mode sombre }
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep orange
-      accent: amber
+      primary: blue
+      accent: light blue
       toggle: { icon: material/brightness-4, name: Light mode / Mode clair }
   features:
     # No navigation.instant: it breaks mkdocs-static-i18n's language switcher (the build
@@ -64,6 +64,7 @@ plugins:
           nav_translations:
             Getting started: Premiers pas
             Features: Fonctionnalités
+            How it works: Comment ça marche
             Reference: Référence
             Install BMM: Installer BMM
             First launch: Premier lancement
@@ -91,7 +92,13 @@ plugins:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  # Mermaid diagrams: `\`\`\`mermaid` fences render as interactive SVG (Material's native
+  # support). Used across the "How it works" section to show BMM's internals visually.
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:
@@ -120,6 +127,18 @@ nav:
       - features/community.md
       - features/settings.md
       - features/themes.md
+  - How it works:
+      - how-it-works/index.md
+      - how-it-works/architecture.md
+      - how-it-works/profiles-activation.md
+      - how-it-works/scanning-cache.md
+      - how-it-works/integrity-hashing.md
+      - how-it-works/conflicts.md
+      - how-it-works/mapper.md
+      - how-it-works/sync-repos.md
+      - how-it-works/performance.md
+      - how-it-works/extending.md
+      - how-it-works/security.md
   - Reference:
       - reference/api.md
       - reference/tips.md

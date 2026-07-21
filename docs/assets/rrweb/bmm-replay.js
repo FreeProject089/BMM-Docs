@@ -60,7 +60,7 @@
       }).then(function (data) {
         const events = Array.isArray(data) ? data : (data && data.events);
         if (!events || events.length < 2) throw new Error('no events');
-        play(el, events);
+        play(el, events, (data && data.regions) || []);
       }).catch(function (err) {
         poster.innerHTML = '<div class="bmm-replay-error">Could not load this recording (' +
           String(err.message || err) + ').</div>';
@@ -75,7 +75,7 @@
     fs:    '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>'
   };
 
-  function play(el, events) {
+  function play(el, events, regions) {
     el.innerHTML =
       '<div class="bmm-replay-stage"><div class="bmm-replay-mount"></div></div>' +
       '<div class="bmm-replay-bar">' +
@@ -101,7 +101,7 @@
       speed: 1,
       skipInactive: true,   // fast-forward idle gaps — nicer for a doc demo
       showWarning: false,
-      mouseTail: { strokeStyle: '#4051b5', lineWidth: 3 }
+      mouseTail: { strokeStyle: '#3b82f6', lineWidth: 3 }
     });
 
     const meta = replayer.getMetaData();
@@ -113,12 +113,36 @@
     const recW = metaEvt ? metaEvt.data.width : 0;
     const recH = metaEvt ? metaEvt.data.height : 0;
     const wrapper = mountEl.querySelector('.replayer-wrapper');
-    if (recW && recH) {
-      stage.style.aspectRatio = recW + ' / ' + recH;
+
+    // A recording made with the Replay Studio can carry a `regions` timeline — the moving
+    // capture FRAME. When present we crop the viewport to the active region (scale it to fill
+    // the stage width, translate to the region origin) and follow it over time; a CSS
+    // transition glides the frame moves. No regions → the whole recording, exactly as before.
+    const regs = (Array.isArray(regions) ? regions : [])
+      .filter(function (r) { return r && r.rect && r.rect.w; })
+      .sort(function (a, b) { return a.t - b.t; });
+    const hasRegions = regs.length > 0;
+    if (recW && recH && !hasRegions) stage.style.aspectRatio = recW + ' / ' + recH;
+    if (hasRegions && wrapper) wrapper.style.transition = 'transform .35s ease';
+
+    function activeIdx(t) { var i = -1; for (var k = 0; k < regs.length; k++) { if (regs[k].t <= t) i = k; else break; } return i; }
+    function rectAt(t) { var i = activeIdx(t); return i >= 0 ? regs[i].rect : { x: 0, y: 0, w: recW, h: recH }; }
+    function applyFit(t) {
+      if (!wrapper) return;
+      var rect = rectAt(t);
+      if (!rect.w) return;
+      var s = stage.clientWidth / rect.w;
+      if (document.fullscreenElement === stage && rect.h) s = Math.min(s, stage.clientHeight / rect.h);
+      wrapper.style.transformOrigin = 'top left';
+      wrapper.style.transform = 'translate(' + (-rect.x * s) + 'px,' + (-rect.y * s) + 'px) scale(' + s + ')';
+      if (hasRegions) stage.style.height = (rect.h * s) + 'px';
     }
-    function refit() { if (wrapper) fit(stage, wrapper, recW, document.fullscreenElement === stage ? recH : 0); }
+    function refit() { applyFit(replayer.getCurrentTime()); }
     refit();
     window.addEventListener('resize', refit);
+    // Refit on ANY container size change (sidebar toggle, font-zoom, reflow) — not just
+    // window resizes — so the recording always fills the box without jumps.
+    if (window.ResizeObserver) { var ro = new ResizeObserver(refit); ro.observe(stage); }
 
     replayer.play();
     let playing = true;
@@ -160,14 +184,24 @@
     });
 
     let seeking = false;
-    seek.addEventListener('input', function () { seeking = true; });
+    const wasPlaying = { v: false };
+    seek.addEventListener('input', function () {
+      // Live scrub: show the target time as you drag (rrweb only actually seeks on release,
+      // which keeps dragging smooth instead of thrashing the Replayer on every pixel).
+      if (!seeking) { wasPlaying.v = playing; }
+      seeking = true;
+      const t = (seek.value / 1000) * total;
+      timeEl.textContent = fmt(t) + ' / ' + fmt(total);
+    });
     seek.addEventListener('change', function () {
       const t = (seek.value / 1000) * total;
-      replayer.pause(t);
-      setPlaying(false);
+      // Resume from the new point if it was playing before the scrub; otherwise stay paused.
+      if (wasPlaying.v) { replayer.play(t); setPlaying(true); }
+      else { replayer.pause(t); setPlaying(false); }
       seeking = false;
     });
 
+    var lastIdx = -2;
     (function tick() {
       if (!el.isConnected) return; // page changed
       const t = replayer.getCurrentTime();
@@ -175,6 +209,9 @@
         seek.value = String(Math.min(1000, Math.round((t / total) * 1000)));
         timeEl.textContent = fmt(t) + ' / ' + fmt(total);
       }
+      // Follow the capture frame: re-fit only when the active region changes, so the CSS
+      // transition animates the move (and we don't recompute layout every frame).
+      if (hasRegions) { var i = activeIdx(t); if (i !== lastIdx) { lastIdx = i; applyFit(t); } }
       requestAnimationFrame(tick);
     })();
 
