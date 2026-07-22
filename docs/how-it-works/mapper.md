@@ -10,15 +10,15 @@ A stored mod must contain the full path the game expects, starting from the game
 example:
 
 ```
-\My Awesome Mod
-   |_ mods
-        |_ characters
-             |_ MyCharacter
+\HD Texture Pack
+   |_ Data
+        |_ Textures
+             |_ HD Texture Pack
 ```
 
-`My Awesome Mod` is the mod; everything under it is the exact tree the files must land in. The
-folder names here (`mods`, `characters`, …) are just an example — use whatever path **your**
-game reads from.
+`HD Texture Pack` is the mod; everything under it is the exact tree the files must land in. The
+folder names here (`Data`, `Textures`, …) are just an example — use whatever path **your** game
+reads from.
 
 ## What the mapper does
 
@@ -29,15 +29,15 @@ new version with the same layout, applies instantly.
 ```mermaid
 flowchart LR
     subgraph Archive["Downloaded archive (wrong shape)"]
-        F1["files/data.file"]
-        F2["textures/skin.png"]
+        F1["files/hero.png"]
+        F2["files/normal.png"]
     end
     subgraph Map["Saved mapping"]
-        M["files/*  →  mods/characters/MyCharacter/*"]
+        M["files/*  →  Data/Textures/HD Texture Pack/*"]
     end
     subgraph Game["Deployed (correct shape)"]
-        G1["mods/characters/MyCharacter/data.file"]
-        G2["mods/characters/MyCharacter/textures/skin.png"]
+        G1["Data/Textures/HD Texture Pack/hero.png"]
+        G2["Data/Textures/HD Texture Pack/normal.png"]
     end
     F1 --> Map --> G1
     F2 --> Map --> G2

@@ -11,14 +11,14 @@ Un mod stocké doit contenir le chemin complet attendu par le jeu, à partir de 
 exemple :
 
 ```
-\Mon Mod Génial
-   |_ mods
-        |_ personnages
-             |_ MonPersonnage
+\Pack de Textures HD
+   |_ Data
+        |_ Textures
+             |_ Pack de Textures HD
 ```
 
-`Mon Mod Génial` est le mod ; tout ce qui est en dessous est l'arborescence exacte où les fichiers
-doivent atterrir. Les noms de dossiers ici (`mods`, `personnages`, …) ne sont qu'un exemple —
+`Pack de Textures HD` est le mod ; tout ce qui est en dessous est l'arborescence exacte où les
+fichiers doivent atterrir. Les noms de dossiers ici (`Data`, `Textures`, …) ne sont qu'un exemple —
 utilisez le chemin que lit **votre** jeu.
 
 ## Ce que fait le mappeur
@@ -31,15 +31,15 @@ instantanément.
 ```mermaid
 flowchart LR
     subgraph Archive["Archive téléchargée (mauvaise forme)"]
-        F1["files/data.file"]
-        F2["textures/skin.png"]
+        F1["files/hero.png"]
+        F2["files/normal.png"]
     end
     subgraph Map["Mapping enregistré"]
-        M["files/*  →  mods/personnages/MonPersonnage/*"]
+        M["files/*  →  Data/Textures/Pack HD/*"]
     end
     subgraph Game["Déployé (bonne forme)"]
-        G1["mods/personnages/MonPersonnage/data.file"]
-        G2["mods/personnages/MonPersonnage/textures/skin.png"]
+        G1["Data/Textures/Pack HD/hero.png"]
+        G2["Data/Textures/Pack HD/normal.png"]
     end
     F1 --> Map --> G1
     F2 --> Map --> G2
