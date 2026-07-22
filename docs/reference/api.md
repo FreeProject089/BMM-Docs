@@ -98,6 +98,7 @@ Grant them per plugin in **Plugins → Permissions**, or over the API itself:
 | `GET /api/modpacks` | Every [modpack](../features/modpacks.md). |
 | `GET /api/plugins` | Installed plugins. |
 | `GET /api/creator-id` | Your creator ID — the identity [repos](../features/repo.md) know you by. |
+| `GET /api/repo/info?url=…` | Preview a remote repo's `repo.json`. For a password-protected repo add `&password=…` (forwarded as `X-Repo-Password`; wrong/missing → 401). |
 | `GET /api/check-update` | Is a BMM update available. |
 
 ### Acting
@@ -106,6 +107,7 @@ Grant them per plugin in **Plugins → Permissions**, or over the API itself:
 |---|---|
 | `POST /api/mods/enable` · `/api/mods/disable` | Turn a mod on or off. `mods.write`. |
 | `POST /api/mod/check-updates` | Ask the linked [repos](../features/repo.md) about updates. |
+| `POST /api/repo/sync` | Drive a repo sync through the UI, pre-filled. Body takes `url`, dirs, `choices`, and an optional `password` for a protected repo. |
 | `POST /api/profiles` (create) · `/api/profiles/activate` | `profiles.write`. |
 | `POST /api/modpacks/create` · `/enable` · `/disable` | `modpacks.write`. |
 | `POST /api/plugins/apply` | Run a plugin's mod list. |

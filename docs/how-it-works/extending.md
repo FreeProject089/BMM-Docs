@@ -51,3 +51,28 @@ flowchart LR
 !!! info "See it in the app"
     Help &amp; other → Developer → **MCP server &amp; local API**, **Custom pages**,
     **One-click install**. Reference: [API](../reference/api.md).
+
+## Translations (i18n)
+
+Every UI string resolves through `t(key)` against per-language JSON files in `Lang/` — plain
+key→string maps loaded from disk at startup. Lookup order: the active language → the **French**
+dictionary (FR is the base language) → the raw key itself, so a missing translation is visible
+instead of silent.
+
+- **Live switching** — changing language re-applies every `data-i18n` attribute immediately and
+  fires a `langChanged` event for dynamic modules. No restart.
+- **Adding a language** is dropping a new JSON file in `Lang/`: it appears in the picker (with
+  the name/flag from its `_info`) without a rebuild.
+- Each file can ship `_synonyms` groups — merged across languages to power the **semantic
+  search** in the command palette and the docs.
+
+```mermaid
+graph TD
+    LANGFILES["Lang/*.json (+ _info, _synonyms)"] --> DICTS["In-memory dictionaries"]
+    DICTS --> T["t(key)"]
+    T --> CUR{Key in current language?}
+    CUR -- yes --> OUT["Translated string"]
+    CUR -- no --> FRFALL["French fallback"] --> RAWKEY["Raw key shown"]
+    SWITCH["setLang()"] --> DICTS
+    SYN["_synonyms"] --> SEARCH["Semantic search"]
+```

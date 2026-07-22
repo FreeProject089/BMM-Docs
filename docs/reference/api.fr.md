@@ -99,6 +99,7 @@ Accorde-les par plugin dans **Plugins → Permissions**, ou via l'API :
 | `GET /api/modpacks` | Chaque [modpack](../features/modpacks.md). |
 | `GET /api/plugins` | Les plugins installés. |
 | `GET /api/creator-id` | Ton creator ID — l'identité sous laquelle les [dépôts](../features/repo.md) te connaissent. |
+| `GET /api/repo/info?url=…` | Prévisualise le `repo.json` d'un dépôt distant. Pour un dépôt protégé, ajoute `&password=…` (transmis en `X-Repo-Password` ; absent/faux → 401). |
 | `GET /api/check-update` | Une mise à jour de BMM est-elle disponible. |
 
 ### Action
@@ -107,6 +108,7 @@ Accorde-les par plugin dans **Plugins → Permissions**, ou via l'API :
 |---|---|
 | `POST /api/mods/enable` · `/api/mods/disable` | Active ou désactive un mod. `mods.write`. |
 | `POST /api/mod/check-updates` | Interroge les [dépôts](../features/repo.md) liés. |
+| `POST /api/repo/sync` | Pilote une synchro de dépôt via l'UI, pré-remplie. Le body prend `url`, les dossiers, `choices`, et un `password` optionnel pour un dépôt protégé. |
 | `POST /api/profiles` (création) · `/api/profiles/activate` | `profiles.write`. |
 | `POST /api/modpacks/create` · `/enable` · `/disable` | `modpacks.write`. |
 | `POST /api/plugins/apply` | Exécute la liste de mods d'un plugin. |

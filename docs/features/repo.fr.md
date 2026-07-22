@@ -78,9 +78,49 @@ accèdent. Des options facultatives le rendent public sans gymnastique de port-f
 | **Tunnel Cloudflare** | Expose ton serveur local à une URL publique sans config routeur. |
 | **UPnP** | Ouvre le port sur ton routeur automatiquement, pour une connexion directe. |
 | **Limite d'upload** | Plafonne la vitesse sortante pour que l'hébergement n'affame pas ta connexion. |
+| **Mot de passe de téléchargement** | Optionnel. Les abonnés doivent le saisir à la première connexion (envoyé en `X-Repo-Password`) ; vide = dépôt ouvert. Distinct du mot de passe admin. |
 
 Les propriétaires disposent aussi d'un **contrôle d'accès** — listes blanches et bans par IP
 ou clé de créateur — pour qu'un dépôt privé reste privé.
+
+## Panneau d'admin & monitoring
+
+L'hébergement s'accompagne de deux outils côté hôte, tous deux sur l'écran Dépôt Serveur :
+
+**Monitoring** — un tableau en direct rafraîchi chaque seconde : IP de chaque client connecté,
+creator ID, protocole (**Local / LAN / WAN**), fichier en cours avec progression et vitesse,
+plus les sessions inactives et les totaux (clients, vitesse cumulée, fichiers actifs). Depuis
+chaque ligne, tu peux **autoriser** (liste blanche) ou **bannir** ce client en un clic. Il
+agrège aussi le `monitoring.json` d'un serveur autonome en cours — les deux serveurs au même
+endroit.
+
+**Liste blanche & bans** — deux gestionnaires avec recherche, ajout manuel (par IP et/ou clé
+créateur), retrait en un clic et export JSON. La liste blanche a un interrupteur on/off :
+off = tout le monde peut télécharger (moins les bannis) ; on = seules les identités listées
+passent.
+
+Le serveur autonome généré expose les endpoints correspondants :
+
+| Endpoint | Accès |
+|---|---|
+| `/dashboard`, `/monitoring.json` | Public, état en lecture seule. |
+| `/admin/data`, `/admin/update`, `/admin/logs` | Mot de passe admin (header Authorization, comparaison en temps constant). |
+
+```mermaid
+graph LR
+    subgraph Host["Hôte (BMM)"]
+        MON["Tableau de monitoring (rafraîchi 1 s)"]
+        WL["Gestionnaires liste blanche / bans"]
+    end
+    subgraph Server["Serveur généré"]
+        MJSON["/monitoring.json"]
+        ADMIN["/admin/* (mot de passe)"]
+        GATE["Porte d'accès : bans → login → liste blanche → mot de passe de téléchargement"]
+    end
+    MJSON --> MON
+    WL -- "pousse la config" --> ADMIN
+    CLIENT["Abonné"] --> GATE
+```
 
 ### Publier une nouvelle version
 

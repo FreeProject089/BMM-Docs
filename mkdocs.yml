@@ -79,6 +79,8 @@ plugins:
             BetterCommunity: BetterCommunity
             Settings: Paramètres
             Command palette & shortcuts: Palette de commandes & raccourcis
+            Launch packs: Launch packs
+            Privacy, telemetry & offline: Confidentialité, télémétrie & hors ligne
             Scheduling & automation: Planification & automatisation
             Themes & Appearance: Thèmes & Apparence
             Credits: Crédits
@@ -133,6 +135,8 @@ nav:
       - features/community.md
       - features/settings.md
       - features/command-palette.md
+      - features/launch-packs.md
+      - features/privacy-telemetry.md
       - features/themes.md
   - How it works:
       - how-it-works/index.md

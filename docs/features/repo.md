@@ -74,9 +74,47 @@ Optional switches make it public without port-forwarding gymnastics:
 | **Cloudflare Tunnel** | Exposes your local server at a public URL with no router config. |
 | **UPnP** | Opens the port on your router automatically, for a direct connection. |
 | **Upload limit** | Caps outbound speed so hosting doesn't starve your own connection. |
+| **Download password** | Optional. Subscribers must enter it on first connect (sent as `X-Repo-Password`); blank = open repo. Distinct from the admin password. |
 
 Repo owners also get **access control** — whitelists and bans by IP or creator key — so a
 private repo stays private.
+
+## Admin panel & monitoring
+
+Hosting comes with two host-side tools, both on the Server Repo screen:
+
+**Monitoring** — a live table refreshed every second: each connected client's IP, creator ID,
+protocol (**Local / LAN / WAN**), the file being downloaded with progress and speed, plus idle
+sessions and totals (clients, combined speed, active files). From any row you can **whitelist**
+or **ban** that client in one click. It also aggregates a running standalone server's
+`monitoring.json`, so both servers show in one place.
+
+**Whitelist & bans** — two managers with search, manual add (by IP and/or creator key),
+one-click removal and JSON export. The whitelist has a master on/off switch: off = everyone may
+download (minus bans); on = only listed identities pass.
+
+The generated standalone server exposes matching endpoints:
+
+| Endpoint | Access |
+|---|---|
+| `/dashboard`, `/monitoring.json` | Public, read-only status. |
+| `/admin/data`, `/admin/update`, `/admin/logs` | Admin password (Authorization header, constant-time compare). |
+
+```mermaid
+graph LR
+    subgraph Host["Host (BMM)"]
+        MON["Monitoring table (1 s refresh)"]
+        WL["Whitelist / bans managers"]
+    end
+    subgraph Server["Generated server"]
+        MJSON["/monitoring.json"]
+        ADMIN["/admin/* (password)"]
+        GATE["Access gate: bans → login → whitelist → download password"]
+    end
+    MJSON --> MON
+    WL -- "push config" --> ADMIN
+    CLIENT["Subscriber"] --> GATE
+```
 
 ### Publishing a new version
 
