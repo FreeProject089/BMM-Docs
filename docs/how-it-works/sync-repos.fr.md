@@ -28,11 +28,17 @@ flowchart LR
 
 ### Contrôle d'accès (auto-hébergé)
 
-Un dépôt auto-hébergé est **public par défaut**. Il peut être restreint par une **liste blanche /
-liste de bannis**, comparée automatiquement au compte lié ou à l'identité d'appareil d'un abonné —
-il n'y a **aucun mot de passe de téléchargement** à taper. Un `admin_password` existe, mais il ne
-protège que le panneau d'admin de l'*hôte* (pousser de nouvelles versions) ; ce n'est pas une
-barrière pour les abonnés.
+Un dépôt auto-hébergé est **public par défaut**. Il peut être restreint de deux façons :
+
+- Une **liste blanche / liste de bannis**, comparée automatiquement au compte lié ou à l'identité
+  d'appareil d'un abonné.
+- Un **mot de passe de téléchargement** optionnel. Définissez-le à la génération du serveur ; les
+  abonnés se le voient alors demander à la première connexion (BMM l'envoie dans un en-tête
+  `X-Repo-Password` et le retient pour les synchros suivantes). Laissez-le vide pour un dépôt ouvert.
+
+Ne confondez pas ce mot de passe de téléchargement avec l'`admin_password` : ce dernier ne protège
+que le panneau d'admin de l'*hôte* (pousser de nouvelles versions) et n'est pas une barrière pour les
+abonnés.
 
 ## Synchro
 

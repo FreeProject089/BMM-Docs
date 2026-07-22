@@ -27,10 +27,16 @@ flowchart LR
 
 ### Access control (self-hosted)
 
-A self-hosted repo is **public by default**. It can be restricted with a **whitelist / ban list**,
-matched automatically against a subscriber's linked account or device identity — there is **no
-download password** to type. An `admin_password` exists, but it only protects the *host's* admin
-panel (pushing new versions); it is not a subscriber gate.
+A self-hosted repo is **public by default**. It can be restricted two ways:
+
+- A **whitelist / ban list**, matched automatically against a subscriber's linked account or device
+  identity.
+- An optional **download password**. Set it when you generate the server; subscribers are then asked
+  for it the first time they connect (BMM sends it as an `X-Repo-Password` header and remembers it for
+  later syncs). Leave it blank for an open repo.
+
+Keep the download password distinct from the `admin_password`: the latter only protects the *host's*
+admin panel (pushing new versions) and is not a subscriber gate.
 
 ## Sync
 
