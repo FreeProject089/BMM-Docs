@@ -46,6 +46,8 @@ Fais-le d'abord ; tu peaufineras ensuite dans BMM.
 
 !!! tip "S'entraîner sans risque"
 
-    **Help & other → Interactive Tutorial Hub** embarque de petits jeux et un pack de mods : tu
-    apprends tout le flux — profils, activation, conflits, partage — sans toucher à une vraie
-    installation.
+    **Help & other → Interactive Tutorial Hub** te guide dans la vraie app avec un bac à sable
+    intégré : il crée un profil « 🎓 Tutorial Example » avec des mods d'exemple (dont un conflit
+    volontaire) et un modpack d'exemple — tu apprends tout le flux — profils, activation,
+    conflits, partage — sans toucher à une vraie installation. Le bac à sable se nettoie tout
+    seul.

@@ -59,9 +59,26 @@ l'assurance la moins chère de l'app.
 
 ### Langue
 
-Change la langue de l'interface. Les traductions sont éditables par la communauté — les mêmes
-fichiers que lit ce sélecteur peuvent être exportés, traduits, et réimportés (voir les outils
-de traduction plus bas).
+Change la langue de l'interface. Les langues sont de simples fichiers JSON dans le dossier
+`Lang/` de l'app — en ajouter une ne demande **aucune recompilation**. La carte fournit tout :
+un **Guide**, un **modèle** téléchargeable, un bouton **Importer**, et le **Bac à sable de
+traduction**.
+
+La voie confortable pour traduire, c'est le **Bac à sable** :
+
+- **Créer une nouvelle langue** — donne-lui un code (`de`, `pt-br`…), amorcée au besoin depuis
+  une langue existante.
+- Traduis clé par clé avec recherche, **barre de progression**, saut « **prochaine
+  manquante** », et la référence des autres langues côte à côte.
+- Prévisualise chaque texte **en direct** (toast / infobulle / substitué dans la vraie UI), et
+  **choisis à l'écran** : clique n'importe quel texte de BMM pour sauter à sa clé.
+- Les éditions s'enregistrent dans le bac à sable (jamais l'app en direct) ; **Exporter**
+  télécharge le JSON fini — importe-le pour l'activer.
+
+Conserve le bloc `_info` (nom + drapeau affichés dans le sélecteur) et les groupes `_synonyms`
+(ils alimentent la recherche sémantique dans ta langue). **Le français est la base** : une clé
+non traduite retombe sur le FR ; une clé absente partout affiche son id brut. `en`, `fr` et le
+modèle ne peuvent pas être supprimés.
 
 ### Identité & API
 

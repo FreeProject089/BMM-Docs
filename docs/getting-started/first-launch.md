@@ -44,6 +44,8 @@ Do that first; then tidy up in BMM.
 
 !!! tip "Practise without risk"
 
-    **Help & other → Interactive Tutorial Hub** ships with small bundled games and a mod pack,
-    so you can learn the whole flow — profiles, activation, conflicts, sharing — without
-    touching a real install.
+    **Help & other → Interactive Tutorial Hub** guides you through the real app with a built-in
+    practice sandbox: it creates a "🎓 Tutorial Example" profile with example mods (including a
+    deliberate conflict) and an example modpack, so you learn the whole flow — profiles,
+    activation, conflicts, sharing — without touching a real install. The sandbox cleans itself
+    up automatically.

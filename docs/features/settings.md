@@ -56,9 +56,24 @@ cheapest insurance in the app.
 
 ### Language
 
-Switch BMM's interface language. Translations are community-editable — the same files this
-picker reads can be exported, translated, and imported back (see the translation tools further
-down the page).
+Switch BMM's interface language. Languages are plain JSON files in the app's `Lang/` folder —
+adding one requires **no rebuild**. The card gives you everything: a **Guide**, a downloadable
+**template**, an **Import** button, and the **Translation Sandbox**.
+
+The comfortable way to translate is the **Sandbox**:
+
+- **Create new language** — give it a code (`de`, `pt-br`…), optionally seeded from an
+  existing language.
+- Translate key by key with search, a **progress bar**, a "**next missing**" jump, and
+  side-by-side reference from other languages.
+- Preview any string **live** (toast / tooltip / swapped into the real UI), and **pick from
+  screen**: click any text in BMM to jump straight to its key.
+- Edits auto-save to the sandbox (never the live app); **Export** downloads the finished JSON —
+  import it to make it live.
+
+Keep the `_info` block (name + flag shown in the picker) and the `_synonyms` groups (they power
+semantic search in your language). **French is the base**: an untranslated key falls back to
+FR; a key missing everywhere shows its raw id. `en`, `fr` and the template can't be deleted.
 
 ### Identity & API
 

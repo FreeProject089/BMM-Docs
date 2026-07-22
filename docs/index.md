@@ -62,6 +62,7 @@ mods, so it's worth knowing the word now. See [Library](features/library.md#conf
 
 !!! tip "There's a tutorial *inside* the app"
 
-    **Help & other → Interactive Tutorial Hub** teaches BMM step by step, and ships with
-    small bundled games and a mod pack so you can practise without risking a real install.
-    If you learn by doing rather than reading, start there and use this site as reference.
+    **Help & other → Interactive Tutorial Hub** teaches BMM step by step with a built-in
+    practice sandbox (an example profile, example mods and a modpack, cleaned up automatically)
+    so you can practise without risking a real install. If you learn by doing rather than
+    reading, start there and use this site as reference.

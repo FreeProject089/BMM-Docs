@@ -65,6 +65,7 @@ mods : autant connaître le mot maintenant. Voir [Bibliothèque](features/librar
 
 !!! tip "Il y a un tutoriel *dans* l'app"
 
-    **Help & other → Interactive Tutorial Hub** t'apprend BMM pas à pas, et embarque de
-    petits jeux et un pack de mods pour t'entraîner sans risquer une vraie installation. Si
-    tu apprends en faisant plutôt qu'en lisant, commence là et garde ce site en référence.
+    **Help & other → Interactive Tutorial Hub** t'apprend BMM pas à pas avec un bac à sable
+    intégré (profil d'exemple, mods d'exemple et un modpack, nettoyés automatiquement) pour
+    t'entraîner sans risquer une vraie installation. Si tu apprends en faisant plutôt qu'en
+    lisant, commence là et garde ce site en référence.
