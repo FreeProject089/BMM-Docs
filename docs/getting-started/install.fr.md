@@ -38,6 +38,3 @@ par ne plus s'entendre avec les dépôts qu'il lit.
     jour des erreurs de limite de débit, ajoute un **token GitHub** optionnel dans **Paramètres
     → Identité & API** — il relève la limite. Purement optionnel ; la plupart des gens n'en ont
     jamais besoin.
-
-<!-- TODO(contenu) : les écrans de l'installeur attendent des captures. BetterInstaller (le
-     remplaçant NSIS/MSI) remodèlera cette page — ne pas surinvestir sur l'installeur avant. -->

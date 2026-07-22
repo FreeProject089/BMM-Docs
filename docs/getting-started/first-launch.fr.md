@@ -48,5 +48,4 @@ Fais-le d'abord ; tu peaufineras ensuite dans BMM.
 
     **Help & other → Interactive Tutorial Hub** embarque de petits jeux et un pack de mods : tu
     apprends tout le flux — profils, activation, conflits, partage — sans toucher à une vraie
-    installation. De nouveaux guides couvrent aussi **Stockage & Smart I/O** et **Données &
-    Sauvegarde**.
+    installation.

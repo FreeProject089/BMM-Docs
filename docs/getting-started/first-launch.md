@@ -46,5 +46,4 @@ Do that first; then tidy up in BMM.
 
     **Help & other → Interactive Tutorial Hub** ships with small bundled games and a mod pack,
     so you can learn the whole flow — profiles, activation, conflicts, sharing — without
-    touching a real install. New guides cover **Storage & Smart I/O** and **Data & Backup**
-    too.
+    touching a real install.

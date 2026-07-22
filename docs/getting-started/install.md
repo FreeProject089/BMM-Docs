@@ -35,7 +35,3 @@ will eventually disagree with them.
     Update and download checks hit GitHub. If you ever see rate-limit errors, add an optional
     **GitHub token** in **Settings → Identity & API** — it raises the limit. Purely optional;
     most people never need it.
-
-<!-- TODO(content): the installer's screens need captures. BetterInstaller (the NSIS/MSI
-     replacement) will reshape this page — don't over-invest in installer specifics until it
-     lands. -->

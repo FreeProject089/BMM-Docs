@@ -78,6 +78,7 @@ plugins:
             Mapper: Mapper
             BetterCommunity: BetterCommunity
             Settings: Paramètres
+            Command palette & shortcuts: Palette de commandes & raccourcis
             Scheduling & automation: Planification & automatisation
             Themes & Appearance: Thèmes & Apparence
             Credits: Crédits
@@ -131,6 +132,7 @@ nav:
       - features/mapper.md
       - features/community.md
       - features/settings.md
+      - features/command-palette.md
       - features/themes.md
   - How it works:
       - how-it-works/index.md
