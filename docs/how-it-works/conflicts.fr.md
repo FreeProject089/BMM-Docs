@@ -1,8 +1,8 @@
-# Résolution de conflits
+# Conflits
 
-Deux mods sont en **conflit** quand ils fournissent le même fichier. Dans la plupart des gestionnaires,
-celui activé en dernier gagne en silence. BMM refuse le silence : il détecte le chevauchement depuis
-l'index *avant* toute écriture, et vous demande.
+Deux mods sont en **conflit** quand ils fournissent le même fichier. Certains gestionnaires laissent
+l'un écraser l'autre en silence. BMM détecte le chevauchement *avant* toute écriture et vous
+prévient — mais la résolution elle-même est volontairement simple.
 
 ## La détection n'est qu'une recherche dans l'index
 
@@ -12,34 +12,39 @@ regroupement — aucun accès disque. Tout chemin revendiqué par plus d'un mod 
 ```mermaid
 flowchart TB
     subgraph Enabled["Mods activés"]
-        A["Mod A → cockpit.lua"]
-        B["Mod B → cockpit.lua"]
+        A["Mod A → data/file.x"]
+        B["Mod B → data/file.x"]
         C["Mod C → sound.ogg"]
     end
     A --> G{"regrouper par<br/>chemin de destination"}
     B --> G
     C --> G
-    G -- "cockpit.lua : A, B" --> CONF["⚠ conflit"]
+    G -- "data/file.x : A, B" --> CONF["⚠ conflit"]
     G -- "sound.ogg : C" --> OK["propre"]
 ```
 
-## Résoudre
+## Qui gagne : le dernier mod que vous activez
 
-Pour chaque fichier en conflit, vous choisissez un gagnant, ou vous définissez un **ordre de
-priorité** pour que le mod prioritaire gagne partout où il chevauche. Vos décisions sont stockées **par
-profil**, si bien que les deux mêmes mods peuvent se résoudre différemment dans un profil « proche du
-vanilla » et un profil « tout inclus ».
+Il n'y a **pas de sélecteur de gagnant par fichier ni de liste de priorité**. La règle est simple :
+**le dernier mod que vous activez gagne.** Au déploiement, les fichiers de chaque mod sont copiés
+dans le dossier du jeu dans l'ordre d'activation, si bien qu'un mod plus tardif écrase un plus ancien
+sur tout chemin partagé. Votre seul levier est l'**ordre dans lequel vous activez les mods** —
+activez en dernier celui qui doit gagner.
 
 ```mermaid
 flowchart LR
-    CONF["cockpit.lua<br/>A vs B"] --> CHOICE{Votre choix}
-    CHOICE -- "A gagne" --> DEP["déployer le fichier de A"]
-    CHOICE -- "B gagne" --> DEP2["déployer le fichier de B"]
-    CHOICE -- "priorité" --> RULE["appliquer l'ordre<br/>partout"]
+    E1["activer Mod A"] --> E2["activer Mod B (plus tard)"]
+    E2 --> DEPLOY["déployer dans l'ordre d'activation"]
+    DEPLOY --> WIN["le data/file.x de B est sur le disque<br/>(il a écrasé celui de A)"]
 ```
 
-Une fois résolu, le déploiement est sans ambiguïté — BMM écrit exactement le fichier gagnant pour
-chaque chemin, et note de quel mod il vient pour que la désactivation reste propre.
+## Rien n'est perdu
+
+Avant qu'un mod n'écrase un fichier, BMM sauvegarde le **fichier de jeu d'origine** (dans
+`_original/`) s'il ne l'a pas déjà fait. Quand vous désactivez le mod gagnant, BMM restaure le
+fichier partagé depuis le mod activé suivant qui le fournit aussi — ou, à défaut, le fichier de jeu
+d'origine. Ainsi, même si la résolution est « le dernier gagne », la désactivation vous ramène
+toujours à un état propre.
 
 !!! info "À voir dans l'app"
     Aide &amp; autre → Développeur → **Gestion des conflits** ; le tutoriel **Conflits**.

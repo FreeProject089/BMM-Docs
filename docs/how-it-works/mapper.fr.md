@@ -7,18 +7,19 @@ souvient.
 
 ## La forme attendue
 
-Un mod stocké doit contenir le chemin complet attendu par le jeu, à partir de sa racine. Pour un mod
-d'avion, c'est :
+Un mod stocké doit contenir le chemin complet attendu par le jeu, à partir de sa racine. Par
+exemple :
 
 ```
 \Mon Mod Génial
-   |_ Mods
-        |_ aircraft
-             |_ MonAvion
+   |_ mods
+        |_ personnages
+             |_ MonPersonnage
 ```
 
 `Mon Mod Génial` est le mod ; tout ce qui est en dessous est l'arborescence exacte où les fichiers
-doivent atterrir.
+doivent atterrir. Les noms de dossiers ici (`mods`, `personnages`, …) ne sont qu'un exemple —
+utilisez le chemin que lit **votre** jeu.
 
 ## Ce que fait le mappeur
 
@@ -30,15 +31,15 @@ instantanément.
 ```mermaid
 flowchart LR
     subgraph Archive["Archive téléchargée (mauvaise forme)"]
-        F1["files/plane.lua"]
-        F2["textures/skin.dds"]
+        F1["files/data.file"]
+        F2["textures/skin.png"]
     end
     subgraph Map["Mapping enregistré"]
-        M["files/*  →  Mods/aircraft/MonAvion/*"]
+        M["files/*  →  mods/personnages/MonPersonnage/*"]
     end
     subgraph Game["Déployé (bonne forme)"]
-        G1["Mods/aircraft/MonAvion/plane.lua"]
-        G2["Mods/aircraft/MonAvion/textures/skin.dds"]
+        G1["mods/personnages/MonPersonnage/data.file"]
+        G2["mods/personnages/MonPersonnage/textures/skin.png"]
     end
     F1 --> Map --> G1
     F2 --> Map --> G2

@@ -6,17 +6,19 @@ files at the root. The mapper fixes that once, and remembers.
 
 ## The expected shape
 
-A stored mod must contain the full path the game expects, starting from the game root. For an
-aircraft mod that's:
+A stored mod must contain the full path the game expects, starting from the game root. For
+example:
 
 ```
 \My Awesome Mod
-   |_ Mods
-        |_ aircraft
-             |_ MyAircraft
+   |_ mods
+        |_ characters
+             |_ MyCharacter
 ```
 
-`My Awesome Mod` is the mod; everything under it is the exact tree the files must land in.
+`My Awesome Mod` is the mod; everything under it is the exact tree the files must land in. The
+folder names here (`mods`, `characters`, …) are just an example — use whatever path **your**
+game reads from.
 
 ## What the mapper does
 
@@ -27,15 +29,15 @@ new version with the same layout, applies instantly.
 ```mermaid
 flowchart LR
     subgraph Archive["Downloaded archive (wrong shape)"]
-        F1["files/plane.lua"]
-        F2["textures/skin.dds"]
+        F1["files/data.file"]
+        F2["textures/skin.png"]
     end
     subgraph Map["Saved mapping"]
-        M["files/*  →  Mods/aircraft/MyAircraft/*"]
+        M["files/*  →  mods/characters/MyCharacter/*"]
     end
     subgraph Game["Deployed (correct shape)"]
-        G1["Mods/aircraft/MyAircraft/plane.lua"]
-        G2["Mods/aircraft/MyAircraft/textures/skin.dds"]
+        G1["mods/characters/MyCharacter/data.file"]
+        G2["mods/characters/MyCharacter/textures/skin.png"]
     end
     F1 --> Map --> G1
     F2 --> Map --> G2
