@@ -82,6 +82,7 @@ plugins:
             Launch packs: Launch packs
             Privacy, telemetry & offline: Confidentialité, télémétrie & hors ligne
             Scheduling & automation: Planification & automatisation
+            Storage & disk I/O: Stockage & E/S disque
             Themes & Appearance: Thèmes & Apparence
             Credits: Crédits
             API reference: Référence API
@@ -137,6 +138,7 @@ nav:
       - features/settings.md
       - features/command-palette.md
       - features/launch-packs.md
+      - features/storage.md
       - features/privacy-telemetry.md
       - features/themes.md
   - How it works:

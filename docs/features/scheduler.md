@@ -31,9 +31,17 @@ you're not looking.
 | `once` | One time, at a date and time. |
 | `interval` | Every N minutes. |
 | `hourly` | Every N hours. |
+| `dailyAt` | Every day at `HH:MM`. |
+| `weeklyAt` | At a time, on the weekdays you pick. |
+| `monthlyAt` | On a day-of-month (1–31) at a time. |
+| `appStart` | Once per BMM launch (a few seconds after start). |
+| `manual` | Never on its own — only the ▶ **Run now** button or `bmm://schedule/run`. |
 
-There's also a monthly option, built through the OS's own scheduling classes rather than a
-simple cmdlet — so it exists, it's just assembled differently under the hood.
+!!! warning "Time triggers only fire while BMM is awake"
+
+    `dailyAt` / `weeklyAt` / `monthlyAt` are checked by BMM's own loop, which wakes about every 20
+    seconds. If BMM is **closed** at that exact minute the run is missed and **not** backfilled.
+    That's what *Run even when BMM is closed* (below) is for.
 
 ### 2. Rules — whether
 
@@ -64,13 +72,22 @@ timer and starts being useful. Conditions:
 
 ### 3. Action — what
 
-| | |
+There are ~60 actions across eight groups:
+
+| Group | A few of the actions |
 |---|---|
-| **Mods** | Enable / disable one · enable all · disable all · scan the mods folder |
-| **Profiles** | Activate a profile |
-| **Modpacks** | Enable / disable |
-| **App** | Launch an app · run a benchmark · set a theme |
-| **Other** | Show a notification · run a `bmm://` deeplink · run a custom command |
+| **Mods & profiles** | Activate a profile · enable/disable a mod · enable/disable a modpack · create a modpack · add a mod from a URL · export/import a mod list · enable/disable all · scan the folder · check mod updates |
+| **Repo & sharing** | Connect · sync · generate · update · host a repo |
+| **Apps & launch** | Launch an app · install an app · open a file/folder · **run a [Launch Pack](launch-packs.md)** |
+| **Appearance** | Set a theme |
+| **Benchmarks & storage** | Run an app benchmark · **benchmark a disk** · **apply a disk speed limit** · toggle **Smart I/O** / **Auto-Calibration** · **check free disk space** (see [Storage](storage.md)) |
+| **Privacy & recorder** | Telemetry consent · session recorder · export/import a replay |
+| **System & flow** | Show a notification · Discord RPC · export a data backup · set a variable · **run another scheduled task** · restart BMM · open a URL · **run a custom command** · run a raw `bmm://` deeplink |
+| **Logic & math** | Compute maths into a variable · ternary · decision table · a stop-task guard |
+
+Many actions run by firing a canonical `bmm://` deeplink through the app's own handler — the same
+plumbing the [Plugins & API](plugins.md) page exposes, which is why the two systems can drive each
+other.
 
 ## Running when BMM is closed
 
@@ -145,4 +162,22 @@ Beyond a flat list of actions, a task can branch and repeat:
 The bundled example is a `repeat` in `times` mode (loop 3×). Swap the mode to `while`/`until`
 and give it a `value` or `appRunning` condition, and you have automations like "*keep checking
 until the game process exits, then export my data*".
+
+## Everyday controls
+
+Each task row carries: an **enable/disable** toggle, ▶ **Run now** (fires immediately, ignoring the
+trigger), **Duplicate** (a copy is created **disabled** so it can't double-fire), **Edit** and
+**Delete**. Inside the builder, **Test run** executes the current *unsaved* draft once, and the side
+panel shows the last runs (time · OK/ERR · duration). While editing, :kbd[Ctrl+Z] / :kbd[Ctrl+Y]
+undo and redo, and any single step has its own *run just this step* button.
+
+## Share a set of tasks — `.BMMPA`
+
+**Export .BMMPA** writes your whole task set to a JSON file; **Import .BMMPA** loads someone else's.
+
+!!! note "Imports never fire on their own"
+
+    Imported tasks get fresh ids and *Run even when BMM is closed* is forced **off**, so importing a
+    file can't silently register OS-level scheduled tasks on your machine. Review and enable them
+    yourself. **Load example** drops in a ready-made (disabled) task you can dissect.
 

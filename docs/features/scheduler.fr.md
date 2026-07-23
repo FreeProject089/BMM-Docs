@@ -32,9 +32,17 @@ l'action est *quoi*.
 | `once` | Une fois, à une date et une heure. |
 | `interval` | Toutes les N minutes. |
 | `hourly` | Toutes les N heures. |
+| `dailyAt` | Chaque jour à `HH:MM`. |
+| `weeklyAt` | À une heure, les jours de semaine choisis. |
+| `monthlyAt` | Un jour du mois (1–31) à une heure. |
+| `appStart` | Une fois par lancement de BMM (quelques secondes après le démarrage). |
+| `manual` | Jamais tout seul — seulement le bouton ▶ **Lancer maintenant** ou `bmm://schedule/run`. |
 
-Il existe aussi une option mensuelle, construite via les classes de planification du système
-plutôt qu'avec une simple cmdlet — elle existe, elle est juste assemblée autrement dessous.
+!!! warning "Les déclencheurs horaires ne partent que si BMM est éveillé"
+
+    `dailyAt` / `weeklyAt` / `monthlyAt` sont vérifiés par la boucle interne de BMM, qui se réveille
+    environ toutes les 20 secondes. Si BMM est **fermé** à cette minute précise, l'exécution est
+    manquée et **non** rattrapée. C'est à ça que sert *Exécuter même quand BMM est fermé* (plus bas).
 
 ### 2. Règles — si
 
@@ -68,13 +76,22 @@ une minuterie et devient utile. Les conditions :
 
 ### 3. Action — quoi
 
-| | |
+Il y a ~60 actions réparties en huit groupes :
+
+| Groupe | Quelques actions |
 |---|---|
-| **Mods** | Activer / désactiver un mod · tout activer · tout désactiver · scanner le dossier |
-| **Profils** | Activer un profil |
-| **Modpacks** | Activer / désactiver |
-| **App** | Lancer une app · lancer un benchmark · appliquer un thème |
-| **Autres** | Afficher une notification · exécuter un deeplink `bmm://` · lancer une commande |
+| **Mods & profils** | Activer un profil · activer/désactiver un mod · activer/désactiver un modpack · créer un modpack · ajouter un mod depuis une URL · exporter/importer une liste · tout activer/désactiver · scanner le dossier · vérifier les MàJ de mods |
+| **Dépôt & partage** | Connecter · synchroniser · générer · mettre à jour · héberger un dépôt |
+| **Apps & lancement** | Lancer une app · installer une app · ouvrir un fichier/dossier · **lancer un [Launch Pack](launch-packs.md)** |
+| **Apparence** | Appliquer un thème |
+| **Benchmarks & stockage** | Benchmark d'app · **benchmarker un disque** · **appliquer une limite de vitesse** · basculer **Smart I/O** / **Auto-calibration** · **vérifier l'espace libre** (voir [Stockage](storage.md)) |
+| **Confidentialité & enregistreur** | Consentement télémétrie · enregistreur de session · exporter/importer un replay |
+| **Système & flux** | Afficher une notification · Discord RPC · exporter une sauvegarde · définir une variable · **lancer une autre tâche planifiée** · redémarrer BMM · ouvrir une URL · **lancer une commande personnalisée** · exécuter un deeplink `bmm://` brut |
+| **Logique & maths** | Calcul mathématique dans une variable · ternaire · table de décision · garde d'arrêt de tâche |
+
+Beaucoup d'actions s'exécutent en émettant un deeplink `bmm://` canonique via le gestionnaire de
+l'app — la même plomberie qu'expose la page [Plugins & API](plugins.md), d'où le fait que les deux
+systèmes peuvent se piloter mutuellement.
 
 ## Tourner quand BMM est fermé
 
@@ -130,4 +147,25 @@ L'exemple fourni est un `répéter` en mode `fois` (boucle 3×). Change le mode 
 `tant que`/`jusqu'à` avec une condition `Comparaison de valeur` ou `App en cours`, et tu
 obtiens des automatisations comme « *continue de vérifier jusqu'à ce que le processus du jeu
 sorte, puis exporte mes données* ».
+
+## Contrôles au quotidien
+
+Chaque ligne de tâche porte : un interrupteur **activer/désactiver**, ▶ **Lancer maintenant** (part
+tout de suite, en ignorant le déclencheur), **Dupliquer** (la copie est créée **désactivée** pour ne
+pas double-partir), **Éditer** et **Supprimer**. Dans le constructeur, **Test** exécute une fois le
+brouillon *non enregistré*, et le panneau latéral montre les dernières exécutions (heure · OK/ERR ·
+durée). Pendant l'édition, :kbd[Ctrl+Z] / :kbd[Ctrl+Y] annulent et rétablissent, et chaque étape a
+son propre bouton *lancer juste cette étape*.
+
+## Partager un jeu de tâches — `.BMMPA`
+
+**Exporter .BMMPA** écrit tout ton jeu de tâches dans un fichier JSON ; **Importer .BMMPA** charge
+celui de quelqu'un d'autre.
+
+!!! note "Les imports ne partent jamais tout seuls"
+
+    Les tâches importées reçoivent de nouveaux ids et *Exécuter même quand BMM est fermé* est forcé à
+    **off**, pour qu'importer un fichier n'enregistre pas silencieusement des tâches au niveau du
+    système. Relis-les et active-les toi-même. **Charger l'exemple** dépose une tâche prête (et
+    désactivée) que tu peux décortiquer.
 
