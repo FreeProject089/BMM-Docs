@@ -99,6 +99,7 @@ hooks:
 
 markdown_extensions:
   - admonition
+  - pymdownx.keys      # keyboard keys: ++ctrl+k++ renders styled <kbd> chips (matches the in-app docs' :kbd[…])
   - pymdownx.details
   # Mermaid diagrams: `\`\`\`mermaid` fences render as interactive SVG (Material's native
   # support). Used across the "How it works" section to show BMM's internals visually.

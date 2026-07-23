@@ -25,7 +25,9 @@ Son vrai rôle est écrit sur l'écran vide :
 
 ## Pourquoi plusieurs profils pour un même jeu
 
-Parce que basculer ne coûte rien et revenir en arrière est immédiat. Un découpage typique :
+Parce qu'un profil n'est qu'une fiche légère, et que ses mods vivent déjà dans la Bibliothèque —
+en garder quelques-uns ne coûte presque rien. Donne à chacun son **propre dossier de mods** (voir
+l'avertissement plus bas) et ils deviennent de vrais loadouts séparés. Un découpage typique :
 
 - **Presque vanilla** — deux ou trois correctifs, pour quand tu veux le vrai jeu.
 - **Chargé** — la pile complète, pour quand tu ne veux pas.

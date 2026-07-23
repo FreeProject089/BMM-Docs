@@ -1,5 +1,7 @@
 # Conflicts
 
+[↗ Open this in the BMM app](bmm://docs/open?article=conflicts){ .md-button .md-button--primary }
+
 Two mods are in **conflict** when they ship the same file. Some managers let one silently overwrite
 the other. BMM detects the overlap *before* it writes anything and warns you — but the resolution
 itself is deliberately simple.

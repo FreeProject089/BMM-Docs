@@ -4,25 +4,26 @@ Un profil est un petit enregistrement — un nom, un dossier de jeu cible, et un
 mods actifs**. Il ne stocke aucun fichier de mod. C'est pourquoi vous pouvez avoir une douzaine de
 profils pour presque rien.
 
-## Ce que « activer » fait vraiment
+## Changer de profil vs. activer un mod
 
-Activer un profil réconcilie le dossier du jeu avec la liste du profil. BMM sait exactement quels
-fichiers sur le disque appartiennent à quel mod (il l'a noté au déploiement), il n'a donc à toucher
-que la différence.
+Deux actions faciles à confondre, et une seule touche à vos fichiers :
+
+- **Changer de profil actif** modifie seulement *le profil dans lequel vous travaillez*. Ça ne
+  déplace **aucun fichier** — ce qui est déjà déployé dans le dossier du jeu reste exactement en
+  place. Le profil actif n'est qu'un pointeur de sélection, rien de plus.
+- **Activer ou désactiver un mod** est la seule chose qui touche au dossier du jeu.
 
 ```mermaid
 flowchart TB
-    START([Passer au profil B]) --> DIFF{Comparer<br/>actuel vs B}
-    DIFF -- "dans A, pas dans B" --> REMOVE["Retirer ces fichiers"]
-    DIFF -- "dans B, pas dans A" --> ADD["Déployer ces mods"]
-    DIFF -- "dans les deux" --> KEEP["Laisser tel quel"]
-    REMOVE --> COMMIT
-    ADD --> COMMIT
-    KEEP --> COMMIT[(Dossier du jeu = profil B)]
+    SW([Changer de profil actif]) --> PTR["La sélection change — aucune E/S, les mods déployés restent"]
+    EN([Activer un mod]) --> DEPLOY["Lier/copier ses fichiers dans le jeu<br/>(sauvegarder ce qu'il remplace)"]
+    DIS([Désactiver un mod]) --> REMOVE["Retirer ses fichiers, restaurer la sauvegarde"]
 ```
 
-Passer d'un profil de 200 mods à un profil presque identique ne déplace que la poignée qui diffère —
-c'est donc instantané, pas un redéploiement complet.
+L'état activé est suivi **par racine (dossier du jeu + dossier des mods)** : deux profils pointant
+vers les mêmes dossiers reflètent leurs mods activés — un mod ne peut pas être activé dans deux
+d'entre eux à la fois. Les profils avec des dossiers *différents* sont des configurations totalement
+indépendantes. Pour de vrais loadouts séparés, donnez à chaque profil son propre dossier de mods.
 
 ## Non destructif par construction
 

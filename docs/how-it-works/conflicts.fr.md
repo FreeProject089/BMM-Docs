@@ -1,5 +1,7 @@
 # Conflits
 
+[↗ Ouvrir dans l'app BMM](bmm://docs/open?article=conflicts){ .md-button .md-button--primary }
+
 Deux mods sont en **conflit** quand ils fournissent le même fichier. Certains gestionnaires laissent
 l'un écraser l'autre en silence. BMM détecte le chevauchement *avant* toute écriture et vous
 prévient — mais la résolution elle-même est volontairement simple.

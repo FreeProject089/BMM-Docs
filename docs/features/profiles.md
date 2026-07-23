@@ -24,7 +24,9 @@ Its real job is stated on the empty screen:
 
 ## Why several profiles per game
 
-Because switching is free and reverting is instant. A typical split:
+Because each profile is just a cheap record, and its mods already live in the
+[Library](library.md) — so keeping a few around costs almost nothing. Give each its **own mods
+folder** (see the warning below) and they become genuinely separate loadouts. A typical split:
 
 - **Vanilla-ish** — a couple of fixes, for when you want the real game.
 - **Heavy** — the full stack, for when you don't.
