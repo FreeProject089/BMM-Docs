@@ -46,10 +46,19 @@ jobs:
       - name: Screenshot annotations are up to date
         run: python tools/annotate.py --check
 
-      - name: Build site + PDF
-        env:
-          ENABLE_PDF: "1"
+      # Two passes on purpose. `mkdocs.yml` has no PDF plugin (it would drag WeasyPrint's GTK
+      # libs into every contributor's `mkdocs serve` — see mkdocs.pdf.yml's header), so the PDF
+      # only exists via the inheriting config. This used to be a single `mkdocs build --strict`
+      # with an ENABLE_PDF=1 env var that nothing reads, so no PDF was ever rendered and the
+      # upload step below was uploading nothing.
+      # Order matters: `mkdocs build` cleans site/ first, so the PDF pass must come LAST or it
+      # would be wiped. mkdocs.pdf.yml INHERITs mkdocs.yml and its plugin list is a superset
+      # (search + i18n + with-pdf), so the second pass reproduces the same site and adds the PDF.
+      - name: Build site
         run: mkdocs build --strict   # --strict: a broken internal link fails the build
+
+      - name: Build PDF
+        run: mkdocs build -f mkdocs.pdf.yml   # → site/pdf/bettermodsmanager.pdf
 
       - uses: actions/upload-artifact@v4
         with:
