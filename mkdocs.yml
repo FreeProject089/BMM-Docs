@@ -86,6 +86,7 @@ plugins:
             Themes & Appearance: Thèmes & Apparence
             Credits: Crédits
             API reference: Référence API
+            Action reference: Référence des actions
             Troubleshooting: Dépannage
   # NOTE: the PDF plugin is deliberately NOT here — see mkdocs.pdf.yml. It renders through
   # WeasyPrint, which needs GTK system libraries; mkdocs imports a listed plugin even when
@@ -155,6 +156,7 @@ nav:
       - how-it-works/security.md
   - Reference:
       - reference/api.md
+      - reference/actions.md
       - reference/tips.md
       - reference/troubleshooting.md
       - reference/credits.md
