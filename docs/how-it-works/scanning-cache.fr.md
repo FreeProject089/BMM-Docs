@@ -1,42 +1,107 @@
 # Scan & cache
 
-La première fois que BMM voit votre dossier de mods, il construit un **index** : pour chaque fichier,
-un chemin, une taille, une date de modification et un hachage de contenu. Tout le reste — détection de
-conflits, intégrité, « qu'est-ce qui a changé ? » — lit cet index plutôt que le disque.
+La première fois que BMM voit ton dossier de mods, il construit un **index** : pour chaque mod, sa
+liste de fichiers, et pour chaque fichier un hash de contenu. Tout le reste — détection de conflits,
+intégrité, « qu'est-ce qui a changé ? » — lit cet index au lieu du disque.
 
-## Le problème du re-scan
+---
 
-Hacher des gigaoctets à chaque lancement serait lent et inutile : presque rien ne change entre deux
-sessions. Un re-scan est donc **incrémental**. BMM se fie à la date de modification (`mtime`) et à la
-taille du système de fichiers comme test bon marché « est-ce que ça a changé ? », et ne re-hache que
-les fichiers qui échouent à ce test.
+## Deux caches, deux clés différentes
+
+Faciles à confondre, donc :
+
+| Cache | Clé | Invalidé par | Persisté ? |
+|---|---|---|---|
+| **Liste de fichiers** (`cached_files`) | la mtime du **dossier** du mod | la mtime du dossier qui change | oui, dans `data.json` |
+| **Hashs de fichiers** (`file_hashes`) | le chemin du fichier | un contrôle d'intégrité explicite ou un re-hachage | oui, dans `data.json` |
+| **Index de conflits** | la liste de fichiers | reconstruit dès qu'il pourrait être périmé | **non** — mémoire seulement |
+
+Le cache de liste de fichiers est celui qui rend le démarrage rapide. Le contrôle est délibérément
+bon marché : lire la date de modification du dossier du mod, et si elle égale celle stockée, réutiliser
+la liste stockée telle quelle sans toucher davantage au disque.
 
 ```mermaid
 flowchart TB
-    START([Re-scan]) --> LOOP{Pour chaque fichier}
-    LOOP --> CHECK{"mtime &amp; taille<br/>identiques au cache ?"}
-    CHECK -- oui --> REUSE["Réutiliser le hachage<br/>(aucune lecture)"]
-    CHECK -- non --> REHASH["Lire + re-hacher<br/>mettre à jour le cache"]
-    REUSE --> LOOP
-    REHASH --> LOOP
-    LOOP -- terminé --> INDEX[(Index à jour)]
+    START([Charger un mod]) --> META["lire la mtime du dossier"]
+    META --> CMP{"identique à celle stockée,<br/>et non nulle ?"}
+    CMP -- oui --> REUSE["réutiliser cached_files<br/>(pas de parcours de dossier)"]
+    CMP -- non --> WALK["parcourir le dossier,<br/>stocker la nouvelle liste + mtime"]
+    REUSE --> IDX[(index)]
+    WALK --> IDX
 ```
 
-Avec un cache chaud, un re-scan ne lit que les métadonnées — des milliers de fichiers en un clin
-d'œil — et ne dépense de vraies E/S que sur ce qui a réellement bougé.
+Le « et non nulle » compte : si la lecture des métadonnées échoue, BMM le journalise et **remet à zéro
+la mtime stockée** plutôt que de faire confiance à un zéro — *« Contrôle d'invalidation mtime fragile
+… Réinitialisation de la mtime »*. Un échec devient un re-scan, jamais un faux succès de cache.
 
-## Pourquoi garder un hachage si mtime suffit ?
+!!! warning "La mtime d'un dossier ne change pas toujours quand un fichier dedans change"
 
-`mtime` répond à *« ceci a-t-il pu changer ? »*. Le hachage répond à *« est-ce exactement le fichier
-attendu ? »*. Le premier est un filtre rapide ; le second est la vérité. BMM utilise le filtre rapide
-pour décider *quand* calculer la vérité. Le hachage alimente les vérifications d'intégrité et permet à
-un dépôt serveur de dire « ta copie correspond à la mienne » sans envoyer le fichier.
+    C'est la limite honnête de ce design. Sous Windows, éditer un fichier **sur place** sans rien
+    ajouter, renommer ni supprimer peut laisser la mtime du *dossier parent* intacte — la liste de
+    fichiers en cache reste donc valide (à juste titre, la liste n'a pas changé) mais rien ne déclenche
+    un re-hachage. C'est exactement pour ça que la liste de fichiers et les hashs sont deux caches
+    séparés avec des déclencheurs séparés : la liste est bon marché et rafraîchie à l'occasion, et les
+    **hashs** sont ce qu'un [contrôle d'intégrité](integrity-hashing.md) recalcule quand tu veux la
+    vérité.
+
+---
+
+## Le re-hachage est une file de fond, pas une étape du scan
+
+Le re-hachage tournait autrefois de façon synchrone, et c'est ce qui rendait le scan lent. Il est
+maintenant reporté dans une file bridée qui hache *« un mod à la fois, sur le pool de hash plafonné,
+avec une pause entre chacun »*. Trois plafonds s'empilent ici :
+
+- **un mod à la fois** — jamais une rafale de jobs de hachage concurrents,
+- le **pool de hash à ≤4 threads** (voir [Intégrité & hachage](integrity-hashing.md)),
+- une **pause entre les mods**, pour qu'une longue file ne monopolise pas le disque.
+
+Résultat : un gros import termine son travail *visible* immédiatement et pose ses hashs en arrière-plan,
+au lieu de bloquer sur des gigaoctets de lectures.
+
+---
+
+## Les archives sont listées, pas extraites
+
+Un mod archivé (`.zip`, `.7z`, `.rar`) n'est jamais décompressé dans ton dossier mods. Lister ses
+fichiers lit **l'index de l'archive seulement** — pour 7z et rar, l'en-tête — donc ajouter un mod
+archivé coûte une lecture de métadonnées, pas une extraction. C'était un vrai correctif de démarrage :
+extraire un gros `.zip` sous le verrou d'état figeait la fenêtre.
+
+L'extraction est paresseuse, vers un dossier de cache indexé par *« le nom + la taille + la mtime de
+l'archive, donc modifier l'archive l'invalide »*. Et parce que la vue extraite a les mêmes chemins
+relatifs et les mêmes tailles qu'un dossier décompressé, *« chaque fonctionnalité de BMM (SHA /
+content-id / rapport d'intégrité / conflits) donne des résultats IDENTIQUES pour un mod archivé et son
+jumeau décompressé »*.
+
+---
+
+## Ce qui se passe quand un disque est débranché
+
+Les dossiers d'un profil peuvent vivre sur un disque externe, et BMM le gère explicitement au lieu de
+traiter un disque absent comme un disque vide :
+
+- La liste de mods n'est **pas purgée**. Un scan qui ne trouve aucun fichier sur une racine
+  inaccessible garde les entrées existantes — *« Garder ce qu'on avait déjà et réessayer quand le
+  disque revient — ne pas brasser l'état hors ligne. »* Débrancher un disque n'efface ni tes mods ni
+  ta liste active.
+- Le hachage est **sauté** pour une racine inaccessible, au lieu d'enregistrer des hashs vides ou
+  ratés : un contrôle d'intégrité ultérieur n'est donc pas empoisonné par un scan hors ligne.
+- La liste de fichiers en cache est conservée telle quelle, la Bibliothèque continue donc de te montrer
+  ce qui est sur ce disque.
+
+Rebranche-le et le scan suivant réconcilie normalement. Ce que BMM ne peut pas corriger pour toi, c'est
+une **lettre de lecteur qui change** — les profils stockent des chemins absolus, donc `E:\Mods` devenu
+`F:\Mods` demande de corriger le chemin à la main.
+
+---
 
 ## Ce qu'un scan ne fait jamais
 
-Un scan est strictement en lecture seule. Il construit une connaissance ; il ne modifie, ne déplace ni
-ne supprime jamais un mod. Les fichiers non reconnus sont listés pour que vous les nommiez ou les
-[mappiez](mapper.md), pas touchés.
+Un scan est strictement **en lecture seule**. Il construit de la connaissance ; il ne modifie, ne
+déplace et ne supprime jamais un mod. Les fichiers non reconnus sont listés pour que tu les nommes ou
+les [mappes](mapper.md), pas touchés. Rien dans le chemin de scan n'écrit dans ton dossier de jeu —
+ça n'arrive que quand tu actives quelque chose.
 
 !!! info "À voir dans l'app"
-    Aide &amp; autre → Développeur → **Cache mtime** et **Synchro des mods** ; le tutoriel **Scan**.
+    Aide & autres → Développeur → **Cache mtime** et **Synchro des mods** ; le tutoriel **Scan**.
