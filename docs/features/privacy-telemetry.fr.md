@@ -34,6 +34,26 @@ graph TD
 - Tout s'accumule d'abord dans un **fichier local (plafond 10 Mo)** et n'est envoyé qu'en lots
   gzip via **HTTPS** — sans endpoint configuré, les données ne quittent jamais ta machine.
 
+## À quoi ressemble vraiment un replay de session
+
+Plutôt que de le décrire, en voici un. C'est un vrai `.bmmreplay` rejoué dans le navigateur par le
+même lecteur rrweb que celui de l'app — le DOM est rejoué, ce n'est donc **pas une vidéo** : le texte
+reste du texte, et tu vois le masquage à l'œuvre.
+
+<div class="bmm-replay"
+     data-src="../assets/replays/bmm-demo.bmmreplay"
+     data-title="Une session BMM masquée, rejouée dans le navigateur"></div>
+
+!!! note "Il se charge à la demande"
+
+    Le lecteur ne récupère l'enregistrement que quand tu appuies sur lecture — un replay est un flux
+    d'événements JSON et celui-ci pèse environ 25 Mo, il n'est donc jamais tiré à la simple ouverture
+    de la page.
+
+Remarque que les noms de mods et de profils s'affichent en `••••`. C'est le masquage par défaut, et
+c'est ce qui est *enregistré* — les valeurs démasquées n'entrent jamais dans le fichier, il n'y a donc
+rien à fuiter plus tard. L'interrupteur *Complet* est ce qui change ça, et il est délibérément séparé.
+
 ## Tes contrôles (Paramètres → Confidentialité)
 
 - Interrupteur principal, plus des interrupteurs séparés pour le rapport benchmark / matériel

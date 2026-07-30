@@ -33,6 +33,25 @@ graph TD
 - Everything buffers to a **local file (10 MB cap)** first and is only uploaded as gzip batches
   over **HTTPS** — if no endpoint is configured, data never leaves your machine.
 
+## What a session replay actually looks like
+
+Rather than describe it, here is one. This is a real `.bmmreplay` played back in the browser by the
+same rrweb player the app uses — the DOM is replayed, so it is **not a video**: text stays text, and
+you can see the masking in action.
+
+<div class="bmm-replay"
+     data-src="../assets/replays/bmm-demo.bmmreplay"
+     data-title="A masked BMM session, replayed in the browser"></div>
+
+!!! note "It loads on demand"
+
+    The player only fetches the recording when you press play — a replay is a JSON event stream and
+    this one is around 25 MB, so it is never pulled in just by opening the page.
+
+Notice that mod and profile names read as `••••`. That is the default masking, and it is what gets
+recorded — the unmasked values never enter the file at all, so there is nothing to leak later. The
+*Full* switch is what changes that, and it is deliberately separate.
+
 ## Your controls (Settings → Privacy)
 
 - Master toggle, plus separate toggles for the 7-day benchmark / extra-hardware report and
