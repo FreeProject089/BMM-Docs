@@ -39,3 +39,32 @@ graph TD
 
     Editing a pack regenerates its launcher and shortcut in place — the desktop shortcut keeps
     working. Deleting a pack removes its folder and shortcut cleanly.
+
+## Running one from outside BMM
+
+A pack is not only a button in Settings. It is addressable, which is what makes it useful in a wider
+setup:
+
+| From | How |
+|---|---|
+| A link, a `.bat`, a website, another app | `bmm://launchpack/run?id=<pack id>` |
+| The local HTTP API | `POST /api/launchpack/run` with `{"id": "…"}` |
+| The scheduler | the *Run launch pack* action — so a pack can fire on a trigger, not just a click |
+| The script generator | the same action, emitted as a deeplink or an HTTP call |
+
+See the [Action reference](../reference/actions.md) and the [API reference](../reference/api.md).
+
+## Why nothing flashes
+
+Every process BMM spawns goes through a helper that sets Windows' `CREATE_NO_WINDOW` flag. Without it,
+console programs (`cmd`, `powershell`, `python`, a `.bat`…) pop a black window for a split second in a
+release build — which is exactly the kind of flicker a user learns to ignore. Making the legitimate
+ones silent is what makes an unexpected window meaningful.
+
+!!! note "A pack name is sanitised before it becomes a path"
+
+    The name you type becomes a folder and a shortcut on disk, so it is confined to the pack directory
+    — *"so the shortcut can never be written outside the pack dir (e.g. the Startup auto-run folder →
+    persistence)"*. That guard exists specifically because a shortcut planted in Windows' Startup
+    folder is a persistence mechanism, not just a stray file. See
+    [Security](../how-it-works/security.md).

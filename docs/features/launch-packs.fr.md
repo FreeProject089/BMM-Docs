@@ -41,3 +41,33 @@ graph TD
 
     Modifier un pack régénère son lanceur et son raccourci sur place — le raccourci bureau
     continue de fonctionner. Supprimer un pack retire proprement son dossier et son raccourci.
+
+## Lancer un pack depuis l'extérieur de BMM
+
+Un pack n'est pas seulement un bouton dans les Réglages. Il est adressable, et c'est ce qui le rend
+utile dans une installation plus large :
+
+| Depuis | Comment |
+|---|---|
+| Un lien, un `.bat`, un site, une autre app | `bmm://launchpack/run?id=<id du pack>` |
+| L'API HTTP locale | `POST /api/launchpack/run` avec `{"id": "…"}` |
+| Le planificateur | l'action *Exécuter un launch pack* — un pack peut donc partir sur un déclencheur, pas seulement sur un clic |
+| Le générateur de scripts | la même action, émise en deeplink ou en appel HTTP |
+
+Voir la [Référence des actions](../reference/actions.md) et la [Référence API](../reference/api.md).
+
+## Pourquoi rien ne clignote
+
+Chaque processus lancé par BMM passe par un helper qui pose le drapeau `CREATE_NO_WINDOW` de Windows.
+Sans lui, les programmes console (`cmd`, `powershell`, `python`, un `.bat`…) font apparaître une
+fenêtre noire une fraction de seconde en build release — exactement le genre de clignotement qu'un
+utilisateur apprend à ignorer. Rendre les légitimes silencieuses est ce qui rend une fenêtre
+inattendue signifiante.
+
+!!! note "Un nom de pack est assaini avant de devenir un chemin"
+
+    Le nom que tu tapes devient un dossier et un raccourci sur le disque, il est donc confiné au
+    dossier du pack — *« pour que le raccourci ne puisse jamais être écrit hors du dossier du pack
+    (ex. le dossier Démarrage auto-exécuté → persistance) »*. Cette garde existe précisément parce
+    qu'un raccourci planté dans le dossier Démarrage de Windows est un mécanisme de persistance, pas
+    juste un fichier égaré. Voir [Sécurité](../how-it-works/security.md).

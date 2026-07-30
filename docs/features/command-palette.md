@@ -26,6 +26,23 @@ Two modes, toggled inside the palette:
   *upgrade* / *new version*, and `delete` also matches *remove*. Handy when you know *what* you want
   but not what BMM calls it.
 
+## One registry behind both
+
+The palette and the shortcuts manager are not two lists that have to be kept in step — they are two
+views of **one command registry**. A command is registered once, with its title, keywords and the
+function it runs; the palette renders it as a search result and the shortcuts page renders it as a
+bindable row.
+
+```mermaid
+flowchart LR
+    REG["Command registry<br/>(title · keywords · action)"] --> PAL["Ctrl+K palette<br/>classic + semantic search"]
+    REG --> KEY["Settings → Keyboard shortcuts<br/>rebind · reset · clear"]
+    NAV["Custom navbar pages"] --> REG
+```
+
+That is why a custom page you added yesterday is searchable *and* bindable today without registering
+anything by hand, and why a command can never appear in one place and be missing from the other.
+
 ## Rebind any shortcut
 
 The same actions live in **Settings → Keyboard shortcuts**. Click a shortcut, press the keys you

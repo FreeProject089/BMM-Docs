@@ -29,6 +29,24 @@ Deux modes, à basculer dans la palette :
   *nouvelle version*, et `supprimer` trouve aussi *retirer*. Pratique quand tu sais *ce que* tu veux
   mais pas comment BMM l'appelle.
 
+## Un seul registre derrière les deux
+
+La palette et le gestionnaire de raccourcis ne sont pas deux listes qu'il faut garder synchronisées —
+ce sont deux vues d'**un seul registre de commandes**. Une commande est enregistrée une fois, avec son
+titre, ses mots-clés et la fonction qu'elle exécute ; la palette l'affiche comme résultat de recherche
+et la page des raccourcis comme ligne réassignable.
+
+```mermaid
+flowchart LR
+    REG["Registre de commandes<br/>(titre · mots-clés · action)"] --> PAL["Palette Ctrl+K<br/>recherche classique + sémantique"]
+    REG --> KEY["Réglages → Raccourcis clavier<br/>réassigner · défaut · effacer"]
+    NAV["Pages de navbar perso"] --> REG
+```
+
+C'est pour ça qu'une page perso ajoutée hier est cherchable *et* assignable aujourd'hui sans rien
+enregistrer à la main, et pourquoi une commande ne peut jamais apparaître d'un côté et manquer de
+l'autre.
+
 ## Réassigner n'importe quel raccourci
 
 Les mêmes actions vivent dans **Paramètres → Raccourcis clavier**. Clique un raccourci, appuie sur les
