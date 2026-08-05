@@ -54,6 +54,30 @@ Remarque que les noms de mods et de profils s'affichent en `••••`. C'est
 c'est ce qui est *enregistré* — les valeurs démasquées n'entrent jamais dans le fichier, il n'y a donc
 rien à fuiter plus tard. L'interrupteur *Complet* est ce qui change ça, et il est délibérément séparé.
 
+### Où vit un enregistrement pendant qu'il se fait
+
+L'**enregistreur de session local** (celui qui alimente les rapports de crash et la liste des replays)
+écrit sur le disque au fil de l'eau, au lieu de garder la session dans l'app :
+
+| | |
+|---|---|
+| Pendant l'enregistrement | Les événements sont ajoutés à un spool sous `Spool/` dans le dossier de données, par lots de 512 Ko ou 200 événements au plus, vidés au moins toutes les 3 secondes |
+| Coût mémoire | Environ un demi-mégaoctet, quelle que soit la durée — le `.bmmreplay` assemblé n'est jamais construit dans l'app, même à l'export |
+| Historique conservé | Une fenêtre glissante de **512 Mo** sur le disque. Les plus vieux segments partent en premier, et chaque segment commence par un snapshot complet : ce qui reste se lit toujours |
+| Si BMM est tué | Il manque au pire les dernières secondes. Une entrée finale à moitié écrite est détectée et ignorée à l'assemblage |
+| Replays sauvegardés | Plafonnés séparément par tes réglages de rétention (nombre + taille totale) |
+
+C'est pour ça qu'une session longue ou inactive ne te coûte plus rien : avant, tout restait en mémoire
+et l'ensemble était re-sérialisé toutes les 45 secondes, ce qui rendait une longue session coûteuse et
+la forçait à jeter son historique.
+
+!!! note "Le Replay Studio des DevTools fonctionne autrement"
+
+    Le Studio (un enregistrement délibéré et surveillé, avec cadre de capture, pause/reprise et trim)
+    garde ses événements en mémoire, parce qu'il en a besoin pour compresser les pauses et appliquer le
+    trim. Il est borné à 64 Mo et **arrête la prise** quand il y arrive, en te le disant — ce qu'il a
+    déjà est complet et lisible.
+
 ## Tes contrôles (Paramètres → Confidentialité)
 
 - Interrupteur principal, plus des interrupteurs séparés pour le rapport benchmark / matériel

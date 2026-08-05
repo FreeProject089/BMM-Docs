@@ -52,6 +52,30 @@ Notice that mod and profile names read as `••••`. That is the default ma
 recorded — the unmasked values never enter the file at all, so there is nothing to leak later. The
 *Full* switch is what changes that, and it is deliberately separate.
 
+### Where a recording lives while it is being made
+
+The **local session recorder** (the one that feeds crash reports and the replay list) writes to disk
+as it goes rather than holding the session in the app:
+
+| | |
+|---|---|
+| While recording | Events are appended to a spool under `Spool/` in the app-data folder, in batches of at most 512 KB or 200 events, flushed at least every 3 seconds |
+| Memory cost | About half a megabyte, whatever the session length — the assembled `.bmmreplay` is never built inside the app, even when you export it |
+| History kept | A rolling **512 MB** window on disk. Oldest segments are dropped first, and each segment starts with a full snapshot, so what remains always plays |
+| If BMM is killed | At most the last few seconds are missing. A half-written final entry is detected and skipped when the file is assembled |
+| Saved replays | Capped separately by your retention settings (count + total size) |
+
+This is why a long or idle session no longer costs you anything: it used to keep everything in memory
+and re-serialise all of it every 45 seconds, which is what made a long session expensive and forced
+it to throw history away.
+
+!!! note "The DevTools Replay Studio works differently"
+
+    The Studio (a deliberate, attended recording with a capture frame, pause/resume and a trim) keeps
+    its events in memory, because it needs them to compress pauses and apply the trim. It is bounded
+    at 64 MB and **stops the take** when it gets there, telling you so — what it already has is
+    complete and playable.
+
 ## Your controls (Settings → Privacy)
 
 - Master toggle, plus separate toggles for the 7-day benchmark / extra-hardware report and

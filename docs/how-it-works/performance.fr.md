@@ -138,6 +138,24 @@ Chacun de ces points est une vraie régression trouvée puis corrigée, avec la 
 
 ---
 
+## Rien de gros ne passe par la mémoire
+
+La même discipline s'applique aux octets qui arrivent du réseau ou partent vers une archive : ils sont
+**streamés**, jamais bufferisés en entier. Ça n'a pas toujours été le cas, et les défaillances avaient
+toutes la même forme — un pic mémoire égal à la taille du payload, sans plafond ni vérification :
+
+| Chemin | Maintenant |
+|---|---|
+| Ajouter un mod depuis une URL | Streame vers un `.part`, renifle la signature zip depuis le fichier, extrait via un reader. Avant, il bufferisait le mod entier **et gardait ce tampon vivant** pendant l'extraction depuis un curseur dessus |
+| Synchro de dépôt, mod archivé | Streame. Le chemin par fichier le faisait déjà ; le chemin archive — souvent la plus grosse chose qu'une synchro déplace — non |
+| Installation depuis le catalogue d'apps | Hache au fil du streaming, puis renomme après le contrôle SHA-256 |
+| Import de modpack | Streame vers le zip temporaire qu'il allait de toute façon écrire |
+| Export zip | Copie chaque entrée via un reader au lieu de lire les fichiers entiers en mémoire |
+| Enregistrement de session | Spoolé sur disque au fil de l'eau ; le `.bmmreplay` est assemblé en streaming (voir [Confidentialité & télémétrie](../features/privacy-telemetry.md)) |
+
+La règle à retenir : si la destination est un fichier, écris dans le fichier. Un tampon intermédiaire
+n'apporte rien et transforme une grosse entrée en plantage mémoire.
+
 ## Le régime de WebView2
 
 Avant même que le webview démarre, les fonctionnalités dont BMM ne se sert pas sont coupées — *« Retire

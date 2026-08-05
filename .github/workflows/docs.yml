@@ -31,13 +31,25 @@ jobs:
         with:
           lfs: true
 
-      - name: Replay assets are real files, not LFS pointers
+      # Both failure modes here are SILENT on the published site — the player just shows
+      # nothing — so they have to be caught at build time.
+      - name: Replay assets are real files, and every embed resolves
         run: |
           for f in docs/assets/replays/*.bmmreplay; do
             head -c 40 "$f" | grep -q 'version https://git-lfs' \
               && { echo "::error file=$f::LFS pointer, not the recording — checkout needs lfs: true"; exit 1; }
           done
-          echo "OK: $(ls docs/assets/replays/*.bmmreplay | wc -l) replay file(s) resolved"
+          missing=0
+          # Every data-src the pages point at must actually exist. `mkdocs --strict` only
+          # validates markdown links, not raw HTML attributes, so a renamed or never-recorded
+          # clip sails straight through it.
+          grep -rho 'replays/[a-z0-9-]*\.bmmreplay' docs --include='*.md' | sort -u | while read -r ref; do
+            name="${ref#replays/}"
+            [ "$name" = "your-recording.bmmreplay" ] && continue   # the example in the README
+            [ -f "docs/assets/replays/$name" ] || { echo "::error::embedded replay not found: $name"; exit 1; }
+          done || missing=1
+          [ "$missing" = "0" ] || exit 1
+          echo "OK: $(ls docs/assets/replays/*.bmmreplay | wc -l) replay file(s), all embeds resolve"
 
       - uses: actions/setup-python@v5
         with:

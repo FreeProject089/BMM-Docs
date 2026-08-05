@@ -96,9 +96,13 @@ on your hardware.
 
 ### BMM uses a lot of memory after a while
 
-Open the DevTools window and close it again — while open it is a *~480 MB* separate process. If a
-**session recording** is running, that also holds a rolling buffer in memory; it is byte-capped, but
-turning the recorder off when you don't need it is the cheapest fix.
+Open the DevTools window and close it again — while open it is a *~480 MB* separate process.
+
+The **session recorder** is no longer a suspect: it spools its events to disk as they happen, so a
+session of any length costs the app about half a megabyte of memory. What it does use is **disk** —
+a rolling 512 MB window under `Spool/`, plus whatever your saved-replay retention allows (Settings →
+Privacy). The **DevTools Replay Studio** is the one that still buffers in memory, deliberately, and
+it stops itself at 64 MB rather than growing.
 
 ---
 

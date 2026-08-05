@@ -99,8 +99,14 @@ sur ton matériel.
 ### BMM consomme beaucoup de mémoire au bout d'un moment
 
 Ouvre la fenêtre DevTools et referme-la — tant qu'elle est ouverte, c'est un processus séparé de *~480
-Mo*. Si un **enregistrement de session** tourne, il garde aussi un tampon glissant en mémoire ; il est
-plafonné en octets, mais couper l'enregistreur quand tu n'en as pas besoin est le correctif le moins cher.
+Mo*.
+
+L'**enregistreur de session** n'est plus un suspect : il écrit ses événements sur le disque au fur et
+à mesure, donc une session de n'importe quelle durée coûte environ un demi-mégaoctet de mémoire à
+l'app. Ce qu'il consomme, c'est du **disque** — une fenêtre glissante de 512 Mo sous `Spool/`, plus ce
+que ta rétention de replays sauvegardés autorise (Réglages → Confidentialité). Le **Replay Studio** des
+DevTools est celui qui bufferise encore en mémoire, délibérément, et il s'arrête à 64 Mo au lieu de
+grossir.
 
 ---
 

@@ -339,7 +339,7 @@ is **opt-in per caller**: pinning happens when a publisher key is supplied.
 | Scheduler | The engine lives in the **frontend**; Rust only persists it and runs opt-in external commands. See [Action reference](../reference/actions.md) |
 | Themes | `--bmm-*` design tokens; the engine injects styles at runtime and never edits source files. Built-ins are files, not code |
 | i18n | Flat key→string JSON per language, read through Rust so bundled and imported languages resolve identically |
-| Telemetry & replay | Opt-in, local-first queue; rrweb captures the real DOM, masked by default |
+| Telemetry & replay | Opt-in, local-first queue; rrweb captures the real DOM, masked by default. The session recorder **spools events to disk** as they happen and the core assembles the `.bmmreplay` by streaming, so the app never holds a session |
 | Crash reporting | Circular buffer + realtime log, panic hook, and a clean-exit marker so a crash is distinguishable from a close |
 | Benchmarks | Live sampling plus a per-operation suite (scan / hash / copy / extract). See [Performance](performance.md) |
 | App catalog & launch packs | Community app feeds with sanitised downloads; named bundles launched as one action |

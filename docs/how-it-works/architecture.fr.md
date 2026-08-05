@@ -360,7 +360,7 @@ appelant** — l'épinglage a lieu quand une clé d'éditeur est fournie.
 | Planificateur | Le moteur vit dans le **frontend** ; Rust ne fait que persister et exécuter les commandes externes opt-in. Voir [Référence des actions](../reference/actions.md) |
 | Thèmes | Tokens de design `--bmm-*` ; le moteur injecte les styles à l'exécution et ne modifie jamais les fichiers source. Les thèmes intégrés sont des fichiers, pas du code |
 | i18n | Un JSON plat clé→chaîne par langue, lu à travers Rust pour que les langues intégrées et importées se résolvent identiquement |
-| Télémétrie & replay | Opt-in, file locale d'abord ; rrweb capture le vrai DOM, masqué par défaut |
+| Télémétrie & replay | Opt-in, file locale d'abord ; rrweb capture le vrai DOM, masqué par défaut. L'enregistreur de session **écrit ses événements sur le disque** au fil de l'eau et le cœur assemble le `.bmmreplay` en streaming : l'app ne détient jamais une session |
 | Rapports de crash | Buffer circulaire + journal temps réel, hook de panique, et un marqueur de sortie propre pour distinguer un crash d'une fermeture |
 | Benchmarks | Échantillonnage live plus une suite par opération (scan / hash / copie / extraction). Voir [Performance](performance.md) |
 | Catalogue d'apps & launch packs | Flux d'apps communautaires avec téléchargements assainis ; des lots nommés lancés en une action |

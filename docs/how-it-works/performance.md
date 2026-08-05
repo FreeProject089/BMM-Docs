@@ -132,6 +132,24 @@ Each of these is a real regression that was found and fixed, with the cause on r
 
 ---
 
+## Nothing large passes through memory
+
+The same discipline applies to bytes arriving from the network or leaving for an archive: they are
+**streamed**, never buffered whole. That was not always true, and the failures were all the same
+shape — peak memory equal to whatever the payload happened to be, with no cap and no size check:
+
+| Path | Now |
+|---|---|
+| Adding a mod from a URL | Streams to a `.part`, sniffs the zip magic from the file, extracts through a reader. It used to buffer the whole mod **and keep that buffer alive** while extracting from a cursor over it |
+| Repo sync, archived mod | Streams. The per-file path already did; the archive path — routinely the largest thing a sync moves — did not |
+| App catalog install | Hashes incrementally while streaming, then renames after the SHA-256 gate |
+| Modpack import | Streams to the temp zip it was always going to write anyway |
+| Zip export | Copies each entry through a reader instead of reading whole files into memory |
+| Session recording | Spooled to disk as it happens; the `.bmmreplay` is assembled by streaming (see [Privacy & telemetry](../features/privacy-telemetry.md)) |
+
+The rule to keep: if the destination is a file, write to the file. A buffer in between buys nothing
+and turns a large input into an out-of-memory crash.
+
 ## The WebView2 diet
 
 Before the webview even starts, features BMM doesn't use are switched off — *"Cuts ~50-150MB off the

@@ -7,7 +7,7 @@ questions : combien d'espace il reste, à quelle vitesse va chaque disque, et ju
 de solliciter tes disques.
 
 <div class="bmm-replay"
-     data-src="../assets/replays/storage.bmmreplay"
+     data-src="../assets/replays/bmm-demo.bmmreplay"
      data-title="Le Gestionnaire de Stockage (clip provisoire)"></div>
 
 *Enregistrement provisoire — un clip ciblé de cet écran le remplacera.*
