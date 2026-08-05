@@ -225,6 +225,32 @@ bmm://api?method=POST&path=/api/mods/enable&mod_id=my-mod
 (the admin token bypasses it). **DL** = has a dedicated deeplink; everything else goes through
 `bmm://api`.
 
+### The response envelope
+
+Every endpoint that returns a **list** wraps it:
+
+```json
+{ "ok": true, "data": [ … ] }
+```
+
+So it is `body.data`, not `body.mods` / `body.profiles` / `body.modpacks`. This applies to
+`/api/mods`, `/api/mods/active`, `/api/profiles`, `/api/plugins`, `/api/modpacks` and
+`/api/repo/list`.
+
+Two shapes sit outside that rule:
+
+| Endpoint | Shape |
+|---|---|
+| `/api/mods/all` | `{ ok, profiles: […], total_mods }` — grouped, so the array is named |
+| `/api/health`, `/api/status`, `/api/creator-id` | flat objects; no `data`, no wrapper |
+
+!!! warning "Do not guess this from the field names"
+
+    A client that reads `body.profiles` from `/api/profiles` gets `undefined` and then fails on
+    the next line, usually with something unrelated-looking like *"x.filter is not a function"*.
+    It is worth writing the unwrap once — and worth testing it against the **real** app rather
+    than a stub, because a stub built from the same wrong guess will happily confirm it.
+
 ### Reading
 
 | Method | Path | Auth | Returns |

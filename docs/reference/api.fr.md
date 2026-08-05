@@ -230,6 +230,33 @@ bmm://api?method=POST&path=/api/mods/enable&mod_id=my-mod
 droit est requis (le token admin le contourne). **DL** = possède un deeplink dédié ; tout le reste
 passe par `bmm://api`.
 
+### L'enveloppe de réponse
+
+Chaque endpoint qui renvoie une **liste** l'enveloppe :
+
+```json
+{ "ok": true, "data": [ … ] }
+```
+
+C'est donc `body.data`, pas `body.mods` / `body.profiles` / `body.modpacks`. Ça vaut pour
+`/api/mods`, `/api/mods/active`, `/api/profiles`, `/api/plugins`, `/api/modpacks` et
+`/api/repo/list`.
+
+Deux formes échappent à la règle :
+
+| Endpoint | Forme |
+|---|---|
+| `/api/mods/all` | `{ ok, profiles: […], total_mods }` — groupé, donc le tableau est nommé |
+| `/api/health`, `/api/status`, `/api/creator-id` | objets plats ; ni `data`, ni enveloppe |
+
+!!! warning "Ne devine pas ça d'après les noms de champs"
+
+    Un client qui lit `body.profiles` sur `/api/profiles` récupère `undefined` puis échoue à la
+    ligne suivante, en général sur un message sans rapport apparent du genre *« x.filter is not a
+    function »*. Ça vaut le coup d'écrire le désenveloppage une fois — et de le tester contre
+    l'app **réelle** plutôt que contre un bouchon, parce qu'un bouchon construit sur la même
+    mauvaise hypothèse la confirmera avec plaisir.
+
 ### Lecture
 
 | Méthode | Chemin | Auth | Renvoie |
