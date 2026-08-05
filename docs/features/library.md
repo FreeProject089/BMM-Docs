@@ -1,5 +1,12 @@
 # Library
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=activation)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 The **Library** is where every mod you own lives — installed or not, from any source. If you
 only ever learn one screen in BMM, make it this one: everything else (profiles, modpacks,
 lists) is a different way of arranging what the Library holds.

@@ -1,5 +1,12 @@
 # BetterCommunity
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=catalogs)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 > News & posts from the BetterCommunity blogs, read without leaving BMM.
 
 The **BetterCommunity** screen is the project's blog, brought inside the app: announcements,

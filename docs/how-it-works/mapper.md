@@ -1,5 +1,12 @@
 # The mapper
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=mod-structure)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 BMM deploys a mod by mirroring its folder tree into the game. That only works if the mod *has* the
 right tree. Plenty of downloads don't — the author zipped from the wrong folder, or dumped loose files
 at the root. The mapper fixes that.

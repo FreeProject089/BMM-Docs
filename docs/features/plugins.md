@@ -1,5 +1,12 @@
 # Plugins & API
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=plugins)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 > Extend BMM with community plugins and automate actions.
 
 If BMM doesn't do the thing you need, this is where the thing gets added — without waiting

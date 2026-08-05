@@ -1,5 +1,12 @@
 # Modpacks
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=modpacks)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 A modpack is a **named bundle of mods you can toggle in one click**. Where a
 [profile](profiles.md) is "my setup for this game", a modpack is "this group of mods,
 together" — and BMM's own screen calls the action *Quick Apply*: click to toggle a modpack

@@ -1,5 +1,12 @@
 # Command palette & shortcuts
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=command-palette)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 Press <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>Cmd</kbd>+<kbd>K</kbd> on macOS) anywhere in BMM to open the
 **command palette** — a single search box laid over every page and every action. Type a few letters,
 move with <kbd>↑</kbd> / <kbd>↓</kbd>, and press <kbd>Enter</kbd> to run.

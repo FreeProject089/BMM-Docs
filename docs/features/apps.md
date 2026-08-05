@@ -1,5 +1,12 @@
 # App Catalog
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=catalogs)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 > Browse & install apps in one click.
 
 The tools *around* modding — the ones you'd otherwise hunt down on five different sites. The

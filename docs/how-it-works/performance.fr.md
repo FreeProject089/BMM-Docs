@@ -1,5 +1,12 @@
 # Performances
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=benchmarks)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Modder, c'est déplacer beaucoup d'octets. Le rôle de BMM est de le faire vite **et** de garder ta
 machine utilisable pendant ce temps — et quand ces deux objectifs s'opposent, **la réactivité
 gagne**. Presque tous les chiffres de cette page sont un sacrifice délibéré de débit maximal pour

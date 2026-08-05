@@ -1,5 +1,12 @@
 # Le mappeur
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=mod-structure)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 BMM déploie un mod en recopiant son arborescence dans le jeu. Cela ne marche que si le mod *possède* la
 bonne arborescence. Beaucoup de téléchargements non — l'auteur a zippé depuis le mauvais dossier, ou a
 jeté des fichiers en vrac à la racine. Le mappeur corrige ça.

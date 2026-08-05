@@ -1,5 +1,12 @@
 # Profils & activation
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=activation)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Un profil est un petit enregistrement — un nom, **trois dossiers**, et une **liste ordonnée des mods
 activés**. Il ne stocke aucun fichier de mod. C'est pour ça que tu peux avoir une douzaine de profils
 pour presque rien.

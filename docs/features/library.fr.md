@@ -1,5 +1,12 @@
 # Bibliothèque
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=activation)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 La **Bibliothèque**, c'est là que vit chacun de tes mods — installé ou non, quelle que soit
 sa provenance. Si tu ne devais apprendre qu'un seul écran de BMM, prends celui-là : tout le
 reste (profils, modpacks, listes) n'est qu'une façon différente d'organiser ce qu'elle

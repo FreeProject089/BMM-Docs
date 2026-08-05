@@ -1,5 +1,12 @@
 # Storage & disk I/O
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=storage-manager)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 > Speed limits per disk, space alerts, and how BMM copies files without freezing your PC.
 
 Open it from **Settings → Storage → Open the Storage Manager**. It answers three questions: how

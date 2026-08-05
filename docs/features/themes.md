@@ -1,5 +1,12 @@
 # Themes & Appearance
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=themes) · [Open the theme editor](bmm://theme/editor)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 > Customise every colour, font and element of BMM. Share themes in one click.
 
 Not a light/dark switch. BMM ships **twelve** built-in themes (dark and light) and an editor

@@ -1,5 +1,12 @@
 # Stockage & E/S disque
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=storage-manager)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 > Limites de vitesse par disque, alertes d'espace, et comment BMM copie les fichiers sans figer ton PC.
 
 Ouvre-le depuis **Réglages → Stockage → Ouvrir le Gestionnaire de Stockage**. Il répond à trois

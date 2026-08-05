@@ -1,5 +1,12 @@
 # Thèmes & Apparence
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=themes) · [Ouvrir l'éditeur de thème](bmm://theme/editor)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 > Personnalise chaque couleur, police et élément de BMM. Partage tes thèmes en un clic.
 
 Ce n'est pas un interrupteur clair/sombre. BMM livre **douze** thèmes intégrés (sombres et

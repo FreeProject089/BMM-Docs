@@ -1,5 +1,12 @@
 # Mapper
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=mod-structure)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Certains mods sont mal empaquetés. Les fichiers sont bons ; les dossiers autour, non. Le
 Mapper corrige ça sans que tu dézippes quoi que ce soit à la main.
 

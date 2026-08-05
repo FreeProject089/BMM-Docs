@@ -1,5 +1,12 @@
 # API & deeplink reference
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=api-reference)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 BMM exposes two ways to drive it from outside: **deeplinks** (`bmm://…`, no token, fired at the
 running window) and a **local HTTP API** (token, `127.0.0.1` only). Everything here comes from the
 app's own registries, so it matches what *Plugins & API* shows in-app.

@@ -1,5 +1,12 @@
 # Launch packs
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=launch-packs)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Un **launch pack** est un groupe nommé d'**applications** lancées ensemble en un clic — ton jeu
 plus les outils compagnons que tu ouvres toujours avec (une appli vocale, un tracker, un outil
 de head-tracking…).

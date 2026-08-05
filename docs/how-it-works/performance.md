@@ -1,5 +1,12 @@
 # Performance
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=benchmarks)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 Modding means moving a lot of bytes. BMM's job is to do that fast **and** keep your machine usable
 while it happens — and when those two fight, **responsiveness wins**. Almost every number on this
 page is a deliberate sacrifice of peak throughput to avoid a frozen window.

@@ -1,5 +1,12 @@
 # Action reference
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=actions-reference)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 Every action BMM can perform for you, in one place. There are **two catalogues** — they overlap
 in capability but are separate systems:
 

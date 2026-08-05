@@ -1,5 +1,12 @@
 # Intégrité & hachage
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=scan)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Un mod n'est utile que s'il contient les *bons* octets. Un téléchargement tronqué, un disque
 capricieux ou un fichier altéré ne doivent jamais atteindre ton jeu silencieusement. La réponse de
 BMM : hacher tout et comparer — et être précis sur **quel** hash, parce qu'il en fait tourner deux

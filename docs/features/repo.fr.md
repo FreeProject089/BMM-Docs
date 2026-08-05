@@ -1,5 +1,12 @@
 # Dépôt Serveur
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=server-host) · [Ouvrir la génération de dépôt](bmm://repo/gen)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Un **Dépôt Serveur** est une collection de mods partagée et versionnée. Deux flux le
 traversent : tu **synchronises** des mods *depuis* un dépôt vers un profil, et BMM s'en sert
 pour te prévenir quand ces mods ont une **mise à jour**. Tu peux aussi en **héberger** un

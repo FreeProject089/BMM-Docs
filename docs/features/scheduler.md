@@ -1,5 +1,12 @@
 # Scheduling & automation
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=scheduler)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 > Schedule BMM actions (one-time or recurring) — activate a mod, modpack, profile…
 
 Reachable from [Plugins & API](plugins.md). This is the part of BMM that does things while

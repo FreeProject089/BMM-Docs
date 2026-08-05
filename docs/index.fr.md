@@ -69,3 +69,31 @@ mods : autant connaître le mot maintenant. Voir [Bibliothèque](features/librar
     intégré (profil d'exemple, mods d'exemple et un modpack, nettoyés automatiquement) pour
     t'entraîner sans risquer une vraie installation. Si tu apprends en faisant plutôt qu'en
     lisant, commence là et garde ce site en référence.
+
+## Lire ce site à côté de l'app
+
+Cette doc et le hub **Aide & autres** de BMM sont deux vues du même contenu, et elles sont reliées
+l'une à l'autre exprès :
+
+- Chaque article in-app a un bouton **Lire la doc complète** qui ouvre *sa* page ici — pas
+  l'accueil. La version in-app est la réponse courte, juste à côté des boutons qui font la chose ;
+  ce site est la réponse longue, avec les diagrammes et les tables de référence.
+- Les pages d'ici portent un lien **Ouvrir dans BMM** qui saute directement à l'écran ou à l'article
+  correspondant dans l'app.
+
+### Comment marchent les liens `bmm://`
+
+Un lien *Ouvrir dans BMM* est un **deeplink** — une URL que ton OS remet à BMM, le même mécanisme que
+les boutons d'installation en un clic de BetterCommunity.
+
+| | |
+|---|---|
+| **BMM doit déjà tourner** | Le lien est remis à la fenêtre ouverte ; il ne lancera pas l'app pour toi |
+| **Rien ne se passe en silence** | Chaque deeplink affiche un toast à l'arrivée, et ceux qui pourraient te surprendre — connecter un dépôt, s'abonner à un catalogue, tout appel d'API autre que `GET` — demandent d'abord |
+| **Ton navigateur demandera une fois** | La première fois, il veut la permission d'ouvrir une application externe. Cette demande vient du navigateur, pas de BMM |
+| **Tu peux tous les couper** | Un coupe-circuit global refuse chaque deeplink |
+
+La liste complète de ce qu'un deeplink peut faire — 49, plus chaque endpoint HTTP — est dans la
+[Référence API & deeplinks](reference/api.md).
+
+<a class="md-button" href="bmm://docs/open">Ouvrir Aide &amp; autres dans BMM</a>

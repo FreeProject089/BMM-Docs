@@ -1,5 +1,12 @@
 # Palette de commandes & raccourcis
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=command-palette)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Appuie sur <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>Cmd</kbd>+<kbd>K</kbd> sur macOS) n'importe où dans BMM
 pour ouvrir la **palette de commandes** — une seule barre de recherche par-dessus toutes les pages et
 toutes les actions. Tape quelques lettres, déplace-toi avec <kbd>↑</kbd> / <kbd>↓</kbd>, et appuie sur

@@ -1,5 +1,12 @@
 # Integrity & hashing
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=scan)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 A mod is only useful if it's the *right* bytes. A truncated download, a flaky drive, or a tampered
 file should never reach your game silently. BMM's answer is to hash everything and compare — and to
 be precise about **which** hash, because it runs two of them on purpose.

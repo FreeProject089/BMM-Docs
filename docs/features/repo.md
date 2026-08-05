@@ -1,5 +1,12 @@
 # Server Repo
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=server-host) · [Open repo generation](bmm://repo/gen)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 A **Server Repo** is a shared, versioned collection of mods. Two things flow through it: you
 **sync** mods *from* a repo into a profile, and BMM uses the repo to tell you when those mods
 have an **update**. You can also **host** one yourself. Without a repo, a mod you installed by

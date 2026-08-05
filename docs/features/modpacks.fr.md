@@ -1,5 +1,12 @@
 # Modpacks
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=modpacks)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Un modpack est un **lot de mods nommé, activable en un clic**. Là où un
 [profil](profiles.md) répond à « ma configuration pour ce jeu », un modpack répond à « ce
 groupe de mods, ensemble » — et l'écran de BMM appelle l'action *Quick Apply* : un clic

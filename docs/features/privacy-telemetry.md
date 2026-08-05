@@ -1,5 +1,12 @@
 # Privacy, telemetry & offline
 
+!!! tip "Open in BMM"
+
+    The app has a shorter version of this page, sitting next to the buttons that do the work.
+    [Open it in Help &amp; other](bmm://docs/open?article=privacy-telemetry)
+    — BMM must already be running. [What these links are](../index.md#how-the-bmm-links-work)
+
+
 ## Telemetry is opt-in
 
 Until you explicitly accept the consent dialog, **nothing is collected at all** — the tracker

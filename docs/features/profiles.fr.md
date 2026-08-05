@@ -1,5 +1,12 @@
 # Profils
 
+!!! tip "Ouvrir dans BMM"
+
+    L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
+    [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=first-profile)
+    — BMM doit déjà tourner. [Ce que sont ces liens](../index.md#comment-marchent-les-liens-bmm)
+
+
 Un profil est une réponse enregistrée à « quels mods sont actifs, dans quel ordre, pour ce
 jeu ». C'est l'écran sur lequel tout le reste s'appuie — l'onboarding de BMM l'appelle
 lui-même *ton point de départ*.
