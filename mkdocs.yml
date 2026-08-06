@@ -79,6 +79,7 @@ plugins:
             BetterCommunity: BetterCommunity
             Settings: Paramètres
             Command palette & shortcuts: Palette de commandes & raccourcis
+            GitHub rate limits & the Personal Access Token: Limites GitHub et le jeton d'accès personnel
             Launch packs: Launch packs
             Privacy, telemetry & offline: Confidentialité, télémétrie & hors ligne
             Scheduling & automation: Planification & automatisation
@@ -159,6 +160,7 @@ nav:
       - reference/actions.md
       - reference/tips.md
       - reference/troubleshooting.md
+      - reference/github-pat.md
       - reference/credits.md
 
 extra:
