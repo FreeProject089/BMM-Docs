@@ -141,3 +141,55 @@ body {
 .bmm-replay-poster { min-height: 220px; }
 .bmm-replay-play { background: var(--bmm-blue); }
 .bmm-replay-play:hover { background: var(--bmm-blue-2); }
+
+/* ── Sidebar: make the sections readable as sections ──────────────────────
+   With navigation.sections Material renders a section label that looks almost
+   exactly like the pages under it — same size, same colour, same indent — so a
+   36-page nav reads as one long undifferentiated list. These give each section
+   a header treatment and a visible group, and put the current page on a rail. */
+
+/* The section title itself: small, spaced, quiet — a label, not a link. */
+.md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav__link,
+.md-nav--primary > .md-nav__list > .md-nav__item--section > label.md-nav__link {
+  margin: 1.1rem 0 .3rem;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--md-default-fg-color--light);
+  opacity: 1;
+}
+.md-nav--primary > .md-nav__list > .md-nav__item--section:first-child > .md-nav__link {
+  margin-top: .2rem;
+}
+/* A hairline above every section but the first, so the groups actually separate. */
+.md-nav--primary > .md-nav__list > .md-nav__item--section + .md-nav__item--section {
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  padding-top: .1rem;
+}
+
+/* The pages inside a section, hung off a guide line. */
+.md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav {
+  margin-left: .4rem;
+  padding-left: .55rem;
+  border-left: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-nav--primary .md-nav__item .md-nav__link {
+  border-radius: 6px;
+  padding: .18rem .4rem;
+  transition: background-color .12s, color .12s;
+}
+.md-nav--primary .md-nav__item .md-nav__link:hover {
+  background-color: var(--md-default-fg-color--lightest);
+}
+
+/* Current page: an accent rail on the guide line, not just bolder text. */
+.md-nav--primary .md-nav__item .md-nav__link--active {
+  background-color: color-mix(in srgb, var(--bmm-blue) 12%, transparent);
+  box-shadow: inset 2px 0 0 var(--bmm-blue);
+}
+
+/* The table of contents on the right gets the same guide line, so both rails
+   read as the same kind of thing. */
+.md-nav--secondary .md-nav__list { border-left: 1px solid var(--md-default-fg-color--lightest); padding-left: .55rem; }
+.md-nav--secondary .md-nav__link--active { color: var(--bmm-blue); font-weight: 700; }
