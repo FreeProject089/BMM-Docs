@@ -18,8 +18,38 @@ C'est aussi la porte d'entrée d'une plateforme plus large. BetterCommunity est 
 derrière les [Dépôts Serveur](repo.md) et les catalogues communautaires que lit l'[App
 Catalog](apps.md) ; cet écran en montre le blog, pas la totalité.
 
-<!-- TODO(content): capturer + annoter l'écran BetterCommunity (fil, puces de filtre,
-     recherche) en ../assets/screens/community.annotated.png, comme les autres pages. -->
+<!-- TODO(capture) : une capture annotée de cet écran, en
+     ../assets/screens/community.annotated.png, comme les autres pages de fonctionnalité. Le
+     texte ci-dessous décrit la même chose ; la capture est un bonus, pas un bloquant. -->
+
+## Ce qu'il y a à l'écran
+
+Quatre choses, de haut en bas :
+
+| | |
+|---|---|
+| **Les puces de filtre** | Une par espace de blog — **BMM**, **BSM**, **Installer**, **Community** — plus **Tout**, où la page démarre. Rien n'est masqué par défaut |
+| **La recherche** | Filtre les articles déjà chargés, sur le titre, l'extrait *et* le nom de l'auteur. Elle restreint ce qui est affiché ; elle n'interroge pas le serveur |
+| **L'article en vedette** | Le plus récent, avec une carte large à lui |
+| **La grille** | Tout le reste, du plus récent au plus ancien |
+
+La carte en vedette n'apparaît que si tu navigues sans filtre et sans recherche. C'est
+volontaire : une carte héros dit « voici la dernière actu », et ce serait faux si ce n'était que
+la première ligne à correspondre par hasard à ta recherche.
+
+Il y a aussi un **sélecteur de langue pour les articles**, distinct de celui de BMM. Le contenu
+du blog existe en anglais et en français ; si BMM est dans une troisième langue, les articles
+retombent sur l'anglais, et tu peux quand même les basculer à la main.
+
+## Quand il n'y a rien à montrer
+
+Trois états vides différents, parce que trois choses différentes peuvent être vraies :
+
+- **Rien dans cette section, mais des articles existent ailleurs** — tu obtiens un bouton
+  *Voir tous les articles* plutôt qu'un cul-de-sac.
+- **Rien du tout pour l'instant** — un message simple.
+- **Chargement impossible** — un bouton *Réessayer*. Le fil vient du réseau, c'est donc l'état
+  que tu verras hors ligne, et il le dit au lieu de faire croire que le blog est vide.
 
 <div class="bmm-replay"
      data-src="../assets/replays/community.bmmreplay"
