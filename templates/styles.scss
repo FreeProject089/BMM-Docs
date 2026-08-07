@@ -3,15 +3,62 @@
 // mkdocs-with-pdf compiles `<custom_template_path>/styles.scss` and appends it last, after
 // Material's own sheet, so equal-specificity rules here win. Everything structural lives in
 // _pdf-common.scss; this file is only the palette.
+//
+// The palette is set through Material's OWN custom properties rather than by overriding
+// selectors one at a time. That is not a stylistic preference — the combined PDF document
+// carries no `data-md-color-scheme` attribute (verified: the <html> tag is a bare `<html>`),
+// so every `[data-md-color-scheme="slate"]` rule in Material and in docs/assets/extra.css is
+// inert, and every component falls back to whatever `:root` says. Chasing selectors leaves
+// tables, quotes, captions and admonitions behind; setting the variables reaches all of them.
 
 @import 'pdf-common';
 
 $ink: #1a1a1a;
-$ink-soft: #4a4a4a;
 $paper: #ffffff;
-$rule: #d8d8d8;
-$link: #1a5fb4;   // 7.0:1 on white — readable, and still obviously a link
-$code-bg: #f4f4f4;
+$link: #1a5fb4;   // 7.0:1 on white
+$code-bg: #f2f3f5;
+
+:root {
+  --md-default-bg-color: #{$paper};
+  --md-default-fg-color: #{$ink};
+
+  // Material's own values here are 0.54 / 0.32 / 0.07 alpha. On screen that is fine — the
+  // eye has a backlight. On paper 0.54 black is about 4.0:1 and reads as washed out, which
+  // is the "grey on white" in table cells and captions. Raised until the softest text still
+  // clears 7:1.
+  --md-default-fg-color--light: #{rgba(#000, 0.72)};
+  --md-default-fg-color--lighter: #{rgba(#000, 0.45)};
+  --md-default-fg-color--lightest: #{rgba(#000, 0.14)};
+
+  --md-typeset-color: #{$ink};
+  --md-typeset-a-color: #{$link};
+  --md-typeset-mark-color: #fff3a3;
+  --md-typeset-del-color: #{rgba(#c62828, 0.15)};
+  --md-typeset-ins-color: #{rgba(#2e7d32, 0.15)};
+  --md-typeset-table-color: #{rgba(#000, 0.14)};
+
+  --md-code-fg-color: #{$ink};
+  --md-code-bg-color: #{$code-bg};
+  --md-code-hl-color: #{rgba(#1a5fb4, 0.1)};
+  // Material's keyword blue lands at 4.44:1 on the code background — under AA for body-size
+  // text. Measured, not guessed: the contrast probe flagged span.k and span.nt.
+  --md-code-hl-keyword-color: #1e40af;
+  --md-code-hl-name-color: #{$ink};
+
+  --md-primary-fg-color: #1e3a8a;
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: #{$link};
+
+  --md-admonition-fg-color: #{$ink};
+  --md-admonition-bg-color: #{$paper};
+
+  // extra.css paints the h1 with these; _pdf-common.scss disables that gradient, but the
+  // variables are still read elsewhere.
+  --bmm-blue: #{$link};
+  --bmm-blue-2: #{$link};
+  --bmm-blue-light: #{$link};
+  --bmm-blue-dark: #1e3a8a;
+}
 
 @media print {
   html,
@@ -20,24 +67,20 @@ $code-bg: #f4f4f4;
     color: $ink;
   }
 
-  .md-typeset {
-    color: $ink;
+  // The running header and footer the plugin draws in the page margins. Its own value is the
+  // CSS keyword `grey` — #808080, which is 3.95:1 on white. 264 fragments, two per page.
+  @page {
+    color: #4a4a4a;
   }
 
-  .md-typeset a {
-    color: $link;
+  .md-typeset {
+    color: $ink;
   }
 
   // The printed address after a link is supporting detail, not part of the sentence.
   .md-typeset a[href^="http"]::after,
   .md-typeset a[href^="bmm:"]::after {
-    color: $ink-soft;
-  }
-
-  .md-typeset pre,
-  .md-typeset code {
-    background: $code-bg;
-    color: $ink;
+    color: rgba(#000, 0.6);
   }
 
   .md-typeset table:not([class]) th {
@@ -45,17 +88,23 @@ $code-bg: #f4f4f4;
     color: $ink;
   }
 
-  .md-typeset table:not([class]) td,
-  .md-typeset table:not([class]) th {
-    border-color: $rule;
+  .md-typeset .md-button {
+    color: $link;
+    border-color: $link;
   }
 
   .bmm-replay-card {
-    border-color: $rule;
+    border-color: rgba(#000, 0.16);
     background: $code-bg;
 
     .bmm-replay-kind {
-      color: $ink-soft;
+      color: rgba(#000, 0.65);
+    }
+
+    // extra.css colours anything under the replay player for a dark surface, and the card
+    // inherits it — white on a near-white card, 1.11:1. Set it rather than hope.
+    .bmm-replay-title {
+      color: $ink;
     }
   }
 }

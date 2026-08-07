@@ -24,6 +24,47 @@ html {
   height: auto;
 }
 
+// ── The h1 bar ─────────────────────────────────────────────────────────────────────────
+//
+// docs/assets/extra.css paints h1 with a gradient and `background-clip: text`, so on the
+// site the title is the gradient. WeasyPrint does not implement background-clip, so the
+// gradient stays a solid block and the text stays transparent: every chapter opened with a
+// blue bar and an invisible title.
+.md-typeset h1 {
+  background: none !important;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: inherit;
+}
+
+// The plugin's own _heading.scss draws `article h1 { border-bottom: 2px solid #f00 }` — a
+// pure-red rule under every chapter title, which is what sat under that bar.
+article h1 {
+  border-bottom-width: 1px;
+}
+
+article h2 {
+  border-bottom-width: 1px;
+}
+
+// ── App deeplinks ──────────────────────────────────────────────────────────────────────
+//
+// `{ .md-button }` renders a full-width primary button. In a PDF that promises an action the
+// document cannot deliver: `bmm://` is a custom scheme, and most readers (Chrome's built-in
+// viewer among them) refuse to launch one. The link is kept — readers that do allow it will
+// open BMM — but it is presented as what it is, an address you can also type, rather than a
+// button that looks broken when nothing happens.
+.md-typeset .md-button {
+  display: inline;
+  padding: 0.1em 0.45em;
+  border: 1px solid;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 0.85em;
+  background: none !important;
+  box-shadow: none;
+}
+
 // ── Diagrams must never straddle a page break ──────────────────────────────────────────
 //
 // Two separate problems, and fixing only one leaves the other visible.

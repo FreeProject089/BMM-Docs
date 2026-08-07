@@ -217,8 +217,11 @@ body {
   font-size: .7rem;
   font-weight: 700;
   text-decoration: none;
-  color: var(--md-primary-bg-color, #fff);
-  background: var(--md-primary-fg-color);
+  /* Explicit rather than var(--md-primary-bg-color): under the slate scheme Material
+     resolves that to a near-black, and this button sits on a blue fill — the label came out
+     dark-on-blue and read as invisible. White on #1d4ed8 is 8.6:1 in both schemes. */
+  color: #fff;
+  background: var(--bmm-blue-2, #1d4ed8);
   transition: filter .15s;
 }
 
