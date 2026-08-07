@@ -68,11 +68,14 @@ def main() -> int:
         # Extracting every page is slow but this runs once per build, and a per-page search
         # is what makes the failure message useful ("found on page 132" vs "found").
         text = "\n".join((p.extract_text() or "") for p in reader.pages)
-        # Collapse whitespace on both sides: a phrase that wraps across a line comes back
-        # from extract_text with a newline in the middle, and would read as missing.
-        flat = " ".join(text.split())
+        # Strip whitespace entirely on both sides rather than collapsing it. Two separate
+        # extraction artefacts break a naive search: a phrase that wraps comes back with a
+        # newline in the middle, and depending on which font WeasyPrint embedded, pypdf can
+        # return every glyph individually spaced ("t e c h  s t a c k"). Both are artefacts
+        # of reading the PDF, not of its content — so ignore spacing on both sides.
+        flat = "".join(text.split())
         for needle in args.expect:
-            if " ".join(needle.split()) in flat:
+            if "".join(needle.split()) in flat:
                 print(f"  ok: {needle!r}")
             else:
                 print(f"::error::{needle!r} is not in the PDF — content was dropped")

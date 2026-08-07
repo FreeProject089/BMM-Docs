@@ -26,3 +26,8 @@ plugins:
       cover_title: BetterModsManager
       cover_subtitle: Documentation
       output_path: pdf/bettermodsmanager.pdf
+      # NOT `render_js: true`. The plugin's own browser pass is broken with current
+      # BeautifulSoup — it ends on `tag.text = ...` (generator.py:381), a read-only property,
+      # so the build dies as soon as a page has an inline <script>, which every Material page
+      # does. pdf_event_hook.py at the repo root does the same job from `pre_pdf_render`,
+      # which is what turns the 28 mermaid fences into SVG instead of printed source code.

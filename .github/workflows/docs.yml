@@ -68,7 +68,10 @@ jobs:
       - name: System deps for the PDF renderer
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libharfbuzz-subset0 libfontconfig1 shared-mime-info
+          # fonts-noto-color-emoji is not a WeasyPrint dependency — it is a content one. The
+          # docs use emoji (🎓 👍 🔥 ⭐ 🚀 …) and a runner without an emoji font renders each
+          # one as .notdef, a blank box, with only a WARNING in the log.
+          sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libharfbuzz-subset0 libfontconfig1 shared-mime-info fonts-noto-color-emoji
           # Prove every library WeasyPrint will dlopen is present, here rather than deep
           # inside a mkdocs traceback.
           for lib in libpango-1.0.so.0 libpangoft2-1.0.so.0 libharfbuzz.so.0 libharfbuzz-subset.so.0 libfontconfig.so.1 libgobject-2.0.so.0; do
@@ -95,6 +98,17 @@ jobs:
       - name: Build site
         run: mkdocs build --strict   # --strict: a broken internal link fails the build
 
+      # pdf_event_hook.py shells out to a browser to turn the mermaid fences into SVG.
+      # google-chrome is preinstalled on ubuntu-latest. The hook only WARNS when no browser
+      # is found — a contributor building locally should still get a readable PDF — so the
+      # hard failure belongs here, or CI would quietly ship a book with 28 code blocks where
+      # its diagrams should be.
+      - name: A browser for the diagram pass
+        run: |
+          command -v google-chrome >/dev/null \
+            || { echo "::error::google-chrome not found — the mermaid diagrams would print as source"; exit 1; }
+          google-chrome --version
+
       # -v so mkdocs-with-pdf's own log ("Converting N articles to PDF") and WeasyPrint's
       # warnings are in the run log. Without it a PDF that silently loses 90% of the book
       # builds exactly as quietly as a correct one — which is how the published 8-page PDF
@@ -103,15 +117,18 @@ jobs:
         run: mkdocs build -v -f mkdocs.pdf.yml   # → site/pdf/bettermodsmanager.pdf
 
       # The build cannot tell whether WeasyPrint laid out what it was handed, so read the
-      # finished file back. "View the tech stack" is on Credits, the LAST page in the nav —
-      # a truncated render still contains every early page, so only a late phrase proves it
-      # went all the way through.
+      # finished file back. "The docs site" is the last heading of Credits, the LAST page in
+      # the nav — a truncated render still contains every early page, so only a late phrase
+      # proves it went all the way through. That exact phrase because it survives extraction:
+      # depending on which fonts the runner has, pypdf returns some bold runs as unmappable
+      # glyphs, and "View the tech stack" (bold) came back missing from a PDF that plainly
+      # contained it.
       - name: The PDF contains the documentation
         run: |
           python tools/check_pdf.py site/pdf/bettermodsmanager.pdf \
-            --min-pages 40 --expect "View the tech stack"
+            --min-pages 40 --expect "The docs site"
           python tools/check_pdf.py site/fr/pdf/bettermodsmanager.pdf \
-            --min-pages 40 --expect "Voir la stack technique"
+            --min-pages 40 --expect "Le site de doc"
 
       - uses: actions/upload-artifact@v4
         with:
