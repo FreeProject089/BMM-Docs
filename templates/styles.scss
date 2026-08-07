@@ -6,6 +6,25 @@
 // polyfills.
 
 @media print {
+  // ── THE one that mattered: the PDF was 8 pages ───────────────────────────────────────
+  //
+  // Material sets `html { height: 100% }`. On screen that is what lets the layout fill the
+  // viewport. In a paged context WeasyPrint honours it literally: the root box is one page
+  // tall, and every article past it is clipped. The PDF came out at 8 pages — cover,
+  // contents, three articles, then nothing — with no warning, from a document that was
+  // fully assembled (mkdocs-with-pdf reported "Converting 37 articles").
+  //
+  // Bisected against Material's own stylesheet, rule by rule, rendering in a Linux
+  // container: rules[0:133] → 112 pages, rules[0:134] → 8. Rule 134 is
+  // `html{font-size:125%;height:100%;overflow-x:hidden}`. Neutralising the height alone
+  // takes the same document from 8 pages to 114; overriding `overflow` alone changes
+  // nothing.
+  //
+  // This block is injected after Material's <link>, so equal specificity resolves our way.
+  html {
+    height: auto;
+  }
+
   // ── Admonition icons ────────────────────────────────────────────────────────────────
   //
   // Material draws these with `mask-image` on a `::before`, which WeasyPrint cannot do.
@@ -38,27 +57,11 @@
     -webkit-mask-image: none;
   }
 
-  // ── Content tabs ────────────────────────────────────────────────────────────────────
-  //
-  // `=== "Tab"` compiles to radio inputs plus `.tabbed-block{display:none}` — only the
-  // checked one is visible. WeasyPrint applies that CSS faithfully, so every tab after the
-  // first was silently absent from the PDF. The plugin already rewraps each radio with its
-  // own content (wrap_tabbed_set_content); this makes all of them visible and labelled, so
-  // a printed page carries the same information as the web one.
-  .tabbed-content--wrap .tabbed-block,
-  .md-typeset .tabbed-block {
-    display: block;
-  }
-
-  .md-typeset .tabbed-labels {
-    display: block;
-
-    > label {
-      display: block;
-      font-weight: 700;
-      padding: 0.3rem 0;
-    }
-  }
+  // Content tabs need nothing here. `=== "Tab"` compiles to `.tabbed-block{display:none}`,
+  // which looks like it would drop every tab but the first — but Material's own print block
+  // already restores `.tabbed-block{display:block}` and uses `display:contents` + `order` to
+  // interleave each label with its content. Overriding it here made the output worse, not
+  // better.
 
   // ── Links ───────────────────────────────────────────────────────────────────────────
   //
