@@ -56,13 +56,25 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      # mkdocs-with-pdf renders through WeasyPrint, which needs real system libs — without
-      # these the PDF step fails with an opaque cairo/pango error rather than a missing-dep one.
+      # mkdocs-with-pdf renders through WeasyPrint, which dlopens real system libraries —
+      # without them the PDF step dies on an opaque "cannot load library" rather than a
+      # missing-dependency message.
+      #
+      # This list is derived from what the INSTALLED WeasyPrint actually loads
+      # (weasyprint/text/ffi.py), not from memory. Modern WeasyPrint dropped cairo and
+      # gdk-pixbuf — both were in this list and unused since v53 — and gained harfbuzz,
+      # including libharfbuzz-subset, which is its own Ubuntu package and is NOT pulled in
+      # by pango. A machine with only pango installed fails on that one alone.
       - name: System deps for the PDF renderer
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            libcairo2 libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf-2.0-0 libffi-dev shared-mime-info
+          sudo apt-get install -y --no-install-recommends libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz0b libharfbuzz-subset0 libfontconfig1 shared-mime-info
+          # Prove every library WeasyPrint will dlopen is present, here rather than deep
+          # inside a mkdocs traceback.
+          for lib in libpango-1.0.so.0 libpangoft2-1.0.so.0 libharfbuzz.so.0 libharfbuzz-subset.so.0 libfontconfig.so.1 libgobject-2.0.so.0; do
+            ldconfig -p | grep -q "$lib" || { echo "::error::missing $lib — WeasyPrint cannot load it"; exit 1; }
+          done
+          echo "OK: every WeasyPrint native dependency is present"
 
       - run: pip install -r requirements.txt
 

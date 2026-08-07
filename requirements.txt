@@ -3,3 +3,9 @@ mkdocs-material==9.5.44
 mkdocs-static-i18n==1.2.3
 mkdocs-with-pdf==0.9.3
 Pillow==11.0.0
+# WeasyPrint is a TRANSITIVE dependency of mkdocs-with-pdf and was the only thing here left
+# unpinned, so the PDF renderer changed under the build while everything else stayed put.
+# It matters because the apt list in .github/workflows/docs.yml has to match what THIS
+# version dlopens (see weasyprint/text/ffi.py): v53 dropped cairo, v57 added harfbuzz-subset.
+# Pin them together, or the two drift apart again.
+weasyprint==69.0
