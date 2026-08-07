@@ -130,10 +130,16 @@ jobs:
           python tools/check_pdf.py site/fr/pdf/bettermodsmanager.pdf \
             --min-pages 40 --expect "Le site de doc"
 
+      # Both languages. mkdocs-static-i18n runs the PDF plugin once per locale (plugin.py,
+      # the with_pdf_plugin.on_post_build loop), so the French book has always been built —
+      # it just never left the runner, because only site/pdf was uploaded. It reached Pages,
+      # since the whole site/ directory goes there, but a PR reviewer could not see it.
       - uses: actions/upload-artifact@v4
         with:
           name: bettermodsmanager-pdf
-          path: site/pdf/bettermodsmanager.pdf
+          path: |
+            site/pdf/bettermodsmanager.pdf
+            site/fr/pdf/bettermodsmanager.pdf
           if-no-files-found: error
 
       - uses: actions/upload-pages-artifact@v3
