@@ -11,6 +11,12 @@ edit_uri: edit/master/docs/
 
 theme:
   name: material
+  # overrides/main.html adds the "Download the PDF" button to every page. It is a theme
+  # override rather than mkdocs-with-pdf's own inject_link because that one does not survive
+  # mkdocs-static-i18n's second build pass — the returned markup carried the button and the
+  # file written to disk did not. This also means the button exists under `mkdocs serve`,
+  # where the PDF plugin is not loaded at all.
+  custom_dir: overrides
   language: en
   logo: assets/logo.png
   favicon: assets/logo.png

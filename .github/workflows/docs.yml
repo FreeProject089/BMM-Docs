@@ -113,8 +113,29 @@ jobs:
       # warnings are in the run log. Without it a PDF that silently loses 90% of the book
       # builds exactly as quietly as a correct one — which is how the published 8-page PDF
       # got there.
-      - name: Build PDF
+      # Dark FIRST, then stashed, because `mkdocs build` wipes site/ before it starts — the
+      # other order would delete whichever PDF was built first. The light pass is also the
+      # one whose site/ is published, and it is the one whose inject_link writes the download
+      # button, so it has to be last.
+      #
+      # BMM_PDF_THEME is not decoration: the diagrams are drawn by a browser before WeasyPrint
+      # runs, so mermaid's palette is chosen in pdf_event_hook.py, not in CSS. Without it the
+      # dark edition would be 28 white diagrams on near-black pages.
+      - name: Build PDF (dark edition)
+        run: |
+          BMM_PDF_THEME=dark mkdocs build -f mkdocs.pdf-dark.yml
+          mkdir -p /tmp/pdf-dark/en /tmp/pdf-dark/fr
+          cp site/pdf/bettermodsmanager-dark.pdf /tmp/pdf-dark/en/
+          cp site/fr/pdf/bettermodsmanager-dark.pdf /tmp/pdf-dark/fr/
+
+      - name: Build PDF (light edition)
         run: mkdocs build -v -f mkdocs.pdf.yml   # → site/pdf/bettermodsmanager.pdf
+
+      - name: Put the dark edition back into the site
+        run: |
+          cp /tmp/pdf-dark/en/bettermodsmanager-dark.pdf site/pdf/
+          cp /tmp/pdf-dark/fr/bettermodsmanager-dark.pdf site/fr/pdf/
+          ls -la site/pdf site/fr/pdf
 
       # The build cannot tell whether WeasyPrint laid out what it was handed, so read the
       # finished file back. "The docs site" is the last heading of Credits, the LAST page in
@@ -129,6 +150,10 @@ jobs:
             --min-pages 40 --expect "The docs site"
           python tools/check_pdf.py site/fr/pdf/bettermodsmanager.pdf \
             --min-pages 40 --expect "Le site de doc"
+          python tools/check_pdf.py site/pdf/bettermodsmanager-dark.pdf \
+            --min-pages 40 --expect "The docs site"
+          python tools/check_pdf.py site/fr/pdf/bettermodsmanager-dark.pdf \
+            --min-pages 40 --expect "Le site de doc"
 
       # Both languages. mkdocs-static-i18n runs the PDF plugin once per locale (plugin.py,
       # the with_pdf_plugin.on_post_build loop), so the French book has always been built —
@@ -139,7 +164,9 @@ jobs:
           name: bettermodsmanager-pdf
           path: |
             site/pdf/bettermodsmanager.pdf
+            site/pdf/bettermodsmanager-dark.pdf
             site/fr/pdf/bettermodsmanager.pdf
+            site/fr/pdf/bettermodsmanager-dark.pdf
           if-no-files-found: error
 
       - uses: actions/upload-pages-artifact@v3

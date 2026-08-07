@@ -1,0 +1,200 @@
+// Shared print rules for both PDF editions.
+//
+// The light build is templates/styles.scss, the dark one templates-dark/styles.scss; both
+// import this and then set their own palette. Everything here is colour-independent.
+//
+// Page geometry, since several rules depend on it: mkdocs-with-pdf sets
+// `@page { size: a4 portrait; margin: 25mm 10mm }`, so the usable area is 190 × 247 mm.
+
+$page-w: 190mm;
+$page-h: 247mm;
+
+// ── THE one that mattered: the PDF was 8 pages ─────────────────────────────────────────
+//
+// Material sets `html { height: 100% }`. On screen that is what lets the layout fill the
+// viewport. In a paged context WeasyPrint honours it literally — the root box is one page
+// tall, and every article past it is clipped. Worse, the plugin puts `min-height: 100vh` on
+// every article, so they all pile into that one page-tall box.
+//
+// Bisected against Material's own stylesheet, rule by rule, rendering in a Linux container:
+// rules[0:133] → 112 pages, rules[0:134] → 8. Rule 134 is
+// `html{font-size:125%;height:100%;overflow-x:hidden}`. Neutralising the height alone takes
+// the same document from 8 pages to 114; overriding `overflow` alone changes nothing.
+html {
+  height: auto;
+}
+
+// ── Diagrams must never straddle a page break ──────────────────────────────────────────
+//
+// Two separate problems, and fixing only one leaves the other visible.
+//
+// (1) A diagram that FITS a page could still be split across one. `break-inside: avoid`
+//     moves the whole thing to the next page instead.
+// (2) A diagram TALLER than a page cannot be kept whole by any break rule — the tallest
+//     here is 986 px ≈ 261 mm against 247 mm of usable height. So it is capped, and scales
+//     down proportionally rather than being cut.
+//
+// The cap is 200mm rather than the full 247mm on purpose: a diagram usually follows a
+// heading and a sentence, and a 247mm figure would push itself onto a page of its own with
+// its caption orphaned on the previous one.
+pre.mermaid,
+.mermaid {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  text-align: center;
+  margin: 1.2em 0;
+
+  svg {
+    max-width: 100%;
+    max-height: 200mm;
+    height: auto;
+  }
+}
+
+// Same treatment for anything else that reads as one indivisible unit.
+figure,
+table,
+.md-typeset .admonition,
+.md-typeset details,
+.tabbed-set {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+// A long reference table is the exception — forcing it whole would leave a half-empty page
+// before it and overflow after it.
+.md-typeset table:not([class]) {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+img {
+  max-width: 100%;
+  max-height: $page-h * 0.8;
+  height: auto;
+}
+
+// ── Admonition icons ───────────────────────────────────────────────────────────────────
+//
+// Material draws these with `mask-image` on a `::before`, which WeasyPrint cannot do. The
+// plugin's polyfill swaps the mask for a `background-image` but restores neither the
+// absolute positioning nor a `background-size` — so the glyph falls back into normal flow
+// and lands on top of the title's first letter.
+//
+// The icons themselves are fine: the polyfill defines --print-md-admonition-icon--* for
+// every type. Only the box needs fixing.
+.md-typeset .admonition-title,
+.md-typeset summary {
+  position: relative;
+  padding-left: 2.2rem;
+}
+
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.6rem;
+  width: 1rem;
+  height: 1rem;
+  // The data-URI SVGs carry a viewBox but no width/height, so their intrinsic size is
+  // undefined and `background-size: auto` is a coin flip. Pin it to the box.
+  background-size: 1rem 1rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+// Content tabs need nothing here. `=== "Tab"` compiles to `.tabbed-block{display:none}`,
+// which looks like it would drop every tab but the first — but Material's own print block
+// already restores `.tabbed-block{display:block}` and uses `display:contents` + `order` to
+// interleave each label with its content. Overriding it made the output worse.
+
+// ── Session replays ────────────────────────────────────────────────────────────────────
+//
+// 16 pages of the English book embed a `.bmm-replay` div. On the site a player fills it; in
+// a PDF it is an empty div, so the page silently loses a figure and the sentence introducing
+// it points at nothing. pdf_event_hook.py turns each one into a real card with its title and
+// a link to the page where it plays — this styles that card.
+.bmm-replay-card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 0.8em 1em;
+  margin: 1.2em 0;
+  font-size: 0.85em;
+
+  .bmm-replay-kind {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+
+  .bmm-replay-title {
+    font-weight: 700;
+    display: block;
+    margin: 0.25em 0 0.4em;
+  }
+
+  a {
+    word-break: break-all;
+  }
+}
+
+// ── Links ──────────────────────────────────────────────────────────────────────────────
+//
+// Cross-references become real internal jumps (288 of them in the English book), so keep
+// them looking clickable. Anything leaving the document prints its address: a blue word is
+// useless on paper, and `bmm://` links in particular are app deeplinks that most PDF readers
+// refuse to launch — showing the URL is the difference between a dead word and something a
+// reader can act on.
+.md-typeset a {
+  text-decoration: none;
+}
+
+.md-typeset a[href^="http"]::after,
+.md-typeset a[href^="bmm:"]::after {
+  content: " (" attr(href) ")";
+  font-size: 0.75em;
+  word-break: break-all;
+}
+
+.md-typeset a.md-content__button::after,
+.md-typeset .headerlink::after,
+.bmm-replay-card a::after {
+  content: none;
+}
+
+// ── Typography ─────────────────────────────────────────────────────────────────────────
+//
+// Material's print size is 0.68rem of a 125% root, which reads cramped on paper.
+.md-typeset {
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.md-typeset pre,
+.md-typeset code {
+  font-size: 0.85em;
+}
+
+.md-typeset pre {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border-radius: 3px;
+}
+
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  padding: 0.35em 0.6em;
+}

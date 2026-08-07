@@ -60,7 +60,7 @@ document.querySelectorAll('pre.mermaid > code').forEach(function (code) {
 });
 mermaid.initialize({
   startOnLoad: false,
-  theme: 'neutral',
+  theme: '__THEME__',
   htmlLabels: false,
   flowchart: { htmlLabels: false, useMaxWidth: true },
   sequence: { useMaxWidth: true },
@@ -68,6 +68,25 @@ mermaid.initialize({
 });
 mermaid.run({ querySelector: 'pre.mermaid' });
 """
+
+# The site the printed links point back at. Read from mkdocs.yml's site_url rather than
+# hardcoded twice — the hook has no access to the config object, so it parses the one line.
+SITE_URL_FALLBACK = "https://freeproject089.github.io/BMM-Docs"
+
+
+def _site_url() -> str:
+    try:
+        with open("mkdocs.yml", encoding="utf-8") as fh:
+            for line in fh:
+                if line.startswith("site_url:"):
+                    return line.split(":", 1)[1].strip().rstrip("/")
+    except OSError:
+        pass
+    return SITE_URL_FALLBACK
+
+
+def _dark() -> bool:
+    return os.environ.get("BMM_PDF_THEME", "").lower() == "dark"
 
 
 def _browser() -> str | None:
@@ -81,7 +100,66 @@ def _browser() -> str | None:
     return None
 
 
+def _replay_cards(soup: BeautifulSoup, logger) -> int:
+    """Turn the empty `.bmm-replay` divs into something a reader can act on.
+
+    On the site a player fills that div from the .bmmreplay recording. In a PDF it is an
+    empty box — 16 of them in the English book — so the page loses a figure AND the sentence
+    that introduces it ("watch it here") points at nothing.
+
+    A PDF cannot play a recording. What it can do is say what the recording shows and where
+    to watch it, which is what this builds. The target is the page's own URL on the published
+    site: each article carries `data-url` (set by the generator), so the card links to the
+    exact page whose player holds that clip.
+    """
+    divs = soup.select("div.bmm-replay")
+    if not divs:
+        return 0
+
+    base = _site_url()
+    for div in divs:
+        title = div.get("data-title") or ""
+
+        # Walk up to the article the plugin stamped with the page's path.
+        page_url = None
+        for parent in div.parents:
+            if parent.has_attr and parent.has_attr("data-url"):
+                page_url = parent["data-url"]
+                break
+        href = f"{base}{page_url}" if page_url else base
+
+        # The two editions are built from the same combined document per locale, so the
+        # card's own wording has to follow the page it sits on — data-url is the only thing
+        # here that knows which language this is.
+        french = bool(page_url) and page_url.startswith("/fr/")
+
+        card = soup.new_tag("div", **{"class": "bmm-replay-card"})
+
+        kind = soup.new_tag("span", **{"class": "bmm-replay-kind"})
+        kind.string = "Enregistrement de session" if french else "Session recording"
+        card.append(kind)
+
+        name = soup.new_tag("span", **{"class": "bmm-replay-title"})
+        name.string = title
+        card.append(name)
+
+        lead = soup.new_tag("span")
+        lead.string = "Se joue dans le navigateur : " if french else "Plays in the browser: "
+        card.append(lead)
+
+        link = soup.new_tag("a", href=href)
+        link.string = href
+        card.append(link)
+
+        div.replace_with(card)
+
+    logger.info(f"replays: {len(divs)} embed(s) replaced with a card")
+    return len(divs)
+
+
 def pre_pdf_render(soup: BeautifulSoup, logger) -> BeautifulSoup:
+    _replay_cards(soup, logger)
+
     blocks = soup.select("pre.mermaid")
     if not blocks:
         return soup
@@ -99,12 +177,16 @@ def pre_pdf_render(soup: BeautifulSoup, logger) -> BeautifulSoup:
     body = soup.find("body")
     if body is None:  # pragma: no cover - the generator always builds one
         return soup
+    # 'dark' is mermaid's own dark palette, so the diagrams match the dark edition's page
+    # instead of being 28 white rectangles on near-black.
+    theme = "dark" if _dark() else "neutral"
+
     body.append(soup.new_tag("script", src=MERMAID_URL))
     init = soup.new_tag("script")
-    init.string = INIT_JS
+    init.string = INIT_JS.replace("__THEME__", theme)
     body.append(init)
 
-    logger.info(f"mermaid: rendering {len(blocks)} diagram(s) via {browser}")
+    logger.info(f"mermaid: rendering {len(blocks)} diagram(s) via {browser} (theme: {theme})")
 
     # delete=False + explicit unlink: on Windows a NamedTemporaryFile cannot be reopened by
     # another process while it is still open here.
@@ -137,6 +219,15 @@ def pre_pdf_render(soup: BeautifulSoup, logger) -> BeautifulSoup:
     if not rendered.strip():
         logger.error("the browser returned nothing; diagrams left as source")
         return soup
+
+    # Diagnosing anything in this pipeline means seeing the document WeasyPrint is actually
+    # given, and there is no other way to get at it — this file is the last point where it
+    # exists as HTML. Two separate investigations needed it today.
+    dump = os.environ.get("BMM_PDF_DUMP")
+    if dump:
+        with open(dump, "w", encoding="utf-8") as fh:
+            fh.write(rendered)
+        logger.info(f"dumped the rendered document to {dump}")
 
     new_soup = BeautifulSoup(rendered, "html.parser")
     drawn = len(new_soup.select("pre.mermaid[data-processed]"))

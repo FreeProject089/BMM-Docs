@@ -193,3 +193,59 @@ body {
    read as the same kind of thing. */
 .md-nav--secondary .md-nav__list { border-left: 1px solid var(--md-default-fg-color--lightest); padding-left: .55rem; }
 .md-nav--secondary .md-nav__link--active { color: var(--bmm-blue); font-weight: 700; }
+
+/* ── The "download the PDF" button ────────────────────────────────────────────
+   Injected at the top of every page by pdf_event_hook.py's inject_link, which
+   replaces the plugin's own version — that one appended plain text to
+   .md-footer-copyright, a container Material 9 does not render, so nothing ever
+   showed. Because it is injected during the PDF build (the second mkdocs pass),
+   it only exists on the published site, not in `mkdocs serve`. */
+.bmm-pdf-download {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  flex-wrap: wrap;
+  margin: 0 0 1.2rem;
+}
+
+.bmm-pdf-download__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .35rem .8rem;
+  border-radius: .2rem;
+  font-size: .7rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--md-primary-bg-color, #fff);
+  background: var(--md-primary-fg-color);
+  transition: filter .15s;
+}
+
+.bmm-pdf-download__btn::before {
+  /* A download arrow, drawn rather than pulled from an icon font — this stylesheet
+     is loaded on every page and should not add a request for one glyph. */
+  content: "";
+  width: .8rem;
+  height: .8rem;
+  background: currentColor;
+  -webkit-mask: no-repeat center / contain url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>');
+  mask: no-repeat center / contain url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>');
+}
+
+.bmm-pdf-download__btn:hover { filter: brightness(1.12); }
+.bmm-pdf-download__btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+.bmm-pdf-download__alt {
+  font-size: .62rem;
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+
+.bmm-pdf-download__alt:hover { color: var(--md-accent-fg-color); }
+
+@media print {
+  /* It is already the PDF. */
+  .bmm-pdf-download { display: none; }
+}

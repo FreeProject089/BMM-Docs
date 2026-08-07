@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{#
+  A download button for the complete PDF, at the top of every page.
+
+  mkdocs-with-pdf has its own `inject_link` for this and it does not work here — twice over.
+  Its default appends the words " ... download PDF" to `.md-footer-copyright`, a container
+  Material 9 does not render (grep count: 0 in the built site). And replacing it through the
+  plugin's event hook does not survive either: with-pdf sits before mkdocs-static-i18n's
+  second build pass, so the file finally written on disk is a different rendering and the
+  injected markup is simply not in it — measured, the returned string carried the button and
+  the written page did not.
+
+  A theme override has none of that fragility. It is Material's supported extension point, it
+  runs on every page in both languages, and unlike the plugin route it also shows up under
+  `mkdocs serve`, where the PDF plugin is not even loaded.
+
+  The links are absolute-from-root via `base_url`, so they resolve the same from /features/x/
+  as from the home page.
+#}
+
+{% block content %}
+  {% set fr = page and page.url.startswith('fr/') %}
+  {% set pdf_dir = (base_url ~ '/fr/pdf/') if fr else (base_url ~ '/pdf/') %}
+  <div class="bmm-pdf-download">
+    <a class="bmm-pdf-download__btn"
+       href="{{ pdf_dir }}bettermodsmanager.pdf"
+       title="{{ 'La documentation complète en un seul fichier' if fr else 'The complete documentation as one file' }}">
+      {{ 'Télécharger le PDF' if fr else 'Download the PDF' }}
+    </a>
+    {# A second edition, for reading on a screen rather than printing. Deliberately not a
+       button of equal weight: most readers want the default. #}
+    <a class="bmm-pdf-download__alt"
+       href="{{ pdf_dir }}bettermodsmanager-dark.pdf"
+       title="{{ 'Fond sombre, pour lire à l’écran' if fr else 'Dark background, for reading on screen' }}">
+      {{ 'version sombre' if fr else 'dark edition' }}
+    </a>
+  </div>
+  {{ super() }}
+{% endblock %}

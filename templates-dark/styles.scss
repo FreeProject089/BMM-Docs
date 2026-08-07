@@ -1,0 +1,108 @@
+// The DARK PDF edition, at site/pdf/bettermodsmanager-dark.pdf.
+//
+// Built by mkdocs.pdf-dark.yml, which points custom_template_path here. Structure is shared
+// with the light edition (_pdf-common.scss); only the palette differs — plus one thing that
+// is not CSS at all: the mermaid diagrams are drawn by a browser before WeasyPrint runs, so
+// pdf_event_hook.py picks mermaid's own dark theme when BMM_PDF_THEME=dark.
+//
+// A dark PDF is for reading on a screen, not for printing — 247mm of near-black per page is
+// not something to send to a printer. That is why it is a second file rather than the
+// default.
+
+@import '../templates/pdf-common';
+
+$ink: #e6e6e6;
+$ink-soft: #a0a0a0;
+$paper: #1a1c1e;
+$surface: #24272a;
+$rule: #3a3e42;
+$link: #7cb4f7;   // 7.4:1 on #1a1c1e
+$code-bg: #202325;
+
+@media print {
+  // The plugin's own _paging.scss forces `body { background-color: #fff }` inside a print
+  // block, so this has to override it rather than merely set a colour.
+  html,
+  body {
+    background: $paper !important;
+    background-color: $paper !important;
+    color: $ink;
+  }
+
+  // WeasyPrint paints the page box, not the body box, for the area under the margins —
+  // without this the sheet is white with a dark rectangle floating on it.
+  @page {
+    background: $paper;
+  }
+
+  .md-typeset {
+    color: $ink;
+  }
+
+  .md-typeset h1,
+  .md-typeset h2,
+  .md-typeset h3,
+  .md-typeset h4,
+  .md-typeset h5,
+  .md-typeset h6 {
+    color: #ffffff;
+  }
+
+  .md-typeset a {
+    color: $link;
+  }
+
+  .md-typeset a[href^="http"]::after,
+  .md-typeset a[href^="bmm:"]::after {
+    color: $ink-soft;
+  }
+
+  .md-typeset pre,
+  .md-typeset code {
+    background: $code-bg;
+    color: $ink;
+    border: 1px solid $rule;
+  }
+
+  .md-typeset table:not([class]) {
+    color: $ink;
+  }
+
+  .md-typeset table:not([class]) th {
+    background: $surface;
+    color: #ffffff;
+  }
+
+  .md-typeset table:not([class]) td,
+  .md-typeset table:not([class]) th {
+    border-color: $rule;
+  }
+
+  // Admonitions keep their type colour on the left edge — that is what makes a warning
+  // readable as a warning — but their fill has to come off white.
+  .md-typeset .admonition,
+  .md-typeset details {
+    background: $surface;
+    color: $ink;
+  }
+
+  .md-typeset .admonition-title,
+  .md-typeset summary {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+  }
+
+  .bmm-replay-card {
+    border-color: $rule;
+    background: $surface;
+
+    .bmm-replay-kind {
+      color: $ink-soft;
+    }
+  }
+
+  // The running header/footer the plugin draws in the page margins.
+  @page {
+    color: $ink-soft;
+  }
+}

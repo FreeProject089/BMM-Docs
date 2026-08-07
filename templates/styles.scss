@@ -1,88 +1,61 @@
-// Extra print styles, appended last by mkdocs-with-pdf.
+// The LIGHT PDF edition — the default one, at site/pdf/bettermodsmanager.pdf.
 //
-// The plugin looks for `<custom_template_path>/styles.scss` (see mkdocs_with_pdf/styles/
-// __init__.py). `custom_template_path` defaults to "templates", and that directory did not
-// exist — so nothing here was ever applied, and the PDF shipped with only the plugin's own
-// polyfills.
+// mkdocs-with-pdf compiles `<custom_template_path>/styles.scss` and appends it last, after
+// Material's own sheet, so equal-specificity rules here win. Everything structural lives in
+// _pdf-common.scss; this file is only the palette.
+
+@import 'pdf-common';
+
+$ink: #1a1a1a;
+$ink-soft: #4a4a4a;
+$paper: #ffffff;
+$rule: #d8d8d8;
+$link: #1a5fb4;   // 7.0:1 on white — readable, and still obviously a link
+$code-bg: #f4f4f4;
 
 @media print {
-  // ── THE one that mattered: the PDF was 8 pages ───────────────────────────────────────
-  //
-  // Material sets `html { height: 100% }`. On screen that is what lets the layout fill the
-  // viewport. In a paged context WeasyPrint honours it literally: the root box is one page
-  // tall, and every article past it is clipped. The PDF came out at 8 pages — cover,
-  // contents, three articles, then nothing — with no warning, from a document that was
-  // fully assembled (mkdocs-with-pdf reported "Converting 37 articles").
-  //
-  // Bisected against Material's own stylesheet, rule by rule, rendering in a Linux
-  // container: rules[0:133] → 112 pages, rules[0:134] → 8. Rule 134 is
-  // `html{font-size:125%;height:100%;overflow-x:hidden}`. Neutralising the height alone
-  // takes the same document from 8 pages to 114; overriding `overflow` alone changes
-  // nothing.
-  //
-  // This block is injected after Material's <link>, so equal specificity resolves our way.
-  html {
-    height: auto;
+  html,
+  body {
+    background: $paper;
+    color: $ink;
   }
 
-  // ── Admonition icons ────────────────────────────────────────────────────────────────
-  //
-  // Material draws these with `mask-image` on a `::before`, which WeasyPrint cannot do.
-  // The plugin's polyfill swaps the mask for a `background-image`, but it restores neither
-  // the absolute positioning nor a `background-size` — so the glyph falls back into normal
-  // flow and lands on top of the title's first letter (visible on "Rate-limited on GitHub?"),
-  // at whatever intrinsic size the SVG happens to report.
-  //
-  // The icons themselves are fine: the polyfill defines --print-md-admonition-icon--* for
-  // every type. Only the box needs fixing.
-  .md-typeset .admonition-title,
-  .md-typeset summary {
-    position: relative;      // the containing block the ::before is positioned against
-    padding-left: 2.2rem;    // reserve the gutter the icon sits in
+  .md-typeset {
+    color: $ink;
   }
 
-  .md-typeset .admonition-title::before,
-  .md-typeset summary::before {
-    position: absolute;
-    top: 0.55rem;
-    left: 0.6rem;
-    width: 1rem;
-    height: 1rem;
-    // The data-URI SVGs carry a viewBox but no width/height, so their intrinsic size is
-    // undefined and `background-size: auto` is a coin flip. Pin it to the box.
-    background-size: 1rem 1rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
-
-  // Content tabs need nothing here. `=== "Tab"` compiles to `.tabbed-block{display:none}`,
-  // which looks like it would drop every tab but the first — but Material's own print block
-  // already restores `.tabbed-block{display:block}` and uses `display:contents` + `order` to
-  // interleave each label with its content. Overriding it here made the output worse, not
-  // better.
-
-  // ── Links ───────────────────────────────────────────────────────────────────────────
-  //
-  // Cross-page references become real internal jumps in the PDF, so keep them looking
-  // clickable. External ones get their target spelled out — a blue word is useless on paper.
   .md-typeset a {
-    color: #1a73e8;
-    text-decoration: none;
+    color: $link;
   }
 
-  .md-typeset a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 0.75em;
-    color: #666;
-    word-break: break-all;
+  // The printed address after a link is supporting detail, not part of the sentence.
+  .md-typeset a[href^="http"]::after,
+  .md-typeset a[href^="bmm:"]::after {
+    color: $ink-soft;
   }
 
-  // …except where the URL would be noise: the edit button, the header logo, and anything
-  // already showing its own address.
-  .md-typeset a.md-content__button::after,
-  .md-typeset .headerlink::after {
-    content: none;
+  .md-typeset pre,
+  .md-typeset code {
+    background: $code-bg;
+    color: $ink;
+  }
+
+  .md-typeset table:not([class]) th {
+    background: $code-bg;
+    color: $ink;
+  }
+
+  .md-typeset table:not([class]) td,
+  .md-typeset table:not([class]) th {
+    border-color: $rule;
+  }
+
+  .bmm-replay-card {
+    border-color: $rule;
+    background: $code-bg;
+
+    .bmm-replay-kind {
+      color: $ink-soft;
+    }
   }
 }

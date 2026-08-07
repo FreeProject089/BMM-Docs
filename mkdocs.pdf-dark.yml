@@ -1,0 +1,36 @@
+# The DARK PDF edition.
+#
+# Identical to mkdocs.pdf.yml apart from two lines: where the stylesheet comes from and
+# where the file lands. Everything else — the i18n split, the plugin order, the hook — is
+# inherited, so the two editions cannot drift in content.
+#
+#     BMM_PDF_THEME=dark mkdocs build -f mkdocs.pdf-dark.yml
+#
+# The env var is not decoration: the mermaid diagrams are drawn by a browser before
+# WeasyPrint ever sees them, so their palette is chosen in pdf_event_hook.py, not in CSS.
+# Without it the dark edition would carry 28 white diagrams on near-black pages.
+#
+# Run order matters in CI. `mkdocs build` wipes site/ first, so building this one second
+# would delete the light PDF — see the workflow, which builds dark first and copies it back
+# in afterwards.
+INHERIT: mkdocs.pdf.yml
+
+plugins:
+  - search:
+      lang: [en, fr]
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: fr
+          name: Français
+          build: true
+  - with-pdf:
+      cover_title: BetterModsManager
+      cover_subtitle: Documentation
+      output_path: pdf/bettermodsmanager-dark.pdf
+      custom_template_path: templates-dark
