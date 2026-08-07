@@ -34,6 +34,7 @@ Output: <name>.annotated.png next to the source. Pages reference the annotated f
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -100,7 +101,46 @@ def render(spec_path: Path) -> Path:
     out = src.with_suffix("")
     out = out.parent / f"{out.name}.annotated.png"
     Image.alpha_composite(img, overlay).save(out)
+    _save_stamp(out.name, _fingerprint(spec_path, src))
     return out
+
+
+# ── Staleness, without mtimes ──────────────────────────────────────────────────────────
+#
+# `--check` used to compare modification times. That cannot work in CI: git does not
+# preserve mtimes, so a fresh checkout stamps everything at clone time in write order — and
+# `x.annotated.png` sorts BEFORE `x.json`, so the output is written first and looks older
+# than its own spec. Reproduced exactly: the check passes locally and fails on the runner.
+#
+# Comparing the RENDERED bytes instead would fail for a different reason — _font() picks
+# segoeuib.ttf on Windows and DejaVuSans-Bold.ttf on Linux, so the same spec renders
+# different pixels on the two machines.
+#
+# So the fingerprint is of the INPUTS: the spec and its source image. That is exactly the
+# question the gate asks — "was this re-rendered after the spec or the screenshot changed?"
+# — and it is identical on every platform.
+STAMPS = SCREENS / ".annotations.json"
+
+
+def _fingerprint(spec_path: Path, src: Path) -> str:
+    h = hashlib.sha256()
+    h.update(spec_path.read_bytes())
+    h.update(src.read_bytes())
+    return h.hexdigest()
+
+
+def _load_stamps() -> dict:
+    try:
+        return json.loads(STAMPS.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_stamp(out_name: str, digest: str) -> None:
+    stamps = _load_stamps()
+    stamps[out_name] = digest
+    # Sorted so the file has a stable diff rather than reordering on every render.
+    STAMPS.write_text(json.dumps(stamps, indent=2, sort_keys=True), encoding="utf-8")
 
 
 def main() -> int:
@@ -110,7 +150,11 @@ def main() -> int:
                     help="CI mode: fail if an annotated image is missing or older than its spec/source")
     args = ap.parse_args()
 
-    specs = args.specs or sorted(SCREENS.glob("*.json"))
+    # pathlib's glob matches dotfiles, so the stamps file would be read as a spec and die on
+    # a missing "image" key. Excluded by name rather than moved: keeping it beside the
+    # screenshots is what makes it obvious it belongs to them.
+    specs = args.specs or sorted(q for q in SCREENS.glob("*.json") if q.name != STAMPS.name)
+    stamps = _load_stamps()
     if not specs:
         print(f"no specs found in {SCREENS} — nothing to do")
         return 0
@@ -121,7 +165,9 @@ def main() -> int:
         src = s.parent / spec["image"]
         out = src.parent / f"{src.with_suffix('').name}.annotated.png"
         if args.check:
-            if not out.exists() or out.stat().st_mtime < max(s.stat().st_mtime, src.stat().st_mtime):
+            if not out.exists():
+                stale.append(out.name)
+            elif stamps.get(out.name) != _fingerprint(s, src):
                 stale.append(out.name)
             continue
         print(f"  {s.name} -> {render(s).name}")

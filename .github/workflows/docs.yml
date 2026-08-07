@@ -27,7 +27,7 @@ jobs:
       # plain checkout writes 130-byte pointer files instead of the real ones — which mkdocs then
       # copies to the site verbatim, so every inline replay player on the published docs tried to
       # parse a pointer as JSON and silently showed nothing.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           lfs: true
 
@@ -51,7 +51,7 @@ jobs:
           [ "$missing" = "0" ] || exit 1
           echo "OK: $(ls docs/assets/replays/*.bmmreplay | wc -l) replay file(s), all embeds resolve"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
