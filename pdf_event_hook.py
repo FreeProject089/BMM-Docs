@@ -29,6 +29,7 @@ import os
 import shutil
 import subprocess
 import tempfile
+from urllib.parse import quote
 
 from bs4 import BeautifulSoup
 
@@ -157,8 +158,46 @@ def _replay_cards(soup: BeautifulSoup, logger) -> int:
     return len(divs)
 
 
+def _deeplinks(soup: BeautifulSoup, logger) -> int:
+    """Make the `bmm://` links in the PDF actually clickable.
+
+    They were not. A PDF reader will not launch a custom scheme: Acrobat asks first, Edge and
+    Firefox hand it to the OS, and Chrome's built-in viewer refuses outright — it does not
+    even make the region clickable, so the reader sees a link that does nothing. The
+    annotations were present and correct (90 of them in the English book); the readers were
+    the problem, and no amount of styling fixes that.
+
+    An https link is clickable in every reader. So each deeplink now points at docs/open/,
+    a one-purpose page on the docs site that fires the `bmm://` URL from a browser — where
+    custom schemes do work — and shows a button plus an install link if BMM is not there.
+
+    The visible text is untouched, and the original address is printed beside the link, so
+    the page still tells you exactly what it will open. Only the href changes, and only in
+    the PDF: on the site the direct `bmm://` link already works and is left alone.
+    """
+    links = [a for a in soup.select("a[href]") if a["href"].lower().startswith("bmm://")]
+    if not links:
+        return 0
+
+    base = _site_url()
+    for a in links:
+        original = a["href"]
+        a["href"] = f"{base}/open/?to={quote(original, safe='')}"
+        # Marks it for the stylesheet, which suppresses the generic "print the href" rule —
+        # otherwise every one of these would print the bouncer URL instead of the deeplink.
+        a["class"] = a.get("class", []) + ["bmm-deeplink"]
+
+        addr = soup.new_tag("span", **{"class": "bmm-deeplink-addr"})
+        addr.string = f" ({original})"
+        a.insert_after(addr)
+
+    logger.info(f"deeplinks: {len(links)} bmm:// link(s) routed through {base}/open/")
+    return len(links)
+
+
 def pre_pdf_render(soup: BeautifulSoup, logger) -> BeautifulSoup:
     _replay_cards(soup, logger)
+    _deeplinks(soup, logger)
 
     blocks = soup.select("pre.mermaid")
     if not blocks:

@@ -189,7 +189,7 @@ $code-bg: #1e2224;
   }
 
   .md-typeset a[href^="http"]::after,
-  .md-typeset a[href^="bmm:"]::after {
+  .bmm-deeplink-addr {
     color: #{rgba(#fff, 0.6)};
   }
 

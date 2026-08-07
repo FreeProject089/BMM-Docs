@@ -49,15 +49,12 @@ article h2 {
 
 // ── App deeplinks ──────────────────────────────────────────────────────────────────────
 //
-// `{ .md-button }` renders a full-width primary button. A PDF cannot honour that promise
-// reliably: `bmm://` is a custom scheme, and readers differ — Acrobat asks before launching
-// one, Edge and Firefox hand it to the OS, Chrome's built-in viewer refuses outright. That
-// is reader policy, not something this document can change.
+// `{ .md-button }` renders a full-width primary button. Rendered as an underlined link
+// instead, because in a PDF that is what it is — and because a filled button that a reader
+// cannot activate is worse than a link that shows you where it goes.
 //
-// So it is rendered as what it actually is: an underlined link, carrying a real `bmm://`
-// URI action that opens BMM wherever the reader allows it, with the address printed beside
-// it so it works by hand everywhere else. A button that does nothing when clicked is worse
-// than a link that shows you where it goes.
+// The href itself is rewritten by pdf_event_hook.py to an https bouncer, which is what makes
+// these clickable at all; see the comment on `_deeplinks` there.
 .md-typeset .md-button {
   display: inline;
   padding: 0;
@@ -191,17 +188,28 @@ img {
 // ── Links ──────────────────────────────────────────────────────────────────────────────
 //
 // Cross-references become real internal jumps (288 of them in the English book), so keep
-// them looking clickable. Anything leaving the document prints its address: a blue word is
-// useless on paper, and `bmm://` links in particular are app deeplinks that most PDF readers
-// refuse to launch — showing the URL is the difference between a dead word and something a
-// reader can act on.
+// them looking clickable. Anything leaving the document prints its address, because a blue
+// word is useless on paper.
 .md-typeset a {
   text-decoration: none;
 }
 
-.md-typeset a[href^="http"]::after,
-.md-typeset a[href^="bmm:"]::after {
+.md-typeset a[href^="http"]::after {
   content: " (" attr(href) ")";
+  font-size: 0.75em;
+  word-break: break-all;
+}
+
+// App deeplinks are rewritten by pdf_event_hook.py to go through the site's /open/ bouncer,
+// because a PDF reader will not launch a `bmm://` scheme and Chrome's viewer will not even
+// make the region clickable. Printing `attr(href)` on those would show the bouncer URL, so
+// the hook writes the original address into a sibling span instead — what you read is the
+// deeplink, what you click is an https link that fires it.
+.md-typeset a.bmm-deeplink::after {
+  content: none;
+}
+
+.bmm-deeplink-addr {
   font-size: 0.75em;
   word-break: break-all;
 }

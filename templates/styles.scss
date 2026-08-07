@@ -79,7 +79,7 @@ $code-bg: #f2f3f5;
 
   // The printed address after a link is supporting detail, not part of the sentence.
   .md-typeset a[href^="http"]::after,
-  .md-typeset a[href^="bmm:"]::after {
+  .bmm-deeplink-addr {
     color: rgba(#000, 0.6);
   }
 
