@@ -53,7 +53,7 @@ Write these freely — they work on the site and in the app.
 | `!!! note "Title"` + a 4-space indented body | Admonitions. Kinds: `note` `tip` `success` `warning` `danger` |
 | `??? note "Title"` / `???+ note` | Collapsible; `+` starts open |
 | `=== "Tab"` + indented body, repeated | Content tabs |
-| `## Heading {#custom-anchor}` | Gives a stable link target |
+| `## Heading {#custom-anchor}` | Stable link target. **sync-docs** rewrites it into `<a id>` while copying — md-lite alone prints the braces, so a page rendered outside the pipeline has no anchors |
 | Images with a relative path | |
 
 !!! tip "Admonition titles may contain quotes"

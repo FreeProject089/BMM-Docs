@@ -55,7 +55,7 @@ cd "BMM Docs" && mkdocs serve
 | `!!! note "Titre"` + un corps indenté de 4 espaces | Encadrés. Types : `note` `tip` `success` `warning` `danger` |
 | `??? note "Titre"` / `???+ note` | Repliable ; le `+` l'ouvre par défaut |
 | `=== "Onglet"` + corps indenté, répété | Onglets de contenu |
-| `## Titre {#ancre-personnalisée}` | Donne une cible de lien stable |
+| `## Titre {#ancre-personnalisée}` | Cible de lien stable. **sync-docs** la réécrit en `<a id>` pendant la copie — md-lite seul affiche les accolades, donc une page rendue hors pipeline n’a pas d’ancres |
 | Images en chemin relatif | |
 
 !!! tip "Un titre d'encadré peut contenir des guillemets"
