@@ -94,6 +94,7 @@ plugins:
             Credits: Crédits
             API reference: Référence API
             Action reference: Référence des actions
+            MCP server reference: Référence du serveur MCP
             Troubleshooting: Dépannage
   # NOTE: the PDF plugin is deliberately NOT here — see mkdocs.pdf.yml. It renders through
   # WeasyPrint, which needs GTK system libraries; mkdocs imports a listed plugin even when
@@ -164,6 +165,7 @@ nav:
   - Reference:
       - reference/api.md
       - reference/actions.md
+      - reference/mcp.md
       - reference/tips.md
       - reference/troubleshooting.md
       - reference/github-pat.md

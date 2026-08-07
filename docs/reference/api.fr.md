@@ -410,6 +410,7 @@ Consignées parce que le registre in-app et le serveur ne s'accordent pas sur to
 
 ## Voir aussi
 
+- [Référence du serveur MCP](mcp.md) — les 51 outils qu'un client IA peut appeler, et ceux qui exigent BMM ouvert
 - [Référence des actions](actions.md) — toutes les actions du planificateur et du générateur de scripts
 - [Plugins & API](../features/plugins.md) — le navigateur in-app, les tokens et le test rapide
 - [Architecture](../how-it-works/architecture.md) — où se situe cette API dans l'app
