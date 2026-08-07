@@ -123,8 +123,17 @@ STAMPS = SCREENS / ".annotations.json"
 
 
 def _fingerprint(spec_path: Path, src: Path) -> str:
+    # The spec is hashed as PARSED CONTENT, not as raw bytes. With core.autocrlf=true the
+    # working copy holds CRLF while the blob holds LF, so the same spec is a different byte
+    # string on Windows and on the Linux runner — which is exactly how the first version of
+    # this manifest failed: 9 of 10 stale in CI, and the one that passed (library.json) was
+    # the one file that happened to be stored with LF.
+    #
+    # sort_keys so a reordered-but-identical spec doesn't read as a change either.
     h = hashlib.sha256()
-    h.update(spec_path.read_bytes())
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    h.update(json.dumps(spec, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+    # The screenshot is binary; git leaves it alone, so its bytes are safe to hash directly.
     h.update(src.read_bytes())
     return h.hexdigest()
 
