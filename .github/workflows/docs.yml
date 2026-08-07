@@ -95,8 +95,23 @@ jobs:
       - name: Build site
         run: mkdocs build --strict   # --strict: a broken internal link fails the build
 
+      # -v so mkdocs-with-pdf's own log ("Converting N articles to PDF") and WeasyPrint's
+      # warnings are in the run log. Without it a PDF that silently loses 90% of the book
+      # builds exactly as quietly as a correct one — which is how the published 8-page PDF
+      # got there.
       - name: Build PDF
-        run: mkdocs build -f mkdocs.pdf.yml   # → site/pdf/bettermodsmanager.pdf
+        run: mkdocs build -v -f mkdocs.pdf.yml   # → site/pdf/bettermodsmanager.pdf
+
+      # The build cannot tell whether WeasyPrint laid out what it was handed, so read the
+      # finished file back. "View the tech stack" is on Credits, the LAST page in the nav —
+      # a truncated render still contains every early page, so only a late phrase proves it
+      # went all the way through.
+      - name: The PDF contains the documentation
+        run: |
+          python tools/check_pdf.py site/pdf/bettermodsmanager.pdf \
+            --min-pages 40 --expect "View the tech stack"
+          python tools/check_pdf.py site/fr/pdf/bettermodsmanager.pdf \
+            --min-pages 40 --expect "Voir la stack technique"
 
       - uses: actions/upload-artifact@v4
         with:

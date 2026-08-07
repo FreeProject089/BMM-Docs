@@ -1,0 +1,85 @@
+// Extra print styles, appended last by mkdocs-with-pdf.
+//
+// The plugin looks for `<custom_template_path>/styles.scss` (see mkdocs_with_pdf/styles/
+// __init__.py). `custom_template_path` defaults to "templates", and that directory did not
+// exist — so nothing here was ever applied, and the PDF shipped with only the plugin's own
+// polyfills.
+
+@media print {
+  // ── Admonition icons ────────────────────────────────────────────────────────────────
+  //
+  // Material draws these with `mask-image` on a `::before`, which WeasyPrint cannot do.
+  // The plugin's polyfill swaps the mask for a `background-image`, but it restores neither
+  // the absolute positioning nor a `background-size` — so the glyph falls back into normal
+  // flow and lands on top of the title's first letter (visible on "Rate-limited on GitHub?"),
+  // at whatever intrinsic size the SVG happens to report.
+  //
+  // The icons themselves are fine: the polyfill defines --print-md-admonition-icon--* for
+  // every type. Only the box needs fixing.
+  .md-typeset .admonition-title,
+  .md-typeset summary {
+    position: relative;      // the containing block the ::before is positioned against
+    padding-left: 2.2rem;    // reserve the gutter the icon sits in
+  }
+
+  .md-typeset .admonition-title::before,
+  .md-typeset summary::before {
+    position: absolute;
+    top: 0.55rem;
+    left: 0.6rem;
+    width: 1rem;
+    height: 1rem;
+    // The data-URI SVGs carry a viewBox but no width/height, so their intrinsic size is
+    // undefined and `background-size: auto` is a coin flip. Pin it to the box.
+    background-size: 1rem 1rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  // ── Content tabs ────────────────────────────────────────────────────────────────────
+  //
+  // `=== "Tab"` compiles to radio inputs plus `.tabbed-block{display:none}` — only the
+  // checked one is visible. WeasyPrint applies that CSS faithfully, so every tab after the
+  // first was silently absent from the PDF. The plugin already rewraps each radio with its
+  // own content (wrap_tabbed_set_content); this makes all of them visible and labelled, so
+  // a printed page carries the same information as the web one.
+  .tabbed-content--wrap .tabbed-block,
+  .md-typeset .tabbed-block {
+    display: block;
+  }
+
+  .md-typeset .tabbed-labels {
+    display: block;
+
+    > label {
+      display: block;
+      font-weight: 700;
+      padding: 0.3rem 0;
+    }
+  }
+
+  // ── Links ───────────────────────────────────────────────────────────────────────────
+  //
+  // Cross-page references become real internal jumps in the PDF, so keep them looking
+  // clickable. External ones get their target spelled out — a blue word is useless on paper.
+  .md-typeset a {
+    color: #1a73e8;
+    text-decoration: none;
+  }
+
+  .md-typeset a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #666;
+    word-break: break-all;
+  }
+
+  // …except where the URL would be noise: the edit button, the header logo, and anything
+  // already showing its own address.
+  .md-typeset a.md-content__button::after,
+  .md-typeset .headerlink::after {
+    content: none;
+  }
+}

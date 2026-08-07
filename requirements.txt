@@ -9,3 +9,6 @@ Pillow==11.0.0
 # version dlopens (see weasyprint/text/ffi.py): v53 dropped cairo, v57 added harfbuzz-subset.
 # Pin them together, or the two drift apart again.
 weasyprint==69.0
+# Reading the built PDF back, so a render that silently drops 90% of the book fails the
+# build instead of shipping. See tools/check_pdf.py.
+pypdf==5.1.0
