@@ -49,20 +49,24 @@ article h2 {
 
 // ── App deeplinks ──────────────────────────────────────────────────────────────────────
 //
-// `{ .md-button }` renders a full-width primary button. In a PDF that promises an action the
-// document cannot deliver: `bmm://` is a custom scheme, and most readers (Chrome's built-in
-// viewer among them) refuse to launch one. The link is kept — readers that do allow it will
-// open BMM — but it is presented as what it is, an address you can also type, rather than a
-// button that looks broken when nothing happens.
+// `{ .md-button }` renders a full-width primary button. A PDF cannot honour that promise
+// reliably: `bmm://` is a custom scheme, and readers differ — Acrobat asks before launching
+// one, Edge and Firefox hand it to the OS, Chrome's built-in viewer refuses outright. That
+// is reader policy, not something this document can change.
+//
+// So it is rendered as what it actually is: an underlined link, carrying a real `bmm://`
+// URI action that opens BMM wherever the reader allows it, with the address printed beside
+// it so it works by hand everywhere else. A button that does nothing when clicked is worse
+// than a link that shows you where it goes.
 .md-typeset .md-button {
   display: inline;
-  padding: 0.1em 0.45em;
-  border: 1px solid;
-  border-radius: 3px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
   font-weight: 600;
-  font-size: 0.85em;
   background: none !important;
   box-shadow: none;
+  text-decoration: underline;
 }
 
 // ── Diagrams must never straddle a page break ──────────────────────────────────────────

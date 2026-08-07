@@ -18,8 +18,11 @@ theme:
   # where the PDF plugin is not loaded at all.
   custom_dir: overrides
   language: en
+  # The app's own icon, copied straight from src-tauri/icons/ — logo.png was a 156-byte
+  # 64x64 placeholder (a flat orange square) and the favicon pointed at it too. The .ico
+  # carries several sizes, which is what a browser tab actually wants.
   logo: assets/logo.png
-  favicon: assets/logo.png
+  favicon: assets/favicon.ico
   icon:
     repo: fontawesome/brands/github
   palette:

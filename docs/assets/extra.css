@@ -195,60 +195,64 @@ body {
 .md-nav--secondary .md-nav__link--active { color: var(--bmm-blue); font-weight: 700; }
 
 /* ── The "download the PDF" button ────────────────────────────────────────────
-   Injected at the top of every page by pdf_event_hook.py's inject_link, which
-   replaces the plugin's own version — that one appended plain text to
-   .md-footer-copyright, a container Material 9 does not render, so nothing ever
-   showed. Because it is injected during the PDF build (the second mkdocs pass),
-   it only exists on the published site, not in `mkdocs serve`. */
-.bmm-pdf-download {
+   Injected at the top of every page by overrides/main.html.
+
+   Every selector here is prefixed with .md-typeset on purpose. The button lives
+   inside <article class="md-content__inner md-typeset">, and Material has
+   `.md-typeset a { color: var(--md-typeset-a-color) }` — specificity 0,1,1,
+   which beats a bare `.bmm-pdf-download__btn` at 0,1,0. So the label took the
+   link colour and came out blue on a blue fill; in the light scheme the two were
+   close enough that the button looked empty. */
+.md-typeset .bmm-pdf-download {
   display: flex;
-  align-items: baseline;
-  gap: .6rem;
+  align-items: center;
+  gap: .7rem;
   flex-wrap: wrap;
-  margin: 0 0 1.2rem;
+  margin: 0 0 1.4rem;
 }
 
-.bmm-pdf-download__btn {
+.md-typeset .bmm-pdf-download__btn {
   display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  padding: .35rem .8rem;
+  gap: .4rem;
+  padding: .4rem .9rem;
   border-radius: .2rem;
   font-size: .7rem;
   font-weight: 700;
+  line-height: 1.4;
   text-decoration: none;
-  /* Explicit rather than var(--md-primary-bg-color): under the slate scheme Material
-     resolves that to a near-black, and this button sits on a blue fill — the label came out
-     dark-on-blue and read as invisible. White on #1d4ed8 is 8.6:1 in both schemes. */
+  /* Fixed pair, not theme variables: this is a filled button, and it has to keep
+     its contrast in both schemes. White on #1d4ed8 is 8.6:1. */
   color: #fff;
-  background: var(--bmm-blue-2, #1d4ed8);
-  transition: filter .15s;
+  background: #1d4ed8;
+  transition: background .15s;
 }
 
-.bmm-pdf-download__btn::before {
+.md-typeset .bmm-pdf-download__btn::before {
   /* A download arrow, drawn rather than pulled from an icon font — this stylesheet
-     is loaded on every page and should not add a request for one glyph. */
+     loads on every page and should not add a request for one glyph. */
   content: "";
-  width: .8rem;
-  height: .8rem;
+  width: .85rem;
+  height: .85rem;
+  flex: 0 0 auto;
   background: currentColor;
   -webkit-mask: no-repeat center / contain url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>');
   mask: no-repeat center / contain url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>');
 }
 
-.bmm-pdf-download__btn:hover { filter: brightness(1.12); }
-.bmm-pdf-download__btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.md-typeset .bmm-pdf-download__btn:hover { background: #1e40af; }
+.md-typeset .bmm-pdf-download__btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
-.bmm-pdf-download__alt {
-  font-size: .62rem;
+.md-typeset .bmm-pdf-download__alt {
+  font-size: .64rem;
   color: var(--md-default-fg-color--light);
   text-decoration: none;
   border-bottom: 1px dotted currentColor;
 }
 
-.bmm-pdf-download__alt:hover { color: var(--md-accent-fg-color); }
+.md-typeset .bmm-pdf-download__alt:hover { color: var(--md-accent-fg-color); }
 
 @media print {
   /* It is already the PDF. */
-  .bmm-pdf-download { display: none; }
+  .md-typeset .bmm-pdf-download { display: none; }
 }
