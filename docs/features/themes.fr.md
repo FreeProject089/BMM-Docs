@@ -24,9 +24,8 @@ importe en un clic.
 
 <div class="bmm-replay"
      data-src="../assets/replays/themes.bmmreplay"
-     data-title="Restyler BMM avec l'éditeur de thèmes (clip placeholder)"></div>
+     data-title="Restyler BMM avec l'éditeur de thèmes"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## L'éditeur a trois niveaux
 

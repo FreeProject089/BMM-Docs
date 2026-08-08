@@ -22,9 +22,8 @@ Mapper corrige ça sans que tu dézippes quoi que ce soit à la main.
 
 <div class="bmm-replay"
      data-src="../assets/replays/mapper.bmmreplay"
-     data-title="Remapper un mod mal empaqueté (clip placeholder)"></div>
+     data-title="Recartographier un mod mal packagé"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Quand en as-tu besoin
 

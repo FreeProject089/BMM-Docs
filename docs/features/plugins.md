@@ -32,9 +32,8 @@ for a release.
 
 <div class="bmm-replay"
      data-src="../assets/replays/plugins.bmmreplay"
-     data-title="Granting and using a plugin (placeholder clip)"></div>
+     data-title="Granting a permission and using a plugin"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## What you can grant a plugin
 

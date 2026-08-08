@@ -22,9 +22,8 @@ active ou désactive le pack.
 
 <div class="bmm-replay"
      data-src="../assets/replays/modpacks.bmmreplay"
-     data-title="Construire et appliquer un modpack (clip placeholder)"></div>
+     data-title="Créer et appliquer un modpack"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Modpack ou profil ?
 

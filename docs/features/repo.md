@@ -24,9 +24,8 @@ hand stays at the version you installed, forever, silently.
 
 <div class="bmm-replay"
      data-src="../assets/replays/repo.bmmreplay"
-     data-title="Syncing from and hosting a repo (placeholder clip)"></div>
+     data-title="Connecting to a repo and syncing"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## Connecting to a repo
 

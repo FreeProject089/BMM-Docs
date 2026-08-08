@@ -23,9 +23,8 @@ regardes ailleurs.
 
 <div class="bmm-replay"
      data-src="../assets/replays/scheduler.bmmreplay"
-     data-title="Construire une automatisation (clip placeholder)"></div>
+     data-title="Créer une tâche planifiée"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Une tâche a trois parties
 

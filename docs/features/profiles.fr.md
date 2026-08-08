@@ -26,9 +26,8 @@ Son vrai rôle est écrit sur l'écran vide :
 
 <div class="bmm-replay"
      data-src="../assets/replays/profiles.bmmreplay"
-     data-title="Créer et changer de profils (clip placeholder)"></div>
+     data-title="Créer un profil et basculer dessus"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Pourquoi plusieurs profils pour un même jeu
 

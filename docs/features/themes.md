@@ -23,9 +23,8 @@ click.
 
 <div class="bmm-replay"
      data-src="../assets/replays/themes.bmmreplay"
-     data-title="Restyling BMM with the theme editor (placeholder clip)"></div>
+     data-title="Restyling BMM with the theme editor"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## The editor has three levels
 

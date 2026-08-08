@@ -25,9 +25,8 @@ silence.
 
 <div class="bmm-replay"
      data-src="../assets/replays/repo.bmmreplay"
-     data-title="Synchroniser et héberger un dépôt (clip placeholder)"></div>
+     data-title="Se connecter à un dépôt et synchroniser"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Se connecter à un dépôt
 

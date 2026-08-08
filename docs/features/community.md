@@ -53,9 +53,8 @@ Three different empty states, because three different things can be true:
 
 <div class="bmm-replay"
      data-src="../assets/replays/community.bmmreplay"
-     data-title="Reading the community blog (placeholder clip)"></div>
+     data-title="Reading the community blog"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## The feed
 

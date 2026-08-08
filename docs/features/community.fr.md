@@ -53,9 +53,8 @@ Trois états vides différents, parce que trois choses différentes peuvent êtr
 
 <div class="bmm-replay"
      data-src="../assets/replays/community.bmmreplay"
-     data-title="Lire le blog communautaire (clip placeholder)"></div>
+     data-title="Lire le blog communautaire"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Le fil
 

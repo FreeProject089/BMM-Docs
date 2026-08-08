@@ -22,9 +22,8 @@ fixes that without you unzipping anything by hand.
 
 <div class="bmm-replay"
      data-src="../assets/replays/mapper.bmmreplay"
-     data-title="Remapping a badly-packaged mod (placeholder clip)"></div>
+     data-title="Remapping a badly-packaged mod"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## When you need it
 

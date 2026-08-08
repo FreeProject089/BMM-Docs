@@ -25,9 +25,8 @@ Its real job is stated on the empty screen:
 
 <div class="bmm-replay"
      data-src="../assets/replays/profiles.bmmreplay"
-     data-title="Creating and switching profiles (placeholder clip)"></div>
+     data-title="Creating a profile and switching to it"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## Why several profiles per game
 

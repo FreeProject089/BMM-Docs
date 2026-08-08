@@ -22,9 +22,8 @@ you're not looking.
 
 <div class="bmm-replay"
      data-src="../assets/replays/scheduler.bmmreplay"
-     data-title="Building an automation (placeholder clip)"></div>
+     data-title="Building a scheduled task"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## A task has three parts
 

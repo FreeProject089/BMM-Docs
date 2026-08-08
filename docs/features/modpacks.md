@@ -22,9 +22,8 @@ on or off.
 
 <div class="bmm-replay"
      data-src="../assets/replays/modpacks.bmmreplay"
-     data-title="Building and applying a modpack (placeholder clip)"></div>
+     data-title="Building and applying a modpack"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## Modpack or profile?
 

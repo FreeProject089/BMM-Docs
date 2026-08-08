@@ -21,9 +21,8 @@ lists) is a different way of arranging what the Library holds.
 
 <div class="bmm-replay"
      data-src="../assets/replays/library.bmmreplay"
-     data-title="The Library in action (placeholder clip)"></div>
+     data-title="Adding a mod and enabling it"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## Adding your first mod
 

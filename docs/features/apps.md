@@ -23,9 +23,8 @@ version you have, and launches them — without you managing downloads by hand.
 
 <div class="bmm-replay"
      data-src="../assets/replays/apps.bmmreplay"
-     data-title="Installing an app from the catalog (placeholder clip)"></div>
+     data-title="Installing an app from the catalog"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## Reading a card
 

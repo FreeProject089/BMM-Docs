@@ -22,9 +22,8 @@ mods, where to get them, in what order, and what to do when they clash*.
 
 <div class="bmm-replay"
      data-src="../assets/replays/modlist.bmmreplay"
-     data-title="Exporting and importing a .MM list (placeholder clip)"></div>
+     data-title="Exporting and importing a .MM list"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## Sharing
 

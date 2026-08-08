@@ -6,9 +6,8 @@ par section pour que rien ne reste un mystère.
 
 <div class="bmm-replay"
      data-src="../assets/replays/settings.bmmreplay"
-     data-title="Un tour des Paramètres (clip placeholder)"></div>
+     data-title="Un tour des Paramètres"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Les quatre qui comptent le plus
 

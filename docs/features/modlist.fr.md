@@ -22,9 +22,8 @@ où les prendre, dans quel ordre, et quoi faire quand ils se marchent dessus*.
 
 <div class="bmm-replay"
      data-src="../assets/replays/modlist.bmmreplay"
-     data-title="Exporter et importer une liste .MM (clip placeholder)"></div>
+     data-title="Exporter et importer une liste .MM"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Le partage
 

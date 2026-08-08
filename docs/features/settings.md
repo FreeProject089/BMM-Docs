@@ -6,9 +6,8 @@ mystery.
 
 <div class="bmm-replay"
      data-src="../assets/replays/settings.bmmreplay"
-     data-title="A tour of Settings (placeholder clip)"></div>
+     data-title="A tour of Settings"></div>
 
-*Placeholder recording — a focused clip of this screen will replace it.*
 
 ## The four that matter most
 

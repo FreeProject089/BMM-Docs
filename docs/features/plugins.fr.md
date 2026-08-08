@@ -32,9 +32,8 @@ version.
 
 <div class="bmm-replay"
      data-src="../assets/replays/plugins.bmmreplay"
-     data-title="Accorder et utiliser un plugin (clip placeholder)"></div>
+     data-title="Accorder une permission et utiliser un plugin"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Ce que tu peux accorder à un plugin
 

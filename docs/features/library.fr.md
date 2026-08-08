@@ -22,9 +22,8 @@ contient.
 
 <div class="bmm-replay"
      data-src="../assets/replays/library.bmmreplay"
-     data-title="La Bibliothèque en action (clip placeholder)"></div>
+     data-title="Ajouter un mod et l'activer"></div>
 
-*Enregistrement placeholder — un clip ciblé de cet écran le remplacera.*
 
 ## Ajouter ton premier mod
 
