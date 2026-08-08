@@ -103,11 +103,47 @@ table,
   page-break-inside: avoid;
 }
 
-// A long reference table is the exception — forcing it whole would leave a half-empty page
-// before it and overflow after it.
+// ── Tables across a page break ─────────────────────────────────────────────────────────
+//
+// A long reference table has to be allowed to break — forcing a 40-row table whole would
+// leave a half-empty page before it and overflow the next one. But "the table may break"
+// must not mean "anywhere": left alone, WeasyPrint splits it mid-ROW, so a cell's text
+// continues on the next page under no heading and beside no label.
+//
+// Three rules make a break readable instead of broken:
+//
+//   tr / th / td  break-inside: avoid   — a row moves whole to the next page, never splits.
+//   thead         display: table-header-group — the header repeats at the top of each page,
+//                 so a continued table still says what its columns are.
+//   border-radius 0 — Material rounds the table's corners. On a split, the rounding is drawn
+//                 where the table was cut, which reads as a second, broken table starting
+//                 mid-page (visible on the "What it does beyond copying files" table).
 .md-typeset table:not([class]) {
   break-inside: auto;
   page-break-inside: auto;
+  border-radius: 0;
+}
+
+.md-typeset table:not([class]) thead {
+  display: table-header-group;
+  break-inside: avoid;
+  break-after: avoid;
+}
+
+.md-typeset table:not([class]) tr,
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+// The wrapper Material puts around a wide table scrolls on screen (`overflow: auto`), which
+// in print clips whatever sits past the break instead of letting it flow onto the next page.
+.md-typeset__table,
+.md-typeset .md-typeset__scrollwrap {
+  display: block;
+  overflow: visible;
+  padding: 0;
 }
 
 img {
