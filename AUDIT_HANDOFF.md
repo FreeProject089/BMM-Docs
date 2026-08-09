@@ -50,7 +50,7 @@ leads, not findings** — confirm each against the file before editing a page.
 
 18 corrections landed from these.
 
-## Still unread — 13 pages
+## Still unread — 12 pages
 
 Each is `<page>.md` plus its `.fr.md` twin; the French is a translation, so an error in one
 is usually in both. **Check both, and check they still say the same thing** — a correction
@@ -67,7 +67,6 @@ applied to only one side is its own defect.
 | `how-it-works/extending.md` | Plugins/API surface; cross-check against `features/plugins.md` and `reference/api.md`. |
 | `how-it-works/conflicts.md` | Pairs with `profiles-activation.md` — layered restore is described in both. |
 | `how-it-works/profiles-activation.md` | Same pair. This is the next one to do. |
-| `install.md` (if present) | Install instructions were corrected once for bettercommunity.ch; re-verify. |
 | `reference/mcp.md` | 51 MCP tools; tool names drift silently. |
 | `reference/credits.md` | Licence (GPL-3.0), pseudonym, attributions. |
 | `reference/tips.md` | Grab-bag; most likely to contain stale UI claims. |
