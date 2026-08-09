@@ -33,10 +33,20 @@ from urllib.parse import quote
 
 from bs4 import BeautifulSoup
 
-# The same version Material's bundle loads (grep `unpkg.com/mermaid` in
-# assets/javascripts/bundle.*.js), so the PDF draws what the site draws. It does mean the
-# PDF build needs the network — the site build already did, for the same file.
-MERMAID_URL = "https://unpkg.com/mermaid@11/dist/mermaid.min.js"
+# Material's bundle asks unpkg for `mermaid@11` — a RANGE, so whatever 11.x is current that
+# day. That is fine in a reader's browser; it is not fine here. This script runs in CI and
+# its output is baked into a published PDF that readers then trust as a static artifact, so
+# an unnoticed change upstream would silently redraw every diagram in a signed-off document.
+#
+# Pinned to an exact version and checked with SRI: if unpkg ever serves different bytes for
+# this URL, Chrome refuses the script and the build fails loudly instead of shipping it.
+#
+# The cost is drift — the site may render diagrams with a newer mermaid than the PDF. Bump
+# both together: pick the version, re-fetch it, and regenerate the digest with
+#     curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A
+MERMAID_VERSION = "11.16.1"
+MERMAID_URL = f"https://unpkg.com/mermaid@{MERMAID_VERSION}/dist/mermaid.min.js"
+MERMAID_SRI = "sha384-aBQXj4hK6Jm05i7aQAsUV3bLdSUrHX1BGYfMB0166TtWt/RRaw+h0Eelme9OCOvy"
 
 # First name found wins. ubuntu-latest has google-chrome preinstalled; a plain Debian image
 # has chromium. BMM_PDF_CHROME overrides both.
@@ -220,7 +230,11 @@ def pre_pdf_render(soup: BeautifulSoup, logger) -> BeautifulSoup:
     # instead of being 28 white rectangles on near-black.
     theme = "dark" if _dark() else "neutral"
 
-    body.append(soup.new_tag("script", src=MERMAID_URL))
+    body.append(
+        soup.new_tag(
+            "script", src=MERMAID_URL, integrity=MERMAID_SRI, crossorigin="anonymous"
+        )
+    )
     init = soup.new_tag("script")
     init.string = INIT_JS.replace("__THEME__", theme)
     body.append(init)
