@@ -136,6 +136,7 @@ nav:
       - index.md
       - getting-started/install.md
       - getting-started/first-launch.md
+      - getting-started/migrating.md
   - Features:
       - features/library.md
       - features/modlist.md
