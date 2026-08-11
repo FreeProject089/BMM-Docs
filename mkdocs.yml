@@ -94,6 +94,7 @@ plugins:
             Scheduling & automation: Planification & automatisation
             Storage & disk I/O: Stockage & E/S disque
             Themes & Appearance: Thèmes & Apparence
+            Make your own theme: Créer son propre thème
             Credits: Crédits
             API reference: Référence API
             Action reference: Référence des actions
@@ -154,6 +155,7 @@ nav:
       - features/storage.md
       - features/privacy-telemetry.md
       - features/themes.md
+      - features/making-themes.md
   - How it works:
       - how-it-works/index.md
       - how-it-works/architecture.md
