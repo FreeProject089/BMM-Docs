@@ -13,8 +13,8 @@ navigateur — pas une vidéo, l'interface réelle rejouée.*
 
 ## Raccourcis clavier
 
-BMM a quatre raccourcis globaux, tous `Ctrl` + une touche. Ils sautent au bon écran et ouvrent
-la bonne chose en une pression :
+BMM est livré avec cinq raccourcis, tous `Ctrl` + une touche. Ils sautent au bon écran et
+ouvrent la bonne chose en une pression :
 
 | Raccourci | Effet |
 |---|---|
@@ -22,9 +22,12 @@ la bonne chose en une pression :
 | `Ctrl + M` | Ajouter un mod. |
 | `Ctrl + E` | Exporter une liste `.MM`. |
 | `Ctrl + I` | Importer une liste `.MM`. |
+| `Ctrl + K` | Ouvrir la palette de commandes. |
 
-Les lettres sont **personnalisables** dans **Paramètres → Raccourcis clavier** — réassigne-les
-à ce que tes doigts connaissent déjà.
+Ce ne sont que les valeurs par défaut. **Toutes** les actions que BMM connaît — une trentaine,
+la même liste que fouille la palette — peuvent recevoir un raccourci dans **Paramètres →
+Raccourcis clavier**, pas seulement ces cinq. Voir [Palette de commandes et
+raccourcis](../features/command-palette.md).
 
 ## La souris dans la Bibliothèque
 

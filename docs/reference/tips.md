@@ -13,8 +13,8 @@ video, the actual interface replayed.*
 
 ## Keyboard shortcuts
 
-BMM has four global shortcuts, all `Ctrl` + a key. They jump to the right screen and open the
-right thing in one press:
+BMM ships with five shortcuts out of the box, all `Ctrl` + a key. They jump to the right
+screen and open the right thing in one press:
 
 | Shortcut | Does |
 |---|---|
@@ -22,9 +22,11 @@ right thing in one press:
 | `Ctrl + M` | Add a mod. |
 | `Ctrl + E` | Export a `.MM` list. |
 | `Ctrl + I` | Import a `.MM` list. |
+| `Ctrl + K` | Open the command palette. |
 
-The letters are **customisable** in **Settings → Keyboard Shortcuts** — rebind them to whatever
-your fingers already know.
+Those are only the defaults. **Every** action BMM knows — around thirty, the same list the
+palette searches — can be given a shortcut in **Settings → Keyboard Shortcuts**, not just
+these five. See [Command palette & shortcuts](../features/command-palette.md).
 
 ## Mouse in the Library
 
