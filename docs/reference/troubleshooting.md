@@ -165,5 +165,5 @@ In order:
 4. **Factory reset** — Settings → Debug. **No undo.** Export before you go near it.
 
 !!! info "Still stuck?"
-    The in-app **Help & other** hub has the same articles plus 40 diagrams, and
+    The in-app **Help & other** hub has the same articles plus 41 diagrams, and
     [BetterCommunity](../features/community.md) is where to ask.
