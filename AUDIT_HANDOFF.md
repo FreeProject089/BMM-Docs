@@ -50,12 +50,10 @@ leads, not findings** — confirm each against the file before editing a page.
 
 18 corrections landed from these.
 
-## Still unread — 2 pages
+## Every page has been read
 
-| Page | Why it is worth reading |
-|---|---|
-| `how-it-works/extending.md` | Plugins/API surface; cross-check against `features/plugins.md` and `reference/api.md`. |
-| `how-it-works/architecture.md` | Partially done. Cross-check against `how-it-works/index.md`. |
+The pass is complete. 38 pages, both languages. What follows is what it taught — keep it,
+because the next drift will follow the same shape.
 
 ## What the finished pages taught
 
