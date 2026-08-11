@@ -50,31 +50,44 @@ leads, not findings** — confirm each against the file before editing a page.
 
 18 corrections landed from these.
 
-## Still unread — 12 pages
-
-Each is `<page>.md` plus its `.fr.md` twin; the French is a translation, so an error in one
-is usually in both. **Check both, and check they still say the same thing** — a correction
-applied to only one side is its own defect.
+## Still unread — 2 pages
 
 | Page | Why it is worth reading |
 |---|---|
-| `features/settings.md` | Partially done. Every default and trigger it names needs the constant checked. |
-| `features/privacy-telemetry.md` | Claims about what is sent and when. Highest consequence if wrong. |
-| `features/apps.md` | Cross-check against `features/community.md` (catalogs) — same subject, two pages. |
-| `features/command-palette.md` | Rebuilt on `core/commands.ts`; the old hardcoded-shortcuts system is gone. Likely stale. |
-| `how-it-works/architecture.md` | Partially done. Cross-check against `how-it-works/index.md`. |
-| `how-it-works/index.md` | Overview — cross-check against every `how-it-works/` page it summarises. |
 | `how-it-works/extending.md` | Plugins/API surface; cross-check against `features/plugins.md` and `reference/api.md`. |
-| `how-it-works/conflicts.md` | Pairs with `profiles-activation.md` — layered restore is described in both. |
-| `how-it-works/profiles-activation.md` | Same pair. This is the next one to do. |
-| `reference/mcp.md` | 51 MCP tools; tool names drift silently. |
-| `reference/credits.md` | Licence (GPL-3.0), pseudonym, attributions. |
-| `reference/tips.md` | Grab-bag; most likely to contain stale UI claims. |
+| `how-it-works/architecture.md` | Partially done. Cross-check against `how-it-works/index.md`. |
 
-Start with **`conflicts.md` + `profiles-activation.md`** as a pair: they both describe the
-layered restore (disabling a mod restores another still-enabled mod's version of a file
-rather than the vanilla backup), which is a behaviour claim, in the owner's forum reply,
-and in the code. Three sources to agree.
+## What the finished pages taught
+
+A pattern held across every page checked, and it is worth using rather than re-deriving:
+
+**Pages describing a MECHANISM were accurate.** `privacy-telemetry`, `reference/mcp`,
+`credits`, `how-it-works/index`, `profiles-activation` — all correct, including their
+strongest claims. A mechanism rarely changes, so prose about it ages well.
+
+**Pages listing UI ELEMENTS had OMISSIONS, not errors.** `settings.md` was missing the local
+session recorder entirely (privacy-relevant) and the scanning section. `apps.md` covered four
+of six tabs. `tips.md` described the pre-registry shortcut system. Nothing in them was false —
+they were simply incomplete, which reads perfectly well and is therefore far harder to spot.
+
+**So the technique that works on a list page is NOT reading it.** Enumerate from the code —
+`const TABS = [...]`, the `settings-*` ids in index.html, the dispatch arms in the MCP server
+— and check each entry against the page. Every omission above was found that way, and none of
+them would have been found by reading.
+
+**Verifying a page also finds things beside it.** `credits.md` was correct about GPL-3.0, but
+checking it revealed that neither Cargo.toml nor package.json declared a licence at all.
+
+## Two real bugs came from doc claims
+
+Both worth remembering, because they justify the whole exercise:
+
+- `conflicts.md` promised the Mapper's worst case was "a mis-shaped mod you can reshape
+  again". The code did `remove_dir_all` on a name collision. (BMM `489d7e5`)
+- The same page said disabling walks the active list "in reverse, so the most recently
+  enabled mod wins". The code walked it forward and restored the OLDEST layer — the game
+  silently dropped two layers instead of one. **The docs were right and the code was wrong.**
+  (BMM `da8ff91`)
 
 ## Changed under the audit — re-verify these
 
