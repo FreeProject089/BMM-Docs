@@ -121,6 +121,17 @@ jobs:
       # BMM_PDF_THEME is not decoration: the diagrams are drawn by a browser before WeasyPrint
       # runs, so mermaid's palette is chosen in pdf_event_hook.py, not in CSS. Without it the
       # dark edition would be 28 white diagrams on near-black pages.
+      # The cover's edition line: version (latest tag, else short SHA) + the EXACT
+      # commit timestamp — so the first page states which docs this book is.
+      - name: Stamp the PDF edition
+        run: |
+          VER=$(git describe --tags --abbrev=0 2>/dev/null || git rev-parse --short HEAD)
+          STAMP=$(git log -1 --format=%cd --date=format-local:'%Y-%m-%d %H:%M:%S UTC')
+          echo "BMM_PDF_EDITION=Documentation - ${VER} - ${STAMP}" >> "$GITHUB_ENV"
+          echo "Edition: Documentation - ${VER} - ${STAMP}"
+        env:
+          TZ: UTC
+
       - name: Build PDF (dark edition)
         run: |
           BMM_PDF_THEME=dark mkdocs build -f mkdocs.pdf-dark.yml

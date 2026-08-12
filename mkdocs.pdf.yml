@@ -24,7 +24,12 @@ plugins:
           build: true
   - with-pdf:
       cover_title: BetterModsManager
-      cover_subtitle: Documentation
+      # The subtitle carries the exact edition: CI exports BMM_PDF_EDITION as
+      # "Documentation - <version> - <commit timestamp UTC>" before building, so the
+      # first page states precisely WHICH docs this book is. Local builds keep the plain
+      # default.
+      cover_subtitle: !ENV [BMM_PDF_EDITION, 'Documentation']
+      author: FreeProject089
       output_path: pdf/bettermodsmanager.pdf
       # NOT `render_js: true`. The plugin's own browser pass is broken with current
       # BeautifulSoup — it ends on `tag.text = ...` (generator.py:381), a read-only property,
