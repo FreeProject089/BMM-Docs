@@ -170,6 +170,7 @@ nav:
       - how-it-works/security.md
   - Reference:
       - reference/api.md
+      - reference/repo-format.md
       - reference/actions.md
       - reference/mcp.md
       - reference/tips.md
