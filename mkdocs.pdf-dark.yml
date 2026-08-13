@@ -37,5 +37,7 @@ plugins:
       # default.
       cover_subtitle: !ENV [BMM_PDF_EDITION, 'Documentation']
       author: FreeProject089
+      # Same reason as mkdocs.pdf.yml: unset renders as "None" on the cover.
+      copyright: © 2026 FreeProject089 — GPL-3.0
       output_path: pdf/bettermodsmanager-dark.pdf
       custom_template_path: templates-dark

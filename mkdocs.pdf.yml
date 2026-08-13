@@ -30,6 +30,12 @@ plugins:
       # default.
       cover_subtitle: !ENV [BMM_PDF_EDITION, 'Documentation']
       author: FreeProject089
+      # Set explicitly, because mkdocs-with-pdf prints `config['copyright']` on the
+      # cover whether or not it exists — an unset value rendered the literal string
+      # "None" under the author. Filling it is better than hiding the line: a document
+      # that travels as a PDF should carry its own licence, since it arrives detached
+      # from the repository that states it (GPL-3.0, see LICENSE.md).
+      copyright: © 2026 FreeProject089 — GPL-3.0
       output_path: pdf/bettermodsmanager.pdf
       # NOT `render_js: true`. The plugin's own browser pass is broken with current
       # BeautifulSoup — it ends on `tag.text = ...` (generator.py:381), a read-only property,
