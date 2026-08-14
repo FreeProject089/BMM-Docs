@@ -4,7 +4,7 @@
 
     L'app a une version plus courte de cette page, juste à côté des outils de dépôt.
     [L'ouvrir dans Aide &amp; autres](bmm://docs/open?article=repo-format)
-    — BMM doit déjà être lancé. [Ce que sont ces liens](../index.fr.md#comment-fonctionnent-les-liens-bmm)
+    — BMM doit déjà être lancé. [Ce que sont ces liens](../index.fr.md#comment-marchent-les-liens-bmm)
 
 Un **Dépôt Serveur** est un dossier que vous pouvez placer derrière n'importe quel serveur
 web. Il contient les fichiers de mods et un manifeste, `repo.json`, qui les décrit assez
