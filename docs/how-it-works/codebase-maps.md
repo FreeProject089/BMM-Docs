@@ -1,5 +1,7 @@
 # Codebase maps
 
+[↗ Open this in the BMM app](bmm://docs/open?article=codebase-maps){ .md-button .md-button--primary }
+
 Three tools that answer questions the compiler cannot. They read the source and print a
 structure; none of them ships in the app, and none of them needs the app running.
 

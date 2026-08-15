@@ -1,5 +1,7 @@
 # Cartes du code
 
+[↗ Ouvrir dans l'app BMM](bmm://docs/open?article=codebase-maps){ .md-button .md-button--primary }
+
 Trois outils qui répondent à des questions que le compilateur ne pose pas. Ils lisent les
 sources et impriment une structure ; aucun n'est embarqué dans l'app, aucun n'a besoin
 qu'elle tourne.
