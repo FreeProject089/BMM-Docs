@@ -60,10 +60,10 @@ frappe compile parfaitement et échoue à l'exécution en promesse rejetée.
 `check-invoke-names.mjs` garde déjà un sens — tout nom passé à `invoke()` doit atteindre une
 commande enregistrée. Voici le reste de la forme :
 
-- **367** commandes enregistrées, **322** appelées depuis le frontend, **62** modules qui en
+- **368** commandes enregistrées, **324** appelées depuis le frontend, **63** modules qui en
   appellent au moins une. `features/settings/scheduler.ts` en touche 54 à lui seul.
 - Par module Rust, la part réellement utilisée par l'interface.
-- **45 commandes sans appelant frontend.** Signalées exactement ainsi et *jamais* comme
+- **44 commandes sans appelant frontend.** Signalées exactement ainsi et *jamais* comme
   « inutilisées » : le serveur MCP, la CLI et les deeplinks `bmm://` atteignent des commandes
   que l'UI ne touche jamais. L'outil ne sait pas distinguer une commande réservée au MCP
   d'une commande oubliée, et ne prétend pas le savoir.
@@ -71,6 +71,33 @@ commande enregistrée. Voici le reste de la forme :
   ce compte est la mesure honnête de ce qui échappe à toute vérification.
 
 ---
+
+---
+
+## Toutes les actions `bmm://` — `npm run map:deeplinks`
+
+Le constructeur de liens de BetterCommunity proposait quatre actions, tapées à la main, dans un
+autre dépôt. BMM en gère **43**.
+
+Deux problèmes, et le second est celui qui dure. Un constructeur qui propose une action que
+l'app ne gère pas produit un lien qui ouvre BMM et ne fait rien — pire que pas de
+constructeur, parce que ça donne l'impression que l'app est cassée. Et une liste recopiée dans
+un autre dépôt est fausse dès que quelqu'un ajoute un deeplink ici, en silence.
+
+La table est donc dérivée de `deep_link_manager.ts` et versionnée dans
+`frontend/deeplinks.json` : chaque action avec les paramètres qu'elle lit réellement, y compris
+ceux que personne ne devinerait — `repo/sync` en prend sept, `app/install` cinq, et huit n'en
+prennent aucun.
+
+`node scripts/deeplink-map.mjs --check` tourne dans `npm run ci` : ajouter un deeplink en
+oubliant la table devient un échec de build, pas un lien faux découvert plus tard. Le parseur
+refuse aussi d'émettre moins de 15 actions — un parseur qui ne matcherait rien produirait une
+table vide, et une table vide se lit « BMM n'a pas de deeplinks ».
+
+!!! note "Les chiffres de cette page sont un instantané"
+    Ils étaient vrais à l'écriture, et chaque outil imprime les siens. `npm run map:deps`,
+    `map:api`, `map:deeplinks` et `impact` répondent pour aujourd'hui ; cette page explique ce
+    que les nombres veulent dire.
 
 ## Ce qu'un changement touche vraiment — `npm run impact`
 
@@ -83,7 +110,7 @@ npm run impact -- --run      # lance exactement les tests sélectionnés
 Deux listes. La première — quels tests atteignent votre changement — est un confort. La
 seconde est celle qui compte : **quels fichiers modifiés aucun test n'atteint**.
 
-Il y a 15 fichiers de test pour 150 modules : pour la plupart des changements, la réponse
+Il y a 16 fichiers de test pour 150 modules : pour la plupart des changements, la réponse
 honnête est « aucun test ne te le dirait », et le seul moyen de savoir laquelle des parties
 était de le tracer à la main. La couverture suit le graphe de dépendances : un test qui
 importe `rich-markdown.ts` atteint donc `core/i18n.ts`, deux sauts plus bas.
