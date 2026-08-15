@@ -166,6 +166,7 @@ nav:
       - how-it-works/mapper.md
       - how-it-works/sync-repos.md
       - how-it-works/performance.md
+      - how-it-works/codebase-maps.md
       - how-it-works/extending.md
       - how-it-works/security.md
   - Reference:
