@@ -163,6 +163,7 @@ nav:
       - how-it-works/scanning-cache.md
       - how-it-works/integrity-hashing.md
       - how-it-works/conflicts.md
+      - how-it-works/dependencies.md
       - how-it-works/mapper.md
       - how-it-works/sync-repos.md
       - how-it-works/performance.md
