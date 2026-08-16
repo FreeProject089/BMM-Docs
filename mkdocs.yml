@@ -173,6 +173,7 @@ nav:
       - reference/api.md
       - reference/repo-format.md
       - reference/catalog-index.md
+      - reference/custom-markdown.md
       - reference/actions.md
       - reference/mcp.md
       - reference/tips.md
