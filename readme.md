@@ -7,6 +7,9 @@ never opened the app.
 **Live site:** https://freeproject089.github.io/BMM-Docs/ · **PDF:** built by CI on every
 push to `master` (see the workflow's artifacts).
 
+Every command this repository has — writing, checks, annotations, media, the PDF, and how
+pages reach the app — is on one page: **[WRITING_COMMANDS.md](WRITING_COMMANDS.md)**.
+
 ## Run it locally
 
 ```bash
