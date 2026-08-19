@@ -176,6 +176,7 @@ nav:
       - reference/catalog-index.md
       - reference/commands.md
       - reference/links-and-updates.md
+      - reference/app-cfg.md
       - reference/custom-markdown.md
       - reference/actions.md
       - reference/mcp.md
