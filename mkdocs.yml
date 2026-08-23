@@ -7,7 +7,7 @@ edit_uri: edit/master/docs/
 # The docs live in their own repo. Screenshots are committed under docs/assets/screens/ as
 # RAW captures; the numbered call-outs are drawn by tools/annotate.py from a JSON spec at
 # build time, so an annotation is versioned text — re-runnable when the UI moves, instead of
-# a hand-painted PNG nobody can update. See CONTRIBUTING.md.
+# a hand-painted PNG nobody can update. See README.md and WRITING_COMMANDS.md.
 
 theme:
   name: material
