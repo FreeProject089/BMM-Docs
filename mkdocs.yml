@@ -147,6 +147,7 @@ nav:
       - features/plugins.md
       - features/scheduler.md
       - features/bmmscript.md
+      - features/bmmscript-reference.md
       - features/apps.md
       - features/mapper.md
       - features/community.md

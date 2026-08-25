@@ -10,6 +10,9 @@
 > you can build by clicking, you can type — and anything you type, you can open back up as
 > bricks.
 
+
+**[Every action, condition and value](bmmscript-reference.md)** — the full list, generated from BMM's own registry so it cannot go stale.
+
 ## Why it is not a separate language
 
 BMMScript **compiles to the bricks**. It is not a second engine with its own actions: the
