@@ -146,6 +146,7 @@ nav:
       - features/repo.md
       - features/plugins.md
       - features/scheduler.md
+      - features/bmmscript.md
       - features/apps.md
       - features/mapper.md
       - features/community.md
