@@ -10,7 +10,7 @@
 Certains mods sont mal empaquetés. Les fichiers sont bons ; les dossiers autour, non. Le
 Mapper corrige ça sans que tu dézippes quoi que ce soit à la main.
 
-> Réorganise la structure de ton mod pour correspondre au répertoire du jeu.
+> Réorganise la structure de ton mod pour correspondre au dossier de destination.
 
 ![Le Mod Mapper](../assets/screens/mapper.annotated.png)
 
@@ -40,7 +40,7 @@ une seule archive.
 
 C'est la chose à comprendre avant de toucher à quoi que ce soit : **le Mapper édite le mod,
 pas le jeu.** Quand tu remappes un élément, BMM le déplace *à l'intérieur du dossier du mod*
-pour que la structure du mod reflète l'endroit attendu par le jeu. Le répertoire du jeu est
+pour que la structure du mod reflète l'endroit attendu par le jeu. Le dossier de destination est
 seulement *lu* ici — affiché à droite pour te donner une cible. Rien n'est écrit dans le jeu
 tant que tu ne [synchronises](library.md) pas le profil ensuite, exactement comme d'habitude.
 
@@ -56,7 +56,7 @@ glisser malheureux peut donc te coûter un fichier, jamais une arborescence enti
 ## Les deux arbres
 
 L'écran est divisé. À gauche, l'**arbre de fichiers du mod** — chaque dossier et fichier que
-le mod livre réellement. À droite, l'**arbre du répertoire du jeu**, la structure que le jeu
+le mod livre réellement. À droite, l'**arbre du dossier de destination**, la structure que le jeu
 lit. Ton travail est de faire ressembler la gauche à la droite.
 
 Des filtres en haut te laissent restreindre les grands arbres, pour trouver le dossier mal
