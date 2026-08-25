@@ -3,7 +3,7 @@
 !!! tip "Ouvrir dans BMM"
 
     [Ouvrir dans Aide &amp; autres](bmm://docs/open?article=app-cfg)
-    — BMM doit déjà être lancé. [À quoi servent ces liens](../index.md#how-the-bmm-links-work)
+    — BMM doit déjà être lancé. [À quoi servent ces liens](../index.fr.md#comment-marchent-les-liens-bmm)
 
 Un fichier texte plat, à côté de l'exécutable, qui décide du comportement d'une **build** :
 si le menu de débogage existe, si l'application peut se mettre à jour elle-même, si le blog

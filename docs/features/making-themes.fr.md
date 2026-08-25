@@ -3,7 +3,7 @@
 !!! tip "Ouvrir dans BMM"
 
     [Ouvrir l'éditeur de thèmes](bmm://theme/editor) — BMM doit déjà être lancé.
-    [C'est quoi, ces liens ?](../index.md#how-the-bmm-links-work)
+    [C'est quoi, ces liens ?](../index.fr.md#comment-marchent-les-liens-bmm)
 
 > Chaque token exposé par l'éditeur, expliqué — plus le format du fichier thème et un
 > parcours depuis zéro. La page [Thèmes & Apparence](themes.md) fait le tour de l'éditeur ;

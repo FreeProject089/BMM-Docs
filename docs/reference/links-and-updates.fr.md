@@ -3,7 +3,7 @@
 !!! tip "Ouvrir dans BMM"
 
     [Ouvrir dans Aide &amp; autres](bmm://docs/open?article=links-and-updates)
-    — BMM doit déjà être lancé. [Ce que sont ces liens](../index.fr.md#comment-fonctionnent-les-liens-bmm)
+    — BMM doit déjà être lancé. [Ce que sont ces liens](../index.fr.md#comment-marchent-les-liens-bmm)
 
 Toutes les adresses externes que BMM utilise — catalogues, liste des dépôts, télémétrie, flux
 de mises à jour — vivent dans un seul fichier, `links.json`, pour que n'importe laquelle puisse

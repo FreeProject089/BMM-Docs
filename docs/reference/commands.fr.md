@@ -3,7 +3,7 @@
 !!! tip "Ouvrir dans BMM"
 
     [Ouvrir dans Aide &amp; autres](bmm://docs/open?article=commands)
-    — BMM doit déjà être lancé. [Ce que sont ces liens](../index.fr.md#comment-fonctionnent-les-liens-bmm)
+    — BMM doit déjà être lancé. [Ce que sont ces liens](../index.fr.md#comment-marchent-les-liens-bmm)
 
 Pour les contributeurs. Regroupées par objectif plutôt que par outil, parce qu'au moment où tu
 cherches une commande, tu connais le but, pas le paquet.
