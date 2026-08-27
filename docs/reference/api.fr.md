@@ -172,7 +172,7 @@ global (`bmm_deeplink_allow_global = blocked`) les refuse tous.
 
 | Deeplink | Params | Effet |
 |---|---|---|
-| `bmm://repo/connect` | `url`*, `name` | Enregistre un dépôt distant (le dossier parent suffit) |
+| `bmm://repo/connect` | `url`*, `name`, `password` | Enregistre un dépôt distant (le dossier parent suffit). `password` est le mot de passe de téléchargement d'un dépôt protégé, envoyé en `X-Repo-Password` au moment de lire le nom dans `repo.json` — sans lui, un dépôt protégé se connectait sous un nom qui était juste son URL. |
 | `bmm://repo/sync` | `url`*, `profile`*, `game_dir`, `mods_dir`, `backup_dir`, `local_profile`, `password` | Ouvre la synchro pré-remplie et lance la récupération. `password` est envoyé en `X-Repo-Password` |
 | `bmm://repo/gen` | — | Ouvre la section Génération |
 | `bmm://repo/update` | `dir` | Ouvre Mise à jour, pré-rempli |
@@ -455,8 +455,8 @@ exception est `data/export-auto`.
 | `POST` | `/api/telemetry/consent` | `telemetry.write` | `enabled`* | ✓ |
 | `POST` | `/api/telemetry/settings` | `telemetry.write` | `replay`, `full`, `bench` | ✓ |
 | `POST` | `/api/recorder` | `telemetry.write` | `on`, `full`, `rust`, `js` | ✓ |
-| `POST` | `/api/replay/export` | `telemetry.write` | — | ✓ |
-| `POST` | `/api/replay/import` | `telemetry.write` | `path`, `url` | ✓ |
+| `POST` | `/api/replay/export` | `replay.read` | — | ✓ |
+| `POST` | `/api/replay/import` | `replay.write` | `path`, `url` | ✓ |
 | `POST` | `/api/discord/rpc` | `system.write` | `enabled`* | ✓ |
 | `POST` | `/api/restart` | `system.write` | — · l'API est brièvement indisponible | ✓ |
 | `POST` | `/api/view` | `system.write` | `id`* · affiche un écran. L'id est la valeur `data-view` de la barre latérale (`mapper`, `library`, …) ; un id inconnu ne fait rien et le dit dans la console de l'app, exactement comme le deeplink `bmm://view/open` | ✓ |

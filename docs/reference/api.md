@@ -165,7 +165,7 @@ Start-Process "bmm://mod/enable?id=my-mod-folder"
 
 | Deeplink | Params | Does |
 |---|---|---|
-| `bmm://repo/connect` | `url`*, `name` | Registers a remote repo (the parent folder is enough) |
+| `bmm://repo/connect` | `url`*, `name`, `password` | Registers a remote repo (the parent folder is enough). `password` is a protected repo's download password, sent as `X-Repo-Password` when the name is read from `repo.json` — without it a protected repo connected under a name that was just its URL. |
 | `bmm://repo/sync` | `url`*, `profile`*, `game_dir`, `mods_dir`, `backup_dir`, `local_profile`, `password` | Opens sync pre-filled and starts the fetch. `password` is sent as `X-Repo-Password` |
 | `bmm://repo/gen` | — | Opens the Generation section |
 | `bmm://repo/update` | `dir` | Opens Update, pre-filled |
@@ -443,8 +443,8 @@ is `data/export-auto`.
 | `POST` | `/api/telemetry/consent` | `telemetry.write` | `enabled`* | ✓ |
 | `POST` | `/api/telemetry/settings` | `telemetry.write` | `replay`, `full`, `bench` | ✓ |
 | `POST` | `/api/recorder` | `telemetry.write` | `on`, `full`, `rust`, `js` | ✓ |
-| `POST` | `/api/replay/export` | `telemetry.write` | — | ✓ |
-| `POST` | `/api/replay/import` | `telemetry.write` | `path`, `url` | ✓ |
+| `POST` | `/api/replay/export` | `replay.read` | — | ✓ |
+| `POST` | `/api/replay/import` | `replay.write` | `path`, `url` | ✓ |
 | `POST` | `/api/discord/rpc` | `system.write` | `enabled`* | ✓ |
 | `POST` | `/api/restart` | `system.write` | — · the API is briefly unavailable | ✓ |
 | `POST` | `/api/view` | `system.write` | `id`* · show a screen. The id is the sidebar's own `data-view` value (`mapper`, `library`, …); an unknown one is a no-op that says so in the app console, exactly like the `bmm://view/open` deeplink | ✓ |
