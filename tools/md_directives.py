@@ -16,6 +16,12 @@ directives into Material for MkDocs admonitions before the page is parsed:
 Only the callout/details directives are rewritten; any other `:::` block or non-directive text is
 left exactly as it was, so this can never damage existing Material-native (`!!!`) content — it just
 means an author can reach for either syntax. Registered via `hooks:` in mkdocs.yml.
+
+The inline `:kbd[Ctrl+K]` is translated too, into `++ctrl+k++` — pymdownx.keys already draws
+that, so this hands the work to the extension rather than emitting HTML of its own. It was
+measured: four `:kbd[…]` in the pages drew keycaps in the app and printed as `:kbd[Save]` on the
+site, in the same two files that also use `++esc++`. Neither renderer errors on the other's
+spelling; it simply comes out as the characters the author typed.
 """
 
 import re
@@ -78,7 +84,30 @@ def _convert(md: str) -> str:
     return "\n".join(out)
 
 
+# `:kbd[Ctrl+K]` → `++ctrl+k++`, which pymdownx.keys renders. Inside a code fence it must be
+# left alone: the reference page documents this syntax, and a documentation page that rewrites
+# its own examples teaches something that is not true.
+_KBD = re.compile(r":kbd\[([^\]]+)\]")
+_FENCE = re.compile(r"^(```|~~~)")
+
+
+def _kbd(md: str) -> str:
+    out = []
+    fenced = False
+    for line in md.split("\n"):
+        if _FENCE.match(line.strip()):
+            fenced = not fenced
+        if fenced:
+            out.append(line)
+            continue
+        out.append(_KBD.sub(lambda m: "++" + "+".join(
+            p.strip().lower() for p in m.group(1).split("+") if p.strip()) + "++", line))
+    return "\n".join(out)
+
+
 def on_page_markdown(markdown, **kwargs):  # mkdocs hook entry point
+    if ":kbd[" in markdown:
+        markdown = _kbd(markdown)
     if ":::" not in markdown:
         return markdown
     return _convert(markdown)

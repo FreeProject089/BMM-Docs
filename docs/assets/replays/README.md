@@ -3,6 +3,10 @@
 Interactive [rrweb](https://www.rrweb.io/) recordings of BMM, played inline in the docs
 instead of (or alongside) a static screenshot.
 
+**What** to record is a separate document: [SHOT_LIST.md](SHOT_LIST.md) — one row per
+recording, taken from the caption on the page that embeds it. A clip that plays perfectly and
+shows the wrong screen looks fine to everyone except the reader who came for that thing.
+
 ## How to record one
 
 By hand, in BMM: **Settings → Privacy**, turn on the **local Session recorder**, do the thing
