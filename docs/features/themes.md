@@ -11,7 +11,8 @@
 > Building your own? The full token-by-token reference is
 > **[Make your own theme](making-themes.md)**.
 
-Not a light/dark switch. BMM ships **eleven** built-in themes (dark and light) and an editor
+Not a light/dark switch. BMM ships **thirteen** built-in themes — dark ones including *VS Code* (Dark Modern) and
+*macOS* (Sonoma), and four light ones — and an editor
 that can rebuild the app's entire look — then export it as a file someone else imports in one
 click.
 
