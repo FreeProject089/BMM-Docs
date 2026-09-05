@@ -273,6 +273,10 @@ The scheduler ships one, and it's a good shape to copy:
 Start there, swap the notification for a real action, and add a condition so it only fires
 when it should.
 
+## Picking an action or a condition
+
+Both pickers open the same panel: a search box, then every kind grouped (mods & profiles, repo & sharing, apps, appearance, benchmarks & storage, privacy, logic, system — and for conditions: logic & values, mods, files, apps/network/tasks, time), each with its name and a one-line description of what it does. Type a word — *repo*, *file*, *stop* — and only the matching kinds stay; Enter takes the first one, Escape closes. The current kind is highlighted, and hovering the button in the step shows its description again.
+
 ## Conditions — *whether*
 
 A task can carry conditions so it only acts when the state is right. Each condition can be

@@ -319,6 +319,10 @@ Deux comportements à connaître, parce que ce sont ceux qu'on devine mal :
 - Un `all` **vide est vrai** ; un `any` vide est faux. Ajouter un groupe sans le remplir tout
   de suite ne bloque pas la tâche que tu es en train d'écrire.
 
+## Choisir une action ou une condition
+
+Les deux sélecteurs ouvrent le même panneau : une recherche, puis chaque type regroupé (mods & profils, dépôt & partage, apps, apparence, benchmarks & stockage, confidentialité, logique, système — et pour les conditions : logique & valeurs, mods, fichiers, apps/réseau/tâches, temps), chacun avec son nom et une ligne qui dit ce qu'il fait. Tape un mot — *dépôt*, *fichier*, *stop* — et seuls les types correspondants restent ; Entrée prend le premier, Échap ferme. Le type actuel est surligné, et survoler le bouton dans l'étape réaffiche sa description.
+
 ## Les conditions — *si*
 
 Une tâche peut porter des conditions pour n'agir que quand l'état est le bon. Chaque condition
