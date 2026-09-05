@@ -168,8 +168,10 @@ The last one bites more often than you would expect: pasting from a word process
 
 Different system, and worth not confusing with this one. The website's docs live in its
 database and are edited **in the browser** at `/docs` by anyone holding the `manage_docs`
-capability (or an admin). They support the BCWEB block syntax (`:::cards`, `::toc`,
-`:icon[…]`), have revisions and per-page comments, and are seeded by
+capability (or an admin). They support the B.MD block syntax (`:::cards`, `::toc`,
+`:icon[…]`, and the 2.0 blocks — `:::timeline`, `:::stats`, `:::faq`, `:::checklist`…, plus
+Phosphor icons `:icon[ph:rocket]`; `tools/md_directives.py` renders the same blocks on THIS
+site), have revisions and per-page comments, and are seeded by
 `apps/api/src/seed-docs.mjs` and `seed-site-guide.mjs`.
 
 Rule of thumb: **BMM the app → this repo. The website → the browser.**

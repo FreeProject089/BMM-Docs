@@ -105,9 +105,193 @@ def _kbd(md: str) -> str:
     return "\n".join(out)
 
 
+# ── B.MD 2.0 blocks ───────────────────────────────────────────────────────────
+# The website's newer blocks, rewritten to HTML that `md_in_html` keeps parsing markdown
+# inside (`markdown="1"`), styled by assets/extra.css under `.bmd-*`. Same shapes as the app's
+# md-lite and the site's React kit, so a page written once reads the same on all three.
+_BLOCKS = {
+    "timeline": 1, "event": 1, "moment": 1, "compare": 1, "before": 1, "after": 1, "stats": 1, "stat": 1, "kpi": 1,
+    "quote": 1, "testimonial": 1, "hero": 1, "changelog": 1, "version": 1, "release": 1, "spoiler": 1,
+    "faq": 1, "q": 1, "question": 1, "checklist": 1, "grid": 1,
+}
+_ATTR = re.compile(r'([a-zA-Z][\w-]*)(?:=("([^"]*)"|\'([^\']*)\'|([^\s}]+)))?')
+
+
+def _attrs(raw):
+    out = {}
+    for m in _ATTR.finditer(raw or ""):
+        out[m.group(1)] = m.group(3) if m.group(3) is not None else (m.group(4) if m.group(4) is not None else (m.group(5) if m.group(5) is not None else ""))
+    return out
+
+
+def _esc(t):
+    return (t or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
+_OPEN_ANY = re.compile(r"^:::+\s*([a-z][\w-]*)\s*(?:\[([^\]]*)\])?\s*(?:\{([^}]*)\})?\s*$", re.IGNORECASE)
+
+
+def _block_html(name, title, a, inner):
+    md = ' markdown="1"'
+    if name == "timeline":
+        head = '<div class="bmd-timeline-title">%s</div>' % _esc(title) if title else ""
+        return '<div class="bmd-timeline"%s>\n%s\n%s\n</div>' % (md, head, inner)
+    if name in ("event", "moment"):
+        raw = (a.get("state") or a.get("status") or "").lower()
+        state = "done" if raw in ("done", "past", "shipped") else "now" if raw in ("now", "current", "active") else "next"
+        style = ' style="--ev:%s"' % _esc(a["color"]) if a.get("color") else ""
+        meta = ('<div class="bmd-event-date">%s</div>' % _esc(a["date"]) if a.get("date") else "") + ('<div class="bmd-event-title">%s</div>' % _esc(title) if title else "")
+        return '<div class="bmd-event bmd-event-%s"%s><div class="bmd-event-marker"></div><div class="bmd-event-body"%s>\n%s\n%s\n</div></div>' % (state, style, md, meta, inner)
+    if name == "compare":
+        for side in ("before", "after"):
+            if a.get(side):
+                inner = inner.replace('<div class="bmd-compare-label" data-side="%s">' % side + {"before": "Before", "after": "After"}[side] + "</div>",
+                                      '<div class="bmd-compare-label" data-side="%s">%s</div>' % (side, _esc(a[side])), 1)
+        return '<div class="bmd-compare"%s>\n%s\n</div>' % (md, inner)
+    if name in ("before", "after"):
+        lab = title or {"before": "Before", "after": "After"}[name]
+        return '<div class="bmd-compare-side bmd-compare-%s"%s>\n<div class="bmd-compare-label" data-side="%s">%s</div>\n%s\n</div>' % (name, md, name, _esc(lab), inner)
+    if name == "stats":
+        return '<div class="bmd-stats"%s>\n%s\n</div>' % (md, inner)
+    if name in ("stat", "kpi"):
+        delta = str(a.get("delta") or a.get("trend") or "")
+        d = "down" if delta.startswith("-") else "up" if delta.startswith("+") else "flat"
+        style = ' style="--stat:%s"' % _esc(a["color"]) if a.get("color") else ""
+        parts = ['<div class="bmd-stat-value">%s</div>' % _esc(str(a.get("value") or ""))]
+        if title or a.get("label"): parts.append('<div class="bmd-stat-label">%s</div>' % _esc(title or a.get("label")))
+        if delta: parts.append('<div class="bmd-stat-delta bmd-stat-%s">%s</div>' % (d, _esc(delta)))
+        if inner.strip(): parts.append('<div class="bmd-stat-note"%s>\n%s\n</div>' % (md, inner))
+        return '<div class="bmd-stat"%s>%s</div>' % (style, "".join(parts))
+    if name in ("quote", "testimonial"):
+        who = title or a.get("author") or a.get("by") or ""
+        style = ' style="--q:%s"' % _esc(a["color"]) if a.get("color") else ""
+        foot = ""
+        if who or a.get("role") or a.get("avatar"):
+            av = '<img class="bmd-quote-avatar" src="%s" alt="" loading="lazy">' % _esc(a["avatar"]) if a.get("avatar") else ""
+            author = ('<a class="bmd-quote-author" href="%s">%s</a>' % (_esc(a["href"]), _esc(who))) if (who and a.get("href")) else ('<span class="bmd-quote-author">%s</span>' % _esc(who) if who else "")
+            role = '<span class="bmd-quote-role">%s</span>' % _esc(a["role"]) if a.get("role") else ""
+            foot = '<div class="bmd-quote-foot">%s<div class="bmd-quote-who">%s%s</div></div>' % (av, author, role)
+        return '<blockquote class="bmd-quote"%s><div class="bmd-quote-body"%s>\n%s\n</div>%s</blockquote>' % (style, md, inner, foot)
+    if name == "hero":
+        align = a.get("align") if a.get("align") in ("left", "center", "right") else "left"
+        style = ' style="--hero:%s"' % _esc(a["color"]) if a.get("color") else ""
+        img = '<img class="bmd-hero-media" src="%s" alt="%s" loading="lazy">' % (_esc(a["image"]), _esc(title)) if a.get("image") else ""
+        head = ('<div class="bmd-hero-title">%s</div>' % _esc(title) if title else "") + ('<div class="bmd-hero-sub">%s</div>' % _esc(a["subtitle"]) if a.get("subtitle") else "")
+        return '<div class="bmd-hero bmd-hero-%s"%s>%s<div class="bmd-hero-body"%s>\n%s\n%s\n</div></div>' % (align, style, img, md, head, inner)
+    if name == "changelog":
+        head = '<div class="bmd-changelog-title">%s</div>' % _esc(title) if title else ""
+        return '<div class="bmd-changelog"%s>\n%s\n%s\n</div>' % (md, head, inner)
+    if name in ("version", "release"):
+        v = title or a.get("v") or ""
+        head = ('<span class="bmd-version-tag">%s</span>' % _esc(v) if v else "") + ('<span class="bmd-version-date">%s</span>' % _esc(a["date"]) if a.get("date") else "") + ('<span class="bmd-badge">%s</span>' % _esc(a["label"]) if a.get("label") else "")
+        return '<div class="bmd-version"><div class="bmd-version-head">%s</div><div class="bmd-version-body"%s>\n%s\n</div></div>' % (head, md, inner)
+    if name == "spoiler":
+        return '<details class="bmd-spoiler"><summary>%s</summary><div class="bmd-details-body"%s>\n%s\n</div></details>' % (_esc(title or "Spoiler — click to reveal"), md, inner)
+    if name == "faq":
+        head = '<div class="bmd-faq-title">%s</div>' % _esc(title) if title else ""
+        return '<div class="bmd-faq"%s>\n%s\n%s\n</div>' % (md, head, inner)
+    if name in ("q", "question"):
+        return '<details class="bmd-faq-item"%s><summary>%s</summary><div class="bmd-faq-a"%s>\n%s\n</div></details>' % (" open" if "open" in a else "", _esc(title or "Question"), md, inner)
+    if name == "checklist":
+        lines = inner.split("\n")
+        total = sum(1 for l in lines if re.match(r"^\s*[-*]\s+\[[ xX]\]", l))
+        done = sum(1 for l in lines if re.match(r"^\s*[-*]\s+\[[xX]\]", l))
+        pct = round(done * 100 / total) if total else 0
+        ticked = "\n".join(re.sub(r"^(\s*[-*]\s+)\[ \]\s*", r"\1☐ ", re.sub(r"^(\s*[-*]\s+)\[[xX]\]\s*", r"\1☑ ", l)) for l in lines)
+        style = ' style="--check:%s"' % _esc(a["color"]) if a.get("color") else ""
+        cls = "bmd-checklist" + (" bmd-checklist-done" if total and done == total else "")
+        return '<div class="%s"%s><div class="bmd-checklist-head"><span class="bmd-checklist-title">%s</span><span class="bmd-checklist-count">%d / %d</span><span class="bmd-checklist-bar"><i style="width:%d%%"></i></span></div><div%s>\n%s\n</div></div>' % (cls, style, _esc(title or "Checklist"), done, total, pct, md, ticked)
+    if name == "grid":
+        try: cols = max(1, min(6, int(a.get("cols") or a.get("columns") or 3)))
+        except ValueError: cols = 3
+        return '<div class="bmd-grid" style="--cols:%d"%s>\n%s\n</div>' % (cols, md, inner)
+    return inner
+
+
+def _convert_blocks(md):
+    lines = md.split("\n")
+    out = []
+    i = 0
+    n = len(lines)
+    fenced = False
+    while i < n:
+        line = lines[i]
+        if _FENCE.match(line.strip()):
+            fenced = not fenced
+        m = None if fenced else _OPEN_ANY.match(line.strip())
+        name = m.group(1).lower() if m else None
+        if m and name in _BLOCKS:
+            title = (m.group(2) or "").strip()
+            a = _attrs(m.group(3) or "")
+            body = []
+            depth = 1
+            i += 1
+            while i < n:
+                st = lines[i].strip()
+                if _OPEN_ANY.match(st):
+                    depth += 1
+                    body.append(lines[i])
+                elif _CLOSE.match(st):
+                    depth -= 1
+                    if depth == 0:
+                        i += 1
+                        break
+                    body.append(lines[i])
+                else:
+                    body.append(lines[i])
+                i += 1
+            inner = _convert_blocks("\n".join(body)).strip("\n")
+            out.append("")
+            out.append(_block_html(name, title, a, inner))
+            out.append("")
+        else:
+            out.append(line)
+            i += 1
+    return "\n".join(out)
+
+
+# Inline: `:meter[60]{label=Done}` and Phosphor icons `:icon[ph:rocket]` — the site draws both.
+_METER = re.compile(r":meter\[([^\]]+)\](?:\{([^}]*)\})?")
+_PHICON = re.compile(r":icon\[(?:ph|phosphor)(?:-(thin|light|regular|bold|fill|duotone))?:([a-z0-9]+(?:-[a-z0-9]+)*)\](?:\{[^}]*\})?", re.IGNORECASE)
+
+
+def _inline_2(md):
+    out = []
+    fenced = False
+    for line in md.split("\n"):
+        if _FENCE.match(line.strip()):
+            fenced = not fenced
+        if fenced or ("`" in line and (":meter[" in line or ":icon[ph" in line)):
+            # inline code on the line: leave the whole line, a reference page shows the syntax
+            out.append(line)
+            continue
+
+        def meter(m):
+            a = _attrs(m.group(2) or "")
+            try: mx = max(1, float(a.get("max") or 100))
+            except ValueError: mx = 100.0
+            try: v = float(re.sub(r"[^0-9.]", "", m.group(1)) or 0)
+            except ValueError: v = 0.0
+            pct = int(round(max(0.0, min(mx, v)) * 100 / mx))
+            style = ' style="--meter:%s"' % _esc(a["color"]) if a.get("color") else ""
+            lab = (_esc(a["label"]) + " ") if a.get("label") else ""
+            return '<span class="bmd-meter"%s><span class="bmd-meter-track"><span class="bmd-meter-fill" style="width:%d%%"></span></span><span class="bmd-meter-text">%s%d%%</span></span>' % (style, pct, lab, pct)
+
+        def ph(m):
+            w = (m.group(1) or "regular").lower()
+            f = m.group(2).lower() + ("" if w == "regular" else "-" + w)
+            return '<span class="bmd-ph" style="-webkit-mask:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/%s/%s.svg) center/contain no-repeat;mask:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/%s/%s.svg) center/contain no-repeat"></span>' % (w, f, w, f)
+        line = _METER.sub(meter, line)
+        line = _PHICON.sub(ph, line)
+        out.append(line)
+    return "\n".join(out)
+
+
 def on_page_markdown(markdown, **kwargs):  # mkdocs hook entry point
     if ":kbd[" in markdown:
         markdown = _kbd(markdown)
+    if ":meter[" in markdown or ":icon[ph" in markdown:
+        markdown = _inline_2(markdown)
     if ":::" not in markdown:
         return markdown
-    return _convert(markdown)
+    return _convert(_convert_blocks(markdown))
