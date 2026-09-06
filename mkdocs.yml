@@ -151,6 +151,7 @@ nav:
       - features/apps.md
       - features/mapper.md
       - features/community.md
+      - features/feedback.md
       - features/settings.md
       - features/command-palette.md
       - features/launch-packs.md
