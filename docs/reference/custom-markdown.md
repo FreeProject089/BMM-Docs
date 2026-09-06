@@ -72,6 +72,12 @@ rendering rather than by the renderer itself. Nothing you write is affected.
 | `checklist` | Yes | Yes | Yes |
 | `grid` | Yes | Yes | Yes |
 | `:meter` (inline progress) | Yes | Yes | Yes |
+| `table` (styled tables, markdown in cells) | Yes | Yes | Yes |
+| `:img` / `image` (images with size, caption, link) | Yes | Yes | Yes |
+| `:audio` `youtube` `spotify` (media) | Yes | Yes | Yes |
+| `api` + `params` / `request` / `response` (endpoint cards) | Yes | Yes | Yes |
+| `mermaid` (`diagram`) | Yes | Yes | Yes |
+| `:counter` `:action` `openapi` `include` `live` (live on the website — a chip that says so in the app) | Yes | Yes | Yes |
 
 A block the renderer does not know is left as literal text, so a website-only block in a
 plugin's docs shows up as `:::cards` on the page rather than vanishing. That is deliberate:
@@ -312,6 +318,49 @@ Migration: :meter[72]{label=Done}
 Icons now come from **Phosphor** too, in every place an icon name goes: `:icon[ph:rocket]`,
 and a weight as prefix — `:icon[ph-bold:rocket]`, `:icon[ph-fill:heart]`, `:icon[ph-duotone:star]`
 (thin, light, regular, bold, fill, duotone). The app draws them as masks, like lucide names.
+
+## New in B.MD 3.0
+
+Styled tables, images with their options, audio and video embeds, API endpoint cards, and
+Mermaid diagrams — on all three surfaces. The blocks that read or call a URL (`:counter`,
+`:action`, `::openapi`, `::include`, `::live`) are live on the website; the app, which reads a
+bundled document offline, draws a small chip saying so instead of a number it did not fetch.
+
+```
+:::table[A caption]{style="striped bordered" align=center}
+| Column | Column |
+|---|---|
+| **markdown** in cells | :icon[rocket] `code` |
+:::
+
+:img[Alt text]{src=/images/a.png width=480 align=center caption="A caption" link=/images/a.png}
+:audio[Episode 12]{src=/media/ep12.mp3}
+::youtube{src=https://youtu.be/ID}
+::spotify{src=https://open.spotify.com/track/ID}
+
+:::api[GET /api/things/:id]{auth=key summary="One thing"}
+:::params
+| Name | In | Type | Required | Description |
+|---|---|---|---|---|
+| `id` | path | string | yes | Which one |
+:::
+:::response{status=200}
+```json
+{ "id": "…" }
+```
+:::
+:::
+
+:::mermaid[How it flows]
+```
+graph LR
+  A[Write] --> B[Preview]
+```
+:::
+
+==marked==  [[Page]]  text[^1]   ::toc{depth=4 numbered}
+{radius=8} {variant=quiet} on any block
+```
 
 ## Maths
 

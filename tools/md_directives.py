@@ -113,7 +113,14 @@ _BLOCKS = {
     "timeline": 1, "event": 1, "moment": 1, "compare": 1, "before": 1, "after": 1, "stats": 1, "stat": 1, "kpi": 1,
     "quote": 1, "testimonial": 1, "hero": 1, "changelog": 1, "version": 1, "release": 1, "spoiler": 1,
     "faq": 1, "q": 1, "question": 1, "checklist": 1, "grid": 1,
+    # 3.0
+    "table": 1, "audio": 1, "youtube": 1, "yt": 1, "spotify": 1, "img": 1, "image": 1,
+    "api": 1, "endpoint": 1, "params": 1, "request": 1, "response": 1, "mermaid": 1, "diagram": 1,
+    "openapi": 1, "swagger": 1, "include": 1, "embed-md": 1, "live": 1,
 }
+# The 3.0 leaves on their own line — `::spotify{src=…}`, `::youtube{…}`, `::audio{…}`, `:img[…]{…}`.
+_LEAF = re.compile(r"^::?(spotify|youtube|yt|audio|include|embed-md|openapi|swagger|live|image|img)\s*(?:\[([^\]]*)\])?\s*(?:\{([^}]*)\})?\s*$", re.IGNORECASE)
+_WEBONLY = "Interactive on the website"
 _ATTR = re.compile(r'([a-zA-Z][\w-]*)(?:=("([^"]*)"|\'([^\']*)\'|([^\s}]+)))?')
 
 
@@ -205,6 +212,53 @@ def _block_html(name, title, a, inner):
         try: cols = max(1, min(6, int(a.get("cols") or a.get("columns") or 3)))
         except ValueError: cols = 3
         return '<div class="bmd-grid" style="--cols:%d"%s>\n%s\n</div>' % (cols, md, inner)
+    # ── 3.0 ──
+    if name == "table":
+        styles = "".join(" bmd-table-" + _esc(x) for x in re.split(r"[\s,+]+", (a.get("style") or a.get("variant") or "").lower()) if x)
+        cap = title or a.get("caption") or ""
+        return '<figure class="bmd-table%s"%s%s>\n%s\n%s</figure>' % (styles, (' data-align="%s"' % _esc(a["align"])) if a.get("align") else "", md, inner, ('<figcaption class="bmd-table-caption">%s</figcaption>' % _esc(cap)) if cap else "")
+    if name == "audio":
+        src = a.get("src") or a.get("href") or ""
+        if not src: return inner
+        return '<figure class="bmd-audio">%s<audio class="bmd-audio-player" controls preload="none" src="%s"></audio></figure>' % (('<figcaption class="bmd-audio-title">%s</figcaption>' % _esc(title)) if title else "", _esc(src))
+    if name in ("youtube", "yt"):
+        raw = a.get("src") or a.get("href") or a.get("id") or ""
+        m = re.search(r"(?:youtu\.be/|[?&]v=|/embed/|/shorts/|/live/)([A-Za-z0-9_-]{6,})", raw) or re.match(r"^([A-Za-z0-9_-]{6,})$", raw)
+        if not m: return inner
+        return '<div class="bmd-embed bmd-embed-video"><iframe class="bmd-embed-frame" src="https://www.youtube-nocookie.com/embed/%s" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>' % _esc(m.group(1))
+    if name == "spotify":
+        raw = a.get("src") or a.get("href") or ""
+        m = re.search(r"open\.spotify\.com/(?:embed/)?(?:intl-[a-z]+/)?(track|album|playlist|episode|show|artist)/([A-Za-z0-9]+)", raw) or re.match(r"^(?:spotify:)?(track|album|playlist|episode|show|artist)[:/]([A-Za-z0-9]+)$", raw)
+        if not m: return inner
+        return '<div class="bmd-embed bmd-embed-spotify%s"><iframe class="bmd-embed-frame" src="https://open.spotify.com/embed/%s/%s" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>' % (" bmd-embed-compact" if "compact" in a else "", m.group(1), _esc(m.group(2)))
+    if name in ("img", "image"):
+        src = a.get("src") or a.get("href") or ""
+        if not src: return inner
+        dim = lambda v: (v + "px") if re.match(r"^\d+$", v) else v
+        style = ";".join(x for x in [("width:%s" % _esc(dim(a["width"]))) if a.get("width") else "", ("height:%s" % _esc(dim(a["height"]))) if a.get("height") else ""] if x)
+        cls = "bmd-img" + ((" bmd-img-" + _esc(a["align"])) if a.get("align") in ("left", "center", "right") else "") + (" bmd-img-border" if "border" in a else "") + (" bmd-img-rounded" if "rounded" in a else "")
+        img = '<img src="%s" alt="%s" loading="lazy"%s>' % (_esc(src), _esc(title or a.get("alt") or ""), (' style="%s"' % style) if style else "")
+        if a.get("link"): img = '<a href="%s">%s</a>' % (_esc(a["link"]), img)
+        return '<figure class="%s">%s%s</figure>' % (cls, img, ('<figcaption class="bmd-img-caption">%s</figcaption>' % _esc(a["caption"])) if a.get("caption") else "")
+    if name in ("api", "endpoint"):
+        sig = (title or a.get("title") or ("%s %s" % (a.get("method") or "", a.get("path") or ""))).strip()
+        mm = re.match(r"^(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS|WS|SSE)\s+(\S.*)$", sig, re.IGNORECASE)
+        method = (mm.group(1) if mm else (a.get("method") or "GET")).upper()
+        path = mm.group(2) if mm else (a.get("path") or sig)
+        head = '<div class="bmd-api-head"><span class="bmd-api-method">%s</span><code class="bmd-api-path">%s</code>%s</div>' % (_esc(method), _esc(path), ('<span class="bmd-api-auth">%s</span>' % _esc(a["auth"])) if a.get("auth") else "")
+        summ = ('<div class="bmd-api-summary">%s</div>' % _esc(a["summary"])) if a.get("summary") else ""
+        return '<div class="bmd-api bmd-api-%s%s">%s%s<div class="bmd-api-body"%s>\n%s\n</div></div>' % (method.lower(), " bmd-api-deprecated" if "deprecated" in a else "", head, summ, md, inner)
+    if name in ("request", "response", "params"):
+        status = str(a.get("status") or a.get("code") or "")
+        ttl = title or {"params": "Parameters", "request": "Request"}.get(name, "Response" + ((" " + status) if status else ""))
+        return '<div class="bmd-api-section bmd-api-%s%s"><div class="bmd-api-section-title">%s</div><div%s>\n%s\n</div></div>' % (name, (" bmd-api-status-%sxx" % status[0]) if status else "", _esc(ttl), md, inner)
+    if name in ("mermaid", "diagram"):
+        # Material draws ```mermaid fences itself: hand the body back as one.
+        code = re.sub(r"^```[^\n]*\n?", "", inner.strip()); code = re.sub(r"\n?```\s*$", "", code)
+        return "```mermaid\n%s\n```\n%s" % (code, ("*%s*" % title) if title else "")
+    if name in ("openapi", "swagger", "include", "embed-md", "live"):
+        src = a.get("src") or a.get("href") or ""
+        return '<div class="bmd-webonly-block"><span class="bmd-webonly">%s</span>%s</div>' % (_WEBONLY, (" <code>%s</code>" % _esc(src)) if src else "")
     return inner
 
 
@@ -218,6 +272,13 @@ def _convert_blocks(md):
         line = lines[i]
         if _FENCE.match(line.strip()):
             fenced = not fenced
+        leaf = None if fenced else _LEAF.match(line.strip())
+        if leaf:
+            out.append("")
+            out.append(_block_html(leaf.group(1).lower(), (leaf.group(2) or "").strip(), _attrs(leaf.group(3) or ""), ""))
+            out.append("")
+            i += 1
+            continue
         m = None if fenced else _OPEN_ANY.match(line.strip())
         name = m.group(1).lower() if m else None
         if m and name in _BLOCKS:
@@ -252,6 +313,13 @@ def _convert_blocks(md):
 
 # Inline: `:meter[60]{label=Done}` and Phosphor icons `:icon[ph:rocket]` — the site draws both.
 _METER = re.compile(r":meter\[([^\]]+)\](?:\{([^}]*)\})?")
+_AUDIO = re.compile(r":audio\[([^\]]*)\](?:\{([^}]*)\})?")
+_IMG = re.compile(r":(?:img|image)\[([^\]]*)\](?:\{([^}]*)\})?")
+_LIVE = re.compile(r":(?:counter|fetch)\[([^\]]*)\](?:\{([^}]*)\})?")
+_ACTION = re.compile(r":action\[([^\]]*)\](?:\{([^}]*)\})?")
+_MARK = re.compile(r"==([^=\n]+?)==")
+_WIKI = re.compile(r"\[\[([^\]|#\n]*)(?:#([^\]|\n]+))?(?:\|([^\]\n]+))?\]\]")
+_INLINE_TOKENS = (":meter[", ":icon[ph", ":audio[", ":img[", ":image[", ":counter[", ":fetch[", ":action[", "==", "[[")
 _PHICON = re.compile(r":icon\[(?:ph|phosphor)(?:-(thin|light|regular|bold|fill|duotone))?:([a-z0-9]+(?:-[a-z0-9]+)*)\](?:\{[^}]*\})?", re.IGNORECASE)
 
 
@@ -261,7 +329,7 @@ def _inline_2(md):
     for line in md.split("\n"):
         if _FENCE.match(line.strip()):
             fenced = not fenced
-        if fenced or ("`" in line and (":meter[" in line or ":icon[ph" in line)):
+        if fenced or ("`" in line and any(tok in line for tok in _INLINE_TOKENS)):
             # inline code on the line: leave the whole line, a reference page shows the syntax
             out.append(line)
             continue
@@ -283,6 +351,23 @@ def _inline_2(md):
             return '<span class="bmd-ph" style="-webkit-mask:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/%s/%s.svg) center/contain no-repeat;mask:url(https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2/assets/%s/%s.svg) center/contain no-repeat"></span>' % (w, f, w, f)
         line = _METER.sub(meter, line)
         line = _PHICON.sub(ph, line)
+        # 3.0 inline
+        def audio(m):
+            a = _attrs(m.group(2) or ""); src = a.get("src") or a.get("href") or ""
+            if not src: return _esc(m.group(1))
+            return '<span class="bmd-audio bmd-audio-inline">%s<audio class="bmd-audio-player" controls preload="none" src="%s"></audio></span>' % (('<span class="bmd-audio-title">%s</span>' % _esc(m.group(1))) if m.group(1) else "", _esc(src))
+        def img(m):
+            a = _attrs(m.group(2) or ""); src = a.get("src") or a.get("href") or ""
+            if not src: return _esc(m.group(1))
+            dim = lambda v: (v + "px") if re.match(r"^\d+$", v) else v
+            style = ";".join(x for x in [("width:%s" % _esc(dim(a["width"]))) if a.get("width") else "", ("height:%s" % _esc(dim(a["height"]))) if a.get("height") else ""] if x)
+            return '<span class="bmd-img bmd-img-inline%s"><img src="%s" alt="%s" loading="lazy"%s>%s</span>' % ((" bmd-img-" + _esc(a["align"])) if a.get("align") in ("left", "center", "right") else "", _esc(src), _esc(m.group(1)), (' style="%s"' % style) if style else "", ('<span class="bmd-img-caption">%s</span>' % _esc(a["caption"])) if a.get("caption") else "")
+        line = _AUDIO.sub(audio, line)
+        line = _IMG.sub(img, line)
+        line = _LIVE.sub(lambda m: '<span class="bmd-webonly" title="%s">%s —</span>' % (_WEBONLY, _esc(m.group(1))), line)
+        line = _ACTION.sub(lambda m: '<span class="bmd-btn bmd-webonly" title="%s">%s</span>' % (_WEBONLY, _esc(m.group(1))), line)
+        line = _MARK.sub(lambda m: "<mark>%s</mark>" % m.group(1), line)
+        line = _WIKI.sub(lambda m: '<span class="bmd-ref" title="%s">%s</span>' % (_esc((m.group(1) or m.group(2) or "").strip()), _esc((m.group(3) or m.group(1) or m.group(2) or "").strip())), line)
         out.append(line)
     return "\n".join(out)
 
@@ -290,7 +375,7 @@ def _inline_2(md):
 def on_page_markdown(markdown, **kwargs):  # mkdocs hook entry point
     if ":kbd[" in markdown:
         markdown = _kbd(markdown)
-    if ":meter[" in markdown or ":icon[ph" in markdown:
+    if any(tok in markdown for tok in _INLINE_TOKENS):
         markdown = _inline_2(markdown)
     if ":::" not in markdown:
         return markdown

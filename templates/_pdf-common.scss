@@ -287,3 +287,16 @@ img {
 .md-typeset table:not([class]) td {
   padding: 0.35em 0.6em;
 }
+
+// ── B.MD blocks on paper ─────────────────────────────────────────────────────
+// The mkdocs hook (tools/md_directives.py) turns every `:::` block into `.bmd-*` markup and
+// extra.css styles it, so the PDF already draws callouts, cards, timelines, stats, tables and
+// API cards. What paper cannot do is play: a YouTube or Spotify frame prints as nothing, so
+// the embed says what it was, and a block that reads a URL says where it is live.
+.bmd-embed { padding: 0 !important; height: auto !important; }
+.bmd-embed iframe { display: none; }
+.bmd-embed::before { content: 'Embedded media — see the online page'; display: block; padding: .6em .9em; font-size: .85em; color: #555; }
+.bmd-audio-player { display: none; }
+.bmd-audio::after { content: 'Audio — see the online page'; font-size: .85em; color: #555; }
+.bmd-api, .bmd-stat, .bmd-quote, .bmd-hero, .bmd-checklist, .bmd-faq-item, .bmd-event, .bmd-version, .bmd-table { page-break-inside: avoid; break-inside: avoid; }
+.bmd-webonly-block { border-style: dashed; }

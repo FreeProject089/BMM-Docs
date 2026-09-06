@@ -72,6 +72,12 @@ sont remplis après le rendu plutôt que par le moteur. Rien de ce que vous écr
 | `checklist` | Oui | Yes | Oui |
 | `grid` | Oui | Yes | Oui |
 | `:meter` (jauge en ligne) | Oui | Yes | Oui |
+| `table` (tableaux stylés, markdown dans les cellules) | Oui | Oui | Oui |
+| `:img` / `image` (images avec taille, légende, lien) | Oui | Oui | Oui |
+| `:audio` `youtube` `spotify` (médias) | Oui | Oui | Oui |
+| `api` + `params` / `request` / `response` (fiches d’endpoint) | Oui | Oui | Oui |
+| `mermaid` (`diagram`) | Oui | Oui | Oui |
+| `:counter` `:action` `openapi` `include` `live` (en direct sur le site — une puce le dit dans l’appli) | Oui | Oui | Oui |
 
 Un bloc que le moteur ne connaît pas est laissé en texte brut : un bloc réservé au site, mis
 dans la doc d'un plugin, s'affiche donc `:::cards` au lieu de disparaître. C'est voulu — une
@@ -315,6 +321,50 @@ Les icônes viennent aussi de **Phosphor**, partout où un nom d'icône est atte
 `:icon[ph:rocket]`, et la graisse en préfixe — `:icon[ph-bold:rocket]`, `:icon[ph-fill:heart]`,
 `:icon[ph-duotone:star]` (thin, light, regular, bold, fill, duotone). L'app les dessine en
 masques, comme les noms lucide.
+
+## Nouveau dans B.MD 3.0
+
+Tableaux stylés, images avec leurs options, lecteurs audio et vidéo, fiches d’endpoint d’API et
+diagrammes Mermaid — sur les trois surfaces. Les blocs qui lisent ou appellent une URL
+(`:counter`, `:action`, `::openapi`, `::include`, `::live`) sont en direct sur le site ; l’appli,
+qui lit un document embarqué hors ligne, dessine une petite puce qui le dit plutôt qu’un chiffre
+qu’elle n’a pas récupéré.
+
+```
+:::table[Une légende]{style="striped bordered" align=center}
+| Colonne | Colonne |
+|---|---|
+| du **markdown** dans les cellules | :icon[rocket] `code` |
+:::
+
+:img[Texte alternatif]{src=/images/a.png width=480 align=center caption="Une légende" link=/images/a.png}
+:audio[Épisode 12]{src=/media/ep12.mp3}
+::youtube{src=https://youtu.be/ID}
+::spotify{src=https://open.spotify.com/track/ID}
+
+:::api[GET /api/things/:id]{auth=key summary="Une chose"}
+:::params
+| Nom | Où | Type | Requis | Description |
+|---|---|---|---|---|
+| `id` | path | string | oui | Laquelle |
+:::
+:::response{status=200}
+```json
+{ "id": "…" }
+```
+:::
+:::
+
+:::mermaid[Le flux]
+```
+graph LR
+  A[Écrire] --> B[Aperçu]
+```
+:::
+
+==surligné==  [[Page]]  texte[^1]   ::toc{depth=4 numbered}
+{radius=8} {variant=quiet} sur n’importe quel bloc
+```
 
 ## Maths
 
