@@ -13,6 +13,7 @@ runs the page's JS, so the Mermaid diagrams render.
 Interactive `.bmmreplay` players are a web-only feature and do not appear in a static PDF.
 """
 import argparse
+import re
 import os
 import subprocess
 import sys
@@ -48,11 +49,26 @@ def find_chrome():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=str(ROOT / "pdf" / "bettermodsmanager.pdf"))
-    ap.add_argument("--config", default=str(ROOT / "mkdocs.pdf-chrome.yml"))
+    ap.add_argument("--theme", choices=["light", "dark"], default="light",
+                    help="which edition to build; picks the config, the output name and the "
+                         "Mermaid palette in one go")
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--config", default=None)
     ap.add_argument("--budget-ms", type=int, default=25000,
                     help="Chrome virtual-time budget (ms) so JS/Mermaid finishes before capture")
     args = ap.parse_args()
+
+    # One flag decides all three, because getting two of them right and the third wrong is the
+    # failure this replaces: a dark stylesheet with a light Mermaid palette, or a dark build
+    # written over the light PDF. --out / --config still override, for one-offs.
+    dark = args.theme == "dark"
+    if args.config is None:
+        args.config = str(ROOT / ("mkdocs.pdf-chrome-dark.yml" if dark else "mkdocs.pdf-chrome.yml"))
+    if args.out is None:
+        args.out = str(ROOT / "pdf" / ("bettermodsmanager-dark.pdf" if dark else "bettermodsmanager.pdf"))
+    # Mermaid is rendered by the browser BEFORE any of the print CSS applies, so its palette
+    # comes from pdf_event_hook.py reading this — not from the stylesheet.
+    os.environ["BMM_PDF_THEME"] = "dark" if dark else "light"
 
     chrome = find_chrome()
     if not chrome:
@@ -61,7 +77,18 @@ def main():
     print("[pdf] building site with", os.path.basename(args.config))
     subprocess.run([sys.executable, "-m", "mkdocs", "build", "-f", args.config], cwd=ROOT, check=True)
 
-    print_page = ROOT / "site" / "print_page" / "index.html"
+    # Where mkdocs actually wrote it. The dark config builds into its own site_dir so a dark
+    # run never overwrites the light site mid-flight; assuming "site/" would have made the dark
+    # build silently print whatever the previous light build left there.
+    site_dir = "site"
+    try:
+        for line in Path(args.config).read_text(encoding="utf-8").splitlines():
+            m = re.match(r"^site_dir:\s*(\S+)", line)
+            if m:
+                site_dir = m.group(1).strip().strip("'\"")
+    except OSError:
+        pass
+    print_page = ROOT / site_dir / "print_page" / "index.html"
     if not print_page.exists():
         sys.exit(f"print page not found: {print_page} (is mkdocs-print-site-plugin installed?)")
 

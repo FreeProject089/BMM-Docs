@@ -1,0 +1,25 @@
+# The DARK edition of the Chrome PDF.
+#
+# Same relationship mkdocs.pdf-dark.yml has to mkdocs.pdf.yml: identical to
+# mkdocs.pdf-chrome.yml apart from the stylesheet list and where the build lands, so the two
+# editions cannot drift in content or layout — only in colour.
+#
+#     python tools/build_pdf_chrome.py --theme dark
+#
+# Declaring `extra_css` REPLACES the inherited list rather than extending it, which is why all
+# three sheets are re-listed here. Order is the whole point: pdf-print.css does the work and
+# ends on a light palette; pdf-print-dark.css overrides only that palette, so it must come last.
+#
+# BMM_PDF_THEME=dark is not optional and not decoration: Mermaid is drawn by a browser before
+# any of this CSS applies, so its palette comes from pdf_event_hook.py reading that variable.
+# build_pdf_chrome.py --theme dark sets it. Running mkdocs against this file by hand without it
+# produces a dark book carrying light diagrams.
+INHERIT: mkdocs.pdf-chrome.yml
+
+extra_css:
+  - assets/extra.css
+  - assets/pdf-print.css
+  - assets/pdf-print-dark.css
+
+# Its own output folder, so a dark build never overwrites the light one mid-flight.
+site_dir: .pdf-chrome-dark-site

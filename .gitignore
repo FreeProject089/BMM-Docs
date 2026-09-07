@@ -4,3 +4,6 @@ __pycache__/
 venv/
 /bmm-replay.bmmreplay
 pdf/
+
+# The dark Chrome PDF builds into its own site_dir so it never overwrites the light one.
+.pdf-chrome-dark-site/

@@ -54,6 +54,12 @@ html, body,
 
 /* Interactive rrweb players can't render in a static PDF — drop them cleanly */
 .bmm-replay { display: none !important; }
+/* The site's own "Download the PDF" button, printed INSIDE the PDF. overrides/main.html adds it
+   to every page, so the book carried a white band and an orange link offering the reader the
+   file they are already holding — on the cover, and again on every page it lands on. It is site
+   chrome like the nav is; it goes with it. (Found in the dark edition, where a white band is
+   obvious; it has been in the light one just as long.) */
+.bmm-pdf-download { display: none !important; }
 
 /* --- Body typography -------------------------------------------------------- */
 .md-typeset {
