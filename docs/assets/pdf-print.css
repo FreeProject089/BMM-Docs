@@ -1,0 +1,152 @@
+/* ============================================================================
+   BMM Docs — PDF print stylesheet.  Loaded ONLY by mkdocs.pdf-chrome.yml, so it
+   never touches the live website. Its job: turn the print-site page (which
+   inherits the Material theme, dark, with website chrome) into a clean, legible
+   A4 book for headless-Chrome's --print-to-pdf.
+   ============================================================================ */
+
+/* --- Force a light, book-like palette regardless of the site's theme -------- */
+:root,
+[data-md-color-scheme],
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #ffffff;
+  --md-default-fg-color: #1a1714;
+  --md-default-fg-color--light: #57514a;
+  --md-default-fg-color--lighter: #8a8278;
+  --md-default-fg-color--lightest: #e6e0d8;
+  --md-typeset-color: #1a1714;
+  --md-typeset-a-color: #c2410c;
+  --md-code-bg-color: #f4f1ec;
+  --md-code-fg-color: #1a1714;
+  --md-primary-fg-color: #f97316;
+  --md-accent-fg-color: #c2410c;
+  color-scheme: light;
+}
+
+:root {
+  --pdf-accent: #f97316;
+  --pdf-ink: #1a1714;
+  --pdf-muted: #57514a;
+  --pdf-line: #e6e0d8;
+  --pdf-soft: #faf8f4;
+}
+
+@page {
+  size: A4;
+  margin: 18mm 16mm;
+}
+
+html, body,
+.md-container, .md-main, .md-main__inner, .md-content, .md-content__inner {
+  background: #fff !important;
+  color: var(--pdf-ink) !important;
+  box-shadow: none !important;
+}
+
+/* --- Strip every bit of website chrome ------------------------------------- */
+.md-header, .md-tabs, .md-footer, .md-sidebar, .md-nav, .md-search,
+.md-content__button, .md-source, .md-top, .md-dialog, .md-banner,
+.md-typeset .headerlink, .md-feedback, .md-post__meta,
+[data-md-component="announce"], [data-md-component="skip"],
+.print-site-banner, .md-typeset details.print-site-nav {
+  display: none !important;
+}
+
+/* Interactive rrweb players can't render in a static PDF — drop them cleanly */
+.bmm-replay { display: none !important; }
+
+/* --- Body typography -------------------------------------------------------- */
+.md-typeset {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.62;
+  color: var(--pdf-ink);
+}
+.md-typeset p, .md-typeset li { orphans: 3; widows: 3; }
+.md-typeset ul, .md-typeset ol { margin-left: .2em; }
+
+/* --- Page flow: each doc page (its h1) starts on a fresh sheet -------------- */
+.md-typeset h1 { break-before: page; page-break-before: always; }
+.md-typeset h1:first-of-type,
+.print-page:first-of-type .md-typeset h1 { break-before: avoid; page-break-before: avoid; }
+
+/* --- Headings --------------------------------------------------------------- */
+.md-typeset h1 {
+  font-size: 21pt; font-weight: 800; letter-spacing: -0.02em;
+  color: var(--pdf-ink); margin: 0 0 .55em;
+  padding-bottom: .28em; border-bottom: 2.5px solid var(--pdf-accent);
+}
+.md-typeset h2 {
+  font-size: 15pt; font-weight: 800; color: var(--pdf-ink);
+  margin: 1.5em 0 .5em; padding-bottom: .15em;
+  border-bottom: 1px solid var(--pdf-line);
+}
+.md-typeset h3 { font-size: 12.5pt; font-weight: 700; margin: 1.15em 0 .4em; color: var(--pdf-ink); }
+.md-typeset h4 { font-size: 11pt; font-weight: 700; margin: 1em 0 .35em; }
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4, .md-typeset h5 {
+  break-after: avoid; page-break-after: avoid;
+}
+
+.md-typeset a { color: #c2410c; text-decoration: none; }
+
+/* --- Code ------------------------------------------------------------------- */
+.md-typeset code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: .85em; background: var(--pdf-soft); color: var(--pdf-ink);
+  padding: .08em .35em; border-radius: 4px; border: 1px solid var(--pdf-line);
+}
+.md-typeset pre, .md-typeset .highlight {
+  break-inside: avoid; page-break-inside: avoid;
+  background: var(--pdf-soft) !important;
+  border: 1px solid var(--pdf-line); border-radius: 8px;
+}
+.md-typeset pre > code, .md-typeset .highlight code {
+  background: transparent !important; border: 0; padding: 0;
+  white-space: pre-wrap; word-break: break-word; font-size: 8.4pt; line-height: 1.5;
+}
+
+/* --- Tables ----------------------------------------------------------------- */
+.md-typeset table:not([class]) {
+  break-inside: avoid; page-break-inside: avoid;
+  width: 100%; border-collapse: collapse; font-size: 9pt;
+  border: 1px solid var(--pdf-line); border-radius: 8px; overflow: hidden;
+  box-shadow: none;
+}
+.md-typeset table:not([class]) th {
+  background: #f1ece3 !important; color: var(--pdf-ink) !important; font-weight: 700;
+}
+.md-typeset table:not([class]) th,
+.md-typeset table:not([class]) td {
+  border: 1px solid var(--pdf-line); padding: 6px 10px; text-align: left; vertical-align: top;
+}
+.md-typeset table:not([class]) tr:nth-child(2n) td { background: var(--pdf-soft) !important; }
+
+/* --- Admonitions / callouts / details -------------------------------------- */
+.md-typeset .admonition, .md-typeset details {
+  break-inside: avoid; page-break-inside: avoid;
+  border: 1px solid var(--pdf-line); border-radius: 8px;
+  background: var(--pdf-soft) !important; box-shadow: none !important;
+  font-size: 9.5pt; margin: 1em 0;
+}
+.md-typeset .admonition-title, .md-typeset summary {
+  background: rgba(249,115,22,0.08) !important; font-weight: 700;
+}
+/* Keep each callout type's accent on the left edge (Material sets its colour) */
+.md-typeset .admonition { border-left-width: 4px; }
+
+/* --- Blockquote ------------------------------------------------------------- */
+.md-typeset blockquote {
+  border-left: 3px solid var(--pdf-accent); color: var(--pdf-muted);
+  padding-left: 1em; margin-left: 0;
+}
+
+/* --- Diagrams & images fit the page ---------------------------------------- */
+.md-typeset .mermaid, .md-typeset img, .md-typeset svg {
+  max-width: 100% !important; height: auto; break-inside: avoid; page-break-inside: avoid;
+}
+.md-typeset .mermaid svg { height: auto !important; }
+
+/* --- The print-site "table of contents" cover, if present ------------------ */
+.md-typeset .print-page > h1:first-child { border-bottom: 2.5px solid var(--pdf-accent); }
+.md-content, .md-content__inner { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+.md-grid { max-width: 100% !important; }

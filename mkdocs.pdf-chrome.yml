@@ -34,3 +34,10 @@ plugins:
       toc_title: 'Contents'
       enumerate_headings: false
       enumerate_figures: false
+
+# Declaring extra_css here REPLACES the inherited list, so the base sheet is re-listed
+# alongside the PDF one. The rrweb player CSS is dropped on purpose (replays are hidden in
+# print). pdf-print.css must come last so it wins.
+extra_css:
+  - assets/extra.css
+  - assets/pdf-print.css
