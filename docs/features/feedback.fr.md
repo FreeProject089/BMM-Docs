@@ -4,7 +4,7 @@
 
     L'app a une version plus courte de ceci, à côté du bouton qui fait le travail.
     [Ouvre-la dans Aide &amp; autres](bmm://docs/open?article=feedback-reporting)
-    — BMM doit déjà tourner. [C'est quoi ces liens](../index.md#how-the-bmm-links-work)
+    — BMM doit déjà tourner. [C'est quoi ces liens](../index.md#comment-marchent-les-liens-bmm)
 
 
 > Le dialogue intégré qui envoie une suggestion, un bug ou un plantage au centre de retours
