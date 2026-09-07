@@ -29,14 +29,6 @@ you driving it.
     timestamps, so they are guessable. The registered task is the one caller that can prove
     it is not a page.
 
-![The scheduler](../assets/screens/scheduler.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Trigger** | *When* it runs. |
-| **2** | **Rules** | *Whether* it runs, and what it does. |
-| **3** | **New task** | One task, one job. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/scheduler.bmmreplay"
      data-title="Building a scheduled task"></div>

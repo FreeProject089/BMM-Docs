@@ -1,0 +1,36 @@
+# GTK-free PDF build. `mkdocs.pdf.yml` uses mkdocs-with-pdf → WeasyPrint → GTK system libs
+# (libgobject/pango/cairo), which aren't present on a plain Windows box. This config instead
+# uses mkdocs-print-site-plugin to fold the whole site into ONE page (`/print_page/`), then a
+# headless Chrome prints that page to PDF — Chrome runs the page's JS, so the 28 Mermaid
+# diagrams render (WeasyPrint could not, it needed a pre-render hook).
+#
+#   python -m mkdocs build -f mkdocs.pdf-chrome.yml
+#   chrome --headless --no-pdf-header-footer --print-to-pdf=pdf/bettermodsmanager.pdf \
+#          file:///<abs>/site/print_page/index.html
+#
+# The interactive .bmmreplay players don't appear in a static PDF (as with any PDF of
+# interactive content) — they are a web-only feature.
+INHERIT: mkdocs.yml
+
+plugins:
+  - search:
+      lang: [en, fr]
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: fr
+          name: Français
+          build: true
+  - print-site:
+      add_to_navigation: false
+      print_page_title: 'BetterModsManager — Documentation'
+      add_cover_page: true
+      add_table_of_contents: true
+      toc_title: 'Contents'
+      enumerate_headings: false
+      enumerate_figures: false

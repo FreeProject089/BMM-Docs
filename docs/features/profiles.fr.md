@@ -16,14 +16,6 @@ Son vrai rôle est écrit sur l'écran vide :
 > Un profil, c'est votre filet de sécurité : activez, désactivez et réordonnez vos mods
 > librement, et une mise à jour ou réinstallation du jeu n'efface plus jamais votre setup.
 
-![L'écran Profils](../assets/screens/profiles.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Carte de profil** | Clique pour l'activer. Tout ce que tu actives atterrit ici. |
-| **2** | **Dossier de destination** | Là où ce profil se déploie. Voir l'avertissement ci-dessous. |
-| **3** | **Nouveau profil** | Un par *configuration*, pas un par jeu — tu peux en avoir plusieurs. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/profiles.bmmreplay"
      data-title="Créer un profil et basculer dessus"></div>

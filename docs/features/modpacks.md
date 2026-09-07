@@ -12,14 +12,6 @@ A modpack is a **named bundle of mods you can toggle in one click**. Where a
 together" — and BMM's own screen calls the action *Quick Apply*: click to toggle a modpack
 on or off.
 
-![The Modpacks screen](../assets/screens/modpacks.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Pack card** | Click toggles the whole pack on or off. |
-| **2** | **Export** | Produces a file you can hand to someone. |
-| **3** | **Import** | Reads someone else's pack. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/modpacks.bmmreplay"
      data-title="Building and applying a modpack"></div>

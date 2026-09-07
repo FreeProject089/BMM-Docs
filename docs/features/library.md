@@ -11,14 +11,6 @@ The **Library** is where every mod you own lives — installed or not, from any 
 only ever learn one screen in BMM, make it this one: everything else (profiles, modpacks,
 lists) is a different way of arranging what the Library holds.
 
-![The Library screen](../assets/screens/library.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Search** | Filters as you type, across mod names and tag names. |
-| **2** | **Filters** | Narrow by game, category, or install state. |
-| **3** | **Install** | Adds the selected mod to the profile you're currently on. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/library.bmmreplay"
      data-title="Adding a mod and enabling it"></div>

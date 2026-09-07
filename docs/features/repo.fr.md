@@ -15,14 +15,6 @@ silence.
 
 > Parcourir les dépôts serveur — dépôts officiels et partenaires.
 
-![L'écran Dépôt Serveur](../assets/screens/repo.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Liste des dépôts** | Les sources que tu as ajoutées. |
-| **2** | **Parcourir** | Dépôts officiels et partenaires. |
-| **3** | **Ajouter** | Pointe BMM vers l'URL d'un dépôt. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/repo.bmmreplay"
      data-title="Se connecter à un dépôt et synchroniser"></div>

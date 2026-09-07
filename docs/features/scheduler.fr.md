@@ -31,14 +31,6 @@ la pilotiez.
     sur laquelle tu cliques, et les ids de tâches sont des horodatages, donc devinables. La
     tâche enregistrée est le seul appelant qui puisse prouver qu'il n'est pas une page.
 
-![Le planificateur](../assets/screens/scheduler.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Déclencheur** | *Quand* ça tourne. |
-| **2** | **Règles** | *Si* ça tourne, et ce que ça fait. |
-| **3** | **Nouvelle tâche** | Une tâche, un travail. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/scheduler.bmmreplay"
      data-title="Créer une tâche planifiée"></div>

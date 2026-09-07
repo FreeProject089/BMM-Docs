@@ -12,14 +12,6 @@ La définition de BMM lui-même :
 Toute la différence est là. Un modpack dit *quels mods* ; une liste `.MM` dit *quels mods,
 où les prendre, et dans quel ordre*.
 
-![L'écran Listes .MM](../assets/screens/modlist.annotated.png)
-
-| | | |
-|---|---|---|
-| **1** | **Exporter** | Écrit le fichier `.MM`. |
-| **2** | **Importer** | En lit un, puis télécharge et installe. |
-| **3** | **Profil auto** | Génère un profil dédié pour la liste importée. |
-
 <div class="bmm-replay"
      data-src="../assets/replays/modlist.bmmreplay"
      data-title="Exporter et importer une liste .MM"></div>
