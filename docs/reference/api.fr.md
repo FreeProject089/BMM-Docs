@@ -518,7 +518,8 @@ note se périme en silence ; un check, non.
 
 ## Voir aussi
 
-- [Référence du serveur MCP](mcp.md) — les 51 outils qu'un client IA peut appeler, et ceux qui exigent BMM ouvert
+- [Référence du serveur MCP](mcp.fr.md) — les 69 outils qu'un client IA peut appeler, et ceux qui exigent BMM ouvert
+- [Référence CLI](cli.fr.md) — les 62 sous-commandes du même binaire, pour un terminal ou un `.bat`
 - [Référence des actions](actions.md) — toutes les actions du planificateur et du générateur de scripts
 - [Plugins & API](../features/plugins.md) — le navigateur in-app, les tokens et le test rapide
 - [Architecture](../how-it-works/architecture.md) — où se situe cette API dans l'app

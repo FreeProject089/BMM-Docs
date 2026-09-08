@@ -504,7 +504,8 @@ not.
 
 ## See also
 
-- [MCP server reference](mcp.md) — the 51 tools an AI client can call, and which ones need BMM open
+- [MCP server reference](mcp.md) — the 69 tools an AI client can call, and which ones need BMM open
+- [CLI reference](cli.md) — the same binary’s 62 subcommands, for a terminal or a `.bat`
 - [Action reference](actions.md) — every scheduler and script-generator action
 - [Plugins & API](../features/plugins.md) — the in-app browser, tokens and quick-test
 - [Architecture](../how-it-works/architecture.md) — where this API sits in the app

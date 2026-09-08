@@ -259,6 +259,7 @@ build if they ever stop being.
 
 ## See also
 
+- [CLI reference](cli.md) — the same executable’s other half: 62 subcommands for a terminal or a `.bat`
 - [Local API &amp; deeplinks](api.md) — the REST surface, its tokens and permissions
 - [Action reference](actions.md) — what plugins and the scheduler can trigger
 - [Extending BMM](../how-it-works/extending.md) — where the MCP server sits in the design

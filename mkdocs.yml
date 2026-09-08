@@ -185,6 +185,7 @@ nav:
       - reference/custom-markdown.md
       - reference/actions.md
       - reference/mcp.md
+      - reference/cli.md
       - reference/tips.md
       - reference/troubleshooting.md
       - reference/github-pat.md

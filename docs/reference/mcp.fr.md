@@ -262,6 +262,7 @@ et `scripts/check-mcp-tools.mjs` casse le build s'ils cessent de l'être.
 
 ## Voir aussi
 
-- [API locale &amp; deeplinks](api.md) — la surface REST, ses jetons et ses permissions
+- [Référence CLI](cli.fr.md) — l’autre moitié du même exécutable : 62 sous-commandes pour un terminal ou un `.bat`
+- [API locale &amp; deeplinks](api.fr.md) — la surface REST, ses jetons et ses permissions
 - [Référence des actions](actions.md) — ce que les plugins et le planificateur peuvent déclencher
 - [Étendre BMM](../how-it-works/extending.md) — la place du serveur MCP dans la conception
