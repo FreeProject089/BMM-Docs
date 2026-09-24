@@ -53,6 +53,7 @@ nothing you do to the game can cost you a mod.
 | [The mapper](mapper.md) | How is a mis-structured archive reshaped, repeatably? |
 | [Sync & server repos](sync-repos.md) | How does a whole group stay on the exact same setup? |
 | [Performance](performance.md) | Why does a huge deploy stay responsive? |
+| [The resource governor](resources.md) | Who decides how hard BMM works your CPU and disks, and how do you change it? |
 | [Extending BMM](extending.md) | How do plugins, the API and MCP drive BMM? |
 | [Security model](security.md) | What are the trust boundaries, and what's signed? |
 

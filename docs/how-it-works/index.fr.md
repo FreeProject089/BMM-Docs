@@ -49,6 +49,7 @@ peut l'effacer sans rien perdre. Vous réactivez un profil ; vous ne re-téléch
 | [Le mappeur](mapper.md) | Comment une archive mal structurée est-elle remise en forme, de façon répétable ? |
 | [Synchro & dépôts serveur](sync-repos.md) | Comment tout un groupe reste-t-il sur la même configuration ? |
 | [Performances](performance.md) | Pourquoi un gros déploiement reste-t-il réactif ? |
+| [Le gouverneur de ressources](resources.md) | Qui décide à quel point BMM sollicite ton CPU et tes disques, et comment le changer ? |
 | [Étendre BMM](extending.md) | Comment plugins, API et MCP pilotent-ils BMM ? |
 | [Modèle de sécurité](security.md) | Quelles sont les frontières de confiance, et qu'est-ce qui est signé ? |
 

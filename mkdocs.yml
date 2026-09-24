@@ -93,6 +93,7 @@ plugins:
             Privacy, telemetry & offline: Confidentialité, télémétrie & hors ligne
             Scheduling & automation: Planification & automatisation
             Storage & disk I/O: Stockage & E/S disque
+            The resource governor: Le gouverneur de ressources
             Themes & Appearance: Thèmes & Apparence
             Make your own theme: Créer son propre thème
             Credits: Crédits
@@ -170,6 +171,7 @@ nav:
       - how-it-works/mapper.md
       - how-it-works/sync-repos.md
       - how-it-works/performance.md
+      - how-it-works/resources.md
       - how-it-works/codebase-maps.md
       - how-it-works/extending.md
       - how-it-works/security.md
