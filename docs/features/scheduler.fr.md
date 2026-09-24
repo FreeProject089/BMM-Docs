@@ -422,11 +422,12 @@ Une tâche de nuit qui travaille à fond puis remet tout en place :
        (la tâche se termine : le preset revient au tien)
 ```
 
-!!! note "Le mode jeu ne s'active pas encore tout seul"
-    **Le détecter** est là, et ses règles sont écrites, mais dans cette version rien ne lui donne
-    la liste des programmes lancés : le mode jeu ne s'active que si quelque chose le force. Une
-    tâche peut le faire : `resources.gameMode` **Forcer** avant qu'un launch pack lance le jeu,
-    **Le détecter** de nouveau ensuite. Voir [Le mode jeu](../how-it-works/resources.md#le-mode-jeu).
+!!! note "La détection ou une tâche"
+    **Le détecter** active le mode jeu tout seul pour un jeu lancé depuis le dossier de jeu d'un
+    profil, un jeu listé dans le Gestionnaire de Stockage, ou un jeu en plein écran exclusif. Pour
+    un jeu qu'il ne voit pas, une tâche peut le forcer : `resources.gameMode` **Forcer** avant qu'un
+    launch pack lance le jeu, **Le détecter** de nouveau ensuite. Voir
+    [Comment marche la détection](../how-it-works/resources.md#comment-marche-la-detection).
 
 ## Boucles & attente
 
