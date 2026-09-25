@@ -133,7 +133,6 @@ drive the [resource governor](../how-it-works/resources.md); see
 | Restart BMM | Restarts the app | ends the running task |
 | Open a URL / link | Opens a link in your browser | |
 | Run custom command | **Runs an arbitrary program** | requires *Allow custom commands* on the task |
-| Run `bmm://` deeplink | Fires any deeplink | can reach any deeplink action |
 | Call an HTTP API | **Sends a request to any address** and captures the reply | requires *Run external programs*; sets `http.status` |
 
 ### Logic & maths
@@ -391,7 +390,7 @@ because a list here could disagree with the sidebar.
     The scheduler has **real nested steps** (IF / LOOP / WAIT UNTIL blocks that contain other
     steps). The generator, producing flat text, uses **block markers** instead (`If…` / `Else` /
     `End block`). Some actions exist only on one side: the scheduler owns the storage actions,
-    *Enable/Disable all*, *Scan*, *Set theme* and raw deeplinks; the generator owns the full
+    *Enable/Disable all*, *Scan* and *Set theme*; the generator owns the full
     CRUD and read endpoints, *Kill process*, *Raw code* and the textual control flow.
 
 ---
