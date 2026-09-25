@@ -99,7 +99,10 @@ def main():
 
     url = "file:" + pathname2url(str(print_page))
     print("[pdf] printing with", os.path.basename(chrome))
-    subprocess.run([
+    # Semgrep flags `chrome` because it can come from CHROME_PATH. That variable is set by the
+    # person running this local build tool on their own machine, the call is an argument list
+    # (no shell), and CI never runs this script. Reviewed 2026-09-25.
+    subprocess.run([  # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-tainted-env-args
         chrome, "--headless=new", "--disable-gpu", "--no-sandbox", "--hide-scrollbars",
         "--run-all-compositor-stages-before-draw",
         f"--virtual-time-budget={args.budget_ms}",

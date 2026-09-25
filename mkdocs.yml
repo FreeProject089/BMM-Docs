@@ -175,6 +175,7 @@ nav:
       - how-it-works/codebase-maps.md
       - how-it-works/extending.md
       - how-it-works/security.md
+      - how-it-works/ci-cd.md
   - Reference:
       - reference/api.md
       - reference/content-ids.md

@@ -1,0 +1,20 @@
+# Gitleaks configuration: the default ruleset plus REVIEWED allowlists.
+# Read by .github/workflows/security.yml (secrets job) and by a local run (SECURITY-CI.md).
+#
+# An allowlist here covers a CLASS of false positive and says why the class can never be a
+# secret. A single false positive goes to .gitleaksignore by fingerprint instead. A real secret
+# is never allowlisted: rotate it first.
+
+[extend]
+useDefault = true
+
+# features/repo(.fr).md has a table of the key formats BMM reads, quoting the PEM HEADERS in
+# inline code: `-----BEGIN OPENSSH PRIVATE KEY-----` | … . The default private-key rule then
+# matches from one quoted header to the next across a table row. A real key file never has an
+# inline-code delimiter (a backtick or </code>) straight after its header — its base64 body
+# starts on the next line — so this cannot hide an actual key. Same entry as in BMM.
+[[allowlists]]
+description = "PEM header quoted in inline code (documentation tables), no key body"
+targetRules = ["private-key"]
+regexTarget = "match"
+regexes = ['''-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----(`|</code>)''']

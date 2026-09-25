@@ -1,0 +1,27 @@
+# The docs toolchain, as a human edits it. requirements.txt is GENERATED from this file:
+# every transitive dependency pinned, with the sha256 of every file PyPI serves for it, so
+# `pip install -r requirements.txt` refuses a package that changed under the same version.
+# After editing this file, regenerate (Linux, macOS or Windows alike; the lock is universal):
+#
+#   uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes -o requirements.txt
+#
+# The security workflow (.github/workflows/security.yml) scans requirements.txt with Trivy,
+# so a transitive package is audited as well as the ones named here.
+mkdocs==1.6.1
+mkdocs-material==9.5.44
+mkdocs-static-i18n==1.2.3
+mkdocs-with-pdf==0.9.3
+# 11.0.0 -> 12.3.0 (2026-09-25): 13 HIGH advisories (heap writes / DoS on crafted images).
+# WeasyPrint 69 is itself tested against Pillow >= 12.1 (its `test` extra).
+Pillow==12.3.0
+# WeasyPrint is a TRANSITIVE dependency of mkdocs-with-pdf and was the only thing here left
+# unpinned, so the PDF renderer changed under the build while everything else stayed put.
+# It matters because the apt list in .github/workflows/docs.yml has to match what THIS
+# version dlopens (see weasyprint/text/ffi.py): v53 dropped cairo, v57 added harfbuzz-subset.
+# Pin them together, or the two drift apart again.
+weasyprint==69.0
+# Reading the built PDF back, so a render that silently drops 90% of the book fails the
+# build instead of shipping. See tools/check_pdf.py.
+# 5.1.0 -> 6.16.2 (2026-09-25): 2 HIGH DoS advisories. check_pdf.py only uses PdfReader,
+# .pages and extract_text(); both versions give the same verdicts on a 301-page build.
+pypdf==6.16.2
