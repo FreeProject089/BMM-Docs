@@ -8,7 +8,17 @@
 # The security workflow (.github/workflows/security.yml) scans requirements.txt with Trivy,
 # so a transitive package is audited as well as the ones named here.
 mkdocs==1.6.1
-mkdocs-material==9.5.44
+# 9.5.44 -> 9.7.7 (2026-09-25): CVE-2026-73295 (DOM XSS, MEDIUM), fixed in 9.7.7. It also
+# lifts 9.5's `pymdown-extensions~=10.2` cap, which was holding the line below on 10.x.
+# 9.7 prints a red "MkDocs 2.0" notice on stderr at every build: informational only (not a
+# log warning, --strict ignores it); 9.7 requires mkdocs<2 and mkdocs is pinned above.
+mkdocs-material==9.7.7
+# A TRANSITIVE dependency of mkdocs-material, pinned here because 9.7 only asks for >=10.2:
+# unpinned, the lock would jump to whatever major is newest the day it is regenerated.
+# 10.21.3 -> 11.0.2 (2026-09-25): CVE-2026-61632 (fixed in 11.0) and CVE-2026-67422
+# (ReDoS, HIGH, fixed in 11.0.1). 11.0's only BREAK is the B64 extension (not used here).
+# Not 12.x: 12.0 rewrites BetterEm / Tilde / Caret / Mark parsing, a separate change.
+pymdown-extensions==11.0.2
 mkdocs-static-i18n==1.2.3
 mkdocs-with-pdf==0.9.3
 # 11.0.0 -> 12.3.0 (2026-09-25): 13 HIGH advisories (heap writes / DoS on crafted images).
@@ -19,7 +29,12 @@ Pillow==12.3.0
 # It matters because the apt list in .github/workflows/docs.yml has to match what THIS
 # version dlopens (see weasyprint/text/ffi.py): v53 dropped cairo, v57 added harfbuzz-subset.
 # Pin them together, or the two drift apart again.
-weasyprint==69.0
+# 69.0 -> 70.0 (2026-09-25): CVE-2026-55073, fixed in 70.0. ffi.py in 70 loads the same
+# libraries plus an OPTIONAL libharfbuzz-vector (allow_fail; HarfBuzz 13+, only used to
+# draw COLRv1 emoji fonts; Noto Color Emoji is a bitmap font), so the apt list is unchanged.
+# mkdocs-with-pdf 0.9.3 only calls HTML(string=).render().write_pdf(), urls.path2url /
+# iri_to_uri / url_is_absolute / urljoin and logger.LOGGER: all still there in 70.
+weasyprint==70.0
 # Reading the built PDF back, so a render that silently drops 90% of the book fails the
 # build instead of shipping. See tools/check_pdf.py.
 # 5.1.0 -> 6.16.2 (2026-09-25): 2 HIGH DoS advisories. check_pdf.py only uses PdfReader,
