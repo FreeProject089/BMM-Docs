@@ -22,7 +22,7 @@ pymdown-extensions==11.0.2
 mkdocs-static-i18n==1.2.3
 mkdocs-with-pdf==0.9.3
 # 11.0.0 -> 12.3.0 (2026-09-25): 13 HIGH advisories (heap writes / DoS on crafted images).
-# WeasyPrint 69 is itself tested against Pillow >= 12.1 (its `test` extra).
+# WeasyPrint 70 is itself tested against Pillow >= 12.1 (its `test` extra).
 Pillow==12.3.0
 # WeasyPrint is a TRANSITIVE dependency of mkdocs-with-pdf and was the only thing here left
 # unpinned, so the PDF renderer changed under the build while everything else stayed put.
@@ -34,6 +34,9 @@ Pillow==12.3.0
 # draw COLRv1 emoji fonts; Noto Color Emoji is a bitmap font), so the apt list is unchanged.
 # mkdocs-with-pdf 0.9.3 only calls HTML(string=).render().write_pdf(), urls.path2url /
 # iri_to_uri / url_is_absolute / urljoin and logger.LOGGER: all still there in 70.
+# 70 regressed line breaking: a paragraph could print one word per line just before an
+# inline <code> (3 paragraphs in the French book). pdf_event_hook.py patches that one
+# branch back to 69's result, gated on 70.x; a bump must re-check the book (see the hook).
 weasyprint==70.0
 # Reading the built PDF back, so a render that silently drops 90% of the book fails the
 # build instead of shipping. See tools/check_pdf.py.

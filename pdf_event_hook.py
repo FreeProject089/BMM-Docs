@@ -205,7 +205,80 @@ def _deeplinks(soup: BeautifulSoup, logger) -> int:
     return len(links)
 
 
+def _patch_weasyprint_line_break(logger) -> None:
+    """Undo WeasyPrint 70's one-word-per-line regression before the book is laid out.
+
+    Symptom: a paragraph prints one word per line for a few lines, then resumes normally
+    (3 paragraphs in the French book, 2 in the English one, all on the lines just before an
+    inline element such as a <code>). Not CSS: the same HTML is fine on 69.0, and no print
+    rule changes it — bisecting Material's stylesheet only moves the widths it happens at.
+
+    Mechanism, traced through weasyprint/layout/inline.py and text/line_break.py:
+      1. A line holds a text run ending in a space, then an inline box (`<code>`) that does
+         not fit. `_break_waiting_children` re-splits the text run with max_x = its own
+         width - 1 to find its last break point.
+      2. That width includes the trailing space, so Pango keeps the whole run on one line
+         and `split_first_line` sees first_line_width > max_width by under a pixel.
+      3. Step #3 then treats the line as unsplittable ("try to hyphenate the first word").
+         70 fixed an off-by-one there (the `break_point -= len(first_line_text) + 1` line
+         is gone), which makes that branch actually lay out the first word alone — so the
+         line gets ONE word, the next line starts from the second, and the same thing
+         happens again until the inline box fits. 69 fell through with Pango's line.
+
+    The same Step #3 branch also fires on a plain line start whose Pango line overflows only
+    by its trailing space ("Rien / n'est / encore" in the French checksum admonition).
+
+    The fix is in that one case only: a split that kept a single word although the text
+    has more. Retry with one font-size of slack; keep the wider result only if its
+    visible width (trailing spaces off) fits the original limit, i.e. only the invisible
+    space was over. A genuinely too-long word fails that check and keeps 70's answer.
+
+    Gated on 70.x on purpose: a WeasyPrint bump must re-check the book, not inherit a patch
+    written against this version's internals. See the pdf check in .github/workflows/docs.yml.
+    """
+    try:
+        import weasyprint
+        from weasyprint.layout import inline as wp_inline
+    except ImportError:  # the hook is also imported by builds that never render with it
+        return
+    if getattr(wp_inline, "_bmm_line_break_patched", False):
+        return
+    if not weasyprint.__version__.startswith("70."):
+        logger.warning(
+            f"WeasyPrint {weasyprint.__version__}: the 70.x line-break workaround in "
+            "pdf_event_hook.py is NOT applied; check the book for one-word-per-line paragraphs"
+        )
+        return
+
+    original = wp_inline.split_first_line
+
+    def split_first_line(text, style, context, max_width, justification_spacing,
+                         is_line_start=True, minimum=False):
+        result = original(text, style, context, max_width, justification_spacing,
+                          is_line_start, minimum)
+        resume_index = result[2]
+        if (max_width is None or resume_index is None or minimum
+                or style["white_space"] != "normal"):
+            return result
+        kept = text.encode()[:resume_index].decode("utf-8", "ignore").strip(" ")
+        if " " in kept or " " not in text.strip(" "):
+            return result  # more than one word kept, or only one word to keep: not the bug
+        wider = original(text, style, context, max_width + style["font_size"],
+                         justification_spacing, is_line_start, minimum)
+        if wider[2] is not None and wider[2] <= resume_index:
+            return result
+        visible = wider[0].text.rstrip(" ")
+        visible_width = original(visible, style, context, None, justification_spacing,
+                                 is_line_start, minimum)[3]
+        return wider if visible_width <= max_width else result
+
+    wp_inline.split_first_line = split_first_line
+    wp_inline._bmm_line_break_patched = True
+    logger.info("WeasyPrint 70 line-break workaround applied (pdf_event_hook.py)")
+
+
 def pre_pdf_render(soup: BeautifulSoup, logger) -> BeautifulSoup:
+    _patch_weasyprint_line_break(logger)
     _replay_cards(soup, logger)
     _deeplinks(soup, logger)
 
