@@ -67,6 +67,14 @@ Dès sa création, BMM te dit ce qui vient de changer :
 
 C'est le contrat. À partir de là, [ajoute un mod](library.md) et active-le.
 
+## L'ordre d'activation
+
+Un profil garde ses mods actifs dans un **ordre**, et quand deux d'entre eux livrent le même fichier,
+celui appliqué en **dernier** le gagne. Un mod que tu actives va à la fin ; l'icône de liste sur la
+carte du profil ouvre l'ordre, où tu glisses les mods (ou `Alt+↑` / `Alt+↓`), vois qui écrase qui, et
+**Appliquer l'ordre** — seuls les fichiers qui changent de main sont recopiés. L'ordre voyage avec le
+profil dans une sauvegarde et un `.DATABMM`. Voir [Ordre d'activation](../how-it-works/load-order.md).
+
 ## Emmener un profil ailleurs
 
 Il n'y a pas de bouton « exporter ce profil », et c'est voulu : un profil est un *choix*

@@ -89,8 +89,11 @@ plugins:
             Settings: Paramètres
             Command palette & shortcuts: Palette de commandes & raccourcis
             GitHub rate limits & the Personal Access Token: Limites GitHub et le jeton d'accès personnel
+            Start-up screen & announcements: Écran de démarrage & annonces
             Launch packs: Launch packs
             Privacy, telemetry & offline: Confidentialité, télémétrie & hors ligne
+            Optional AI (Laya): IA optionnelle (Laya)
+            Activation order: Ordre d'activation
             Scheduling & automation: Planification & automatisation
             Storage & disk I/O: Stockage & E/S disque
             The resource governor: Le gouverneur de ressources
@@ -155,9 +158,11 @@ nav:
       - features/feedback.md
       - features/settings.md
       - features/command-palette.md
+      - features/launch-deck.md
       - features/launch-packs.md
       - features/storage.md
       - features/privacy-telemetry.md
+      - features/ai.md
       - features/themes.md
       - features/making-themes.md
   - How it works:
@@ -167,6 +172,7 @@ nav:
       - how-it-works/scanning-cache.md
       - how-it-works/integrity-hashing.md
       - how-it-works/conflicts.md
+      - how-it-works/load-order.md
       - how-it-works/dependencies.md
       - how-it-works/mapper.md
       - how-it-works/sync-repos.md

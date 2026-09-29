@@ -395,7 +395,7 @@ Deux formes échappent à la règle :
 | `GET` | `/api/catalogs` | `catalog.read` | — · les catalogues suivis, par type | |
 | `POST` | `/api/catalogs` | `catalog.write` | `type`*, `url`*, `follow`, `password`, `key` · suivre ou cesser de suivre un catalogue. `password` pour un secret partagé, `key` pour désigner QUELLE clé d’identité signe — un id ou un nom, affichés dans Réglages → Identité & API. Une référence absente du trousseau est signalée, jamais ignorée : une requête partie non signée revient en « impossible de le lire » sans rien qui désigne la clé | |
 | `GET` | `/api/plugins/assets` | `plugins.read` | `id`*, `path` · ce qu'un plugin livre ; avec `path`, le texte d'un fichier | |
-| `POST` | `/api/mods/order` | `mods.write` | `order[]`*, `profileId` · doit être le même ensemble de mods que ceux actifs ; recopie les fichiers qui changent de main | |
+| `POST` | `/api/mods/order` | `mods.write` | `order[]`*, `profileId`, `reapply` · doit être le même ensemble de mods que ceux actifs ; recopie les fichiers qui changent de main (`reapply: true` : chaque fichier disputé) | |
 | `PUT` | `/api/mods/:id` | `mods.write` | `name`, `version`, `author`, `description`, `tags[]`, `install_notes` | |
 | `DELETE` | `/api/mods/:id` | `mods.write` | — · retire l'entrée, **garde les fichiers** | |
 | `POST` | `/api/mod/config` | `mods.write` | `modId`*, `repoModId`, `updateUrl`, `directUrl`, `updateSources[]` · relie un mod aux dépôts qui peuvent le mettre à jour | |
@@ -558,8 +558,8 @@ périme en silence ; un check, non.
 
 ## Voir aussi
 
-- [Référence du serveur MCP](mcp.fr.md) — les 73 outils qu'un client IA peut appeler, et ceux qui exigent BMM ouvert
-- [Référence CLI](cli.fr.md) — les 66 sous-commandes du même binaire, pour un terminal ou un `.bat`
+- [Référence du serveur MCP](mcp.fr.md) — les 78 outils qu'un client IA peut appeler, et ceux qui exigent BMM ouvert
+- [Référence CLI](cli.fr.md) — les 70 sous-commandes du même binaire, pour un terminal ou un `.bat`
 - [Référence des actions](actions.md) — toutes les actions du planificateur et du générateur de scripts
 - [Plugins & API](../features/plugins.md) — le navigateur in-app, les tokens et le test rapide
 - [Architecture](../how-it-works/architecture.md) — où se situe cette API dans l'app

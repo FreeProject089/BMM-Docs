@@ -133,7 +133,8 @@ from two half-finished ones interleaved.
 ## Activation order is the whole conflict story
 
 Because `active_mods` is an **ordered** list and deployment walks it in order, the mod you enable last
-wins any shared file. That is the entire conflict-resolution model — there is no priority tree. See
+wins any shared file — until you reorder it in the [activation order](load-order.md). That is the entire
+conflict-resolution model — there is no priority tree. See
 [Conflicts](conflicts.md).
 
 !!! info "See it in the app"
