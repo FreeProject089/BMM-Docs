@@ -4,7 +4,7 @@
 
 L'exécutable qui sert les [outils MCP](mcp.fr.md) de BMM est aussi un **outil en ligne de
 commande**. Même binaire, même dossier d'installation — `bmm-mcp-server.exe`, à côté de
-`BetterModsManager.exe` — et l'appeler avec une sous-commande au lieu de `serve` donne 70
+`BetterModsManager.exe` — et l'appeler avec une sous-commande au lieu de `serve` donne 74
 commandes utilisables depuis un terminal, un `.bat`, une tâche planifiée ou une étape de CI.
 
 ```bash
@@ -42,7 +42,7 @@ bmm-mcp-server api --reveal
 
 ## Les commandes
 
-70 au total. `*` marque un argument obligatoire ; une valeur entre parenthèses est la valeur
+74 au total. `*` marque un argument obligatoire ; une valeur entre parenthèses est la valeur
 par défaut. Les arguments positionnels s'écrivent `<comme-ceci>`, les options `--comme-ceci`.
 
 ### Pour se repérer
@@ -210,6 +210,10 @@ tourne ; ici la ligne et la colonne sont nommées. Aucune des deux n'a besoin de
 | `ai-status` | — | Les réglages de l'IA optionnelle : interrupteur principal, fournisseur, quelles fonctions peuvent passer par le réseau et pourquoi pas, où sont stockées les clés (jamais les clés) |
 | `ai-suggest` | `<mod-id>`\*, `--offline`, `--draft` | Suggestions de métadonnées pour un mod, tirées de ses fichiers, plus le fournisseur choisi seulement si l'IA est activée. `--offline` n'appelle jamais de fournisseur ; `--draft` demande aussi un brouillon de description à l'API externe. **N'écrit rien** |
 | `ai-apply` | `<mod-id>`\*, `--fields`\* | Écrit les champs choisis, donnés en objet JSON (`{"description":"…","tags":["<id de tag>"]}`) ; uniquement nom, version, auteur, description, tags (ids existants, 3 par mod au plus) et liens |
+| `ai-ask` | `<question>`\*, `--lang` [en], `--scope` [all], `--limit` [8], `--no-laya`, `--json` | « Demander à Laya », hors ligne : la documentation, les réglages, les commandes, les mods, les fichiers et les conflits qui répondent à une question, en liste lisible (`--json` pour le résultat structuré). `--no-laya` = recherche par mots-clés seulement, quels que soient les réglages |
+| `ai-install` | — | Télécharge, vérifie et installe le paquet du modèle Laya intégré (environ 327 Mo), avec une ligne en direct : étape, pourcentage, débit, temps restant, miroir |
+| `ai-remove` | — | Supprime le paquet du modèle téléchargé (pas la copie de l'installateur) |
+| `ai-test` | — | Classe un exemple fixe avec le modèle installé et affiche les réponses et les durées ; code de sortie non nul si les réponses ne sont pas celles attendues |
 
 ---
 
@@ -230,7 +234,7 @@ compiler.
 
 ## Voir aussi
 
-- [Référence du serveur MCP](mcp.fr.md) — l'autre moitié du même binaire, et ses 78 outils MCP
+- [Référence du serveur MCP](mcp.fr.md) — l'autre moitié du même binaire, et ses 82 outils MCP
 - [API locale &amp; deeplinks](api.fr.md) — ce que `call` appelle
 - [Référence BMMScript](../features/bmmscript-reference.fr.md) — le langage que lit `bmms-compile`
 - [Référence des actions](actions.fr.md) — ce que liste `actions`
