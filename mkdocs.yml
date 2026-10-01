@@ -93,6 +93,8 @@ plugins:
             Launch packs: Launch packs
             Privacy, telemetry & offline: Confidentialité, télémétrie & hors ligne
             Optional AI (Laya): IA optionnelle (Laya)
+            Local Laya API: API Laya locale
+            AI security: Sécurité de l'IA
             Activation order: Ordre d'activation
             Scheduling & automation: Planification & automatisation
             Storage & disk I/O: Stockage & E/S disque
@@ -163,6 +165,7 @@ nav:
       - features/storage.md
       - features/privacy-telemetry.md
       - features/ai.md
+      - features/ai-api.md
       - features/themes.md
       - features/making-themes.md
   - How it works:
@@ -181,6 +184,7 @@ nav:
       - how-it-works/codebase-maps.md
       - how-it-works/extending.md
       - how-it-works/security.md
+      - how-it-works/ai-security.md
       - how-it-works/ci-cd.md
   - Reference:
       - reference/api.md
