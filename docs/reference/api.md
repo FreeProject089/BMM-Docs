@@ -546,8 +546,8 @@ through. A note goes stale in silence; a check does not.
 
 ## See also
 
-- [MCP server reference](mcp.md) — the 91 tools an AI client can call, and which ones need BMM open
-- [CLI reference](cli.md) — the same binary’s 77 subcommands, for a terminal or a `.bat`
+- [MCP server reference](mcp.md) — the 92 tools an AI client can call, and which ones need BMM open
+- [CLI reference](cli.md) — the same binary’s 78 subcommands, for a terminal or a `.bat`
 - [Action reference](actions.md) — every scheduler and script-generator action
 - [Plugins & API](../features/plugins.md) — the in-app browser, tokens and quick-test
 - [Architecture](../how-it-works/architecture.md) — where this API sits in the app
