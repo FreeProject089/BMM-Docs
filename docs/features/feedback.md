@@ -46,6 +46,14 @@ user name. It is pre-ticked only for crashes, and you can untick it.
 :::
 
 
+## Laya's proposals
+
+With AI on, a **Laya** box under the description proposes the type, category, severity, part of
+the app, tags, an earlier look-alike report and, for a crash, the matching crash report. Nothing
+is applied until you click **Apply**; only what you applied is sent (as labels with the report).
+See [AI: Laya while you write a report](ai.md#laya-while-you-write-a-report).
+
+
 ## Replies: linked or anonymous
 
 :::note[Link your account]
