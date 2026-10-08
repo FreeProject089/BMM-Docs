@@ -205,6 +205,11 @@ nav:
       - reference/credits.md
 
 extra:
+  # Session replays (.bmmreplay). false = build the site WITHOUT them: every replay embed is
+  # dropped from the pages, no .bmmreplay is copied into the site and the rrweb player is not
+  # loaded (tools/md_directives.py). BMM_DOCS_REPLAYS=off|on in the environment overrides this
+  # line, for a CI build that should differ from the file.
+  bmm_replays: true
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/FreeProject089

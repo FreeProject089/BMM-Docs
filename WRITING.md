@@ -100,6 +100,10 @@ Two things exist for BMM and are inert on the site:
 
 - **`bmm-replay` blocks** — a session recording that plays inline in the app. Large ones are
   not bundled; the app fetches them from the published site instead.
+  To publish **without** replays, set `extra: bmm_replays: false` in `mkdocs.yml` (or
+  `BMM_DOCS_REPLAYS=off` in the build's environment, which wins over the file): the blocks
+  are dropped, no `.bmmreplay` is copied and the player is not loaded. In the app, the same
+  thing is `DocsReplays=false` in `app.cfg` (see `APP_CFG.md`).
 - **In-app deeplinks** — `bmm://docs/open?page=…`. There are 42 of them and CI checks every
   one resolves to a real page.
 

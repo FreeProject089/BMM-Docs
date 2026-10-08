@@ -24,6 +24,7 @@ site, in the same two files that also use `++esc++`. Neither renderer errors on 
 spelling; it simply comes out as the characters the author typed.
 """
 
+import os
 import re
 
 # BCWEB callout name → Material admonition type.
@@ -372,7 +373,91 @@ def _inline_2(md):
     return "\n".join(out)
 
 
-def on_page_markdown(markdown, **kwargs):  # mkdocs hook entry point
+# ── Session replays (.bmmreplay): one switch to build the site without them ──────────────
+# `extra: bmm_replays: false` in mkdocs.yml, or BMM_DOCS_REPLAYS=off in the environment (the
+# environment wins, so CI can flip it without editing the file). When off, the build drops
+# every replay embed from the pages (`<div class="bmm-replay" …></div>` and `:::replay{…}`),
+# does not copy a single .bmmreplay into the site, and loads no rrweb player. Nothing is left
+# in their place. Code fences are untouched: the pages that DOCUMENT the syntax keep it.
+_OFF_WORDS = ("0", "false", "off", "no")
+_REPLAY_DIV = re.compile(r'^<div\s+class="bmm-replay"', re.IGNORECASE)
+_REPLAY_OPEN = re.compile(r"^:::+\s*(?:replay|bmmreplay)\b", re.IGNORECASE)
+
+
+def replays_enabled(config=None):
+    env = os.environ.get("BMM_DOCS_REPLAYS", "").strip().lower()
+    if env:
+        return env not in _OFF_WORDS
+    extra = None
+    try:
+        extra = config.get("extra") if config is not None else None
+    except Exception:  # a config object without .get: keep the default
+        extra = None
+    value = extra.get("bmm_replays", True) if extra is not None else True
+    if isinstance(value, str):
+        return value.strip().lower() not in _OFF_WORDS
+    return value is not False
+
+
+def strip_replays(md):
+    out = []
+    lines = md.split("\n")
+    fenced = False
+    i, n = 0, len(lines)
+    while i < n:
+        s = lines[i].strip()
+        if _FENCE.match(s):
+            fenced = not fenced
+        if not fenced and _REPLAY_DIV.match(s):
+            # Possibly spread over several lines; ends at the line holding its </div>.
+            while i < n and "</div>" not in lines[i]:
+                i += 1
+            i += 1
+            continue
+        if not fenced and _REPLAY_OPEN.match(s):
+            depth = 1
+            i += 1
+            while i < n and depth:
+                t = lines[i].strip()
+                if _CLOSE.match(t):
+                    depth -= 1
+                elif _OPEN.match(t):
+                    depth += 1
+                i += 1
+            continue
+        out.append(lines[i])
+        i += 1
+    return "\n".join(out)
+
+
+def _is_player_asset(path):
+    p = str(path).replace("\\", "/")
+    return "assets/rrweb/" in p or p.lower().endswith(".bmmreplay")
+
+
+def on_config(config, **kwargs):  # mkdocs hook: no player scripts/styles when replays are off
+    if replays_enabled(config):
+        return config
+    for key in ("extra_css", "extra_javascript"):
+        try:
+            config[key] = [x for x in config[key] if not _is_player_asset(x)]
+        except Exception:
+            pass
+    return config
+
+
+def on_files(files, config, **kwargs):  # mkdocs hook: no .bmmreplay (or player) in the site
+    if replays_enabled(config):
+        return files
+    for f in list(files):
+        if _is_player_asset(f.src_uri):
+            files.remove(f)
+    return files
+
+
+def on_page_markdown(markdown, page=None, config=None, **kwargs):  # mkdocs hook entry point
+    if "replay" in markdown and not replays_enabled(config):
+        markdown = strip_replays(markdown)
     if ":kbd[" in markdown:
         markdown = _kbd(markdown)
     if any(tok in markdown for tok in _INLINE_TOKENS):
