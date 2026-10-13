@@ -279,6 +279,41 @@ nginx ou tout hébergeur qui sert des fichiers : le dépôt n'est alors que des 
 n'a besoin de rester ouvert. Voir aussi
 [L'héberger sans BMM](../reference/repo-format.md#7-lheberger-sans-bmm).
 
+### Le mini-serveur autonome
+
+**Mini-serveur** (un outil avancé de l'écran Server Repo) écrit un dossier qui sert le dépôt tout
+seul, sur une autre machine : une édition script (v1 ou v2, Node.js téléchargé s'il manque) ou une
+édition Node.js + Express, avec les fichiers Docker si vous les demandez. Chaque édition embarque
+désormais les mêmes compléments, proches de ce que fait le serveur intégré de BMM :
+
+| Adresse | Contenu |
+|---|---|
+| `/repo.json`, fichiers des mods | `ETag`, `Last-Modified`, `304 Not Modified`, `Range` (reprise des téléchargements), `HEAD` |
+| `/feed.xml` | Le flux Atom du dépôt, sous le même nom que le serveur intégré, derrière le même mot de passe |
+| `/status` | Une page d'état sans aucune ressource externe, claire ou sombre selon le système : nom du dépôt, version, version de format, nombre et taille des fichiers, dernière mise à jour, lien du flux, un bouton **Ouvrir dans BMM** (`bmm://repo/connect?url=…`) et les tâches planifiées |
+| `/status.json`, `/health` | La même chose en JSON ; `200` tant que `repo.json` est lisible (Docker et systemd s'en servent) |
+
+Le mot de passe de téléchargement va dans `access.json` pour toutes les éditions ; les abonnés
+l'envoient en `X-Repo-Password` ou `?password=`. Une limite de requêtes par adresse, le journal,
+l'adresse publique et les tâches sont dans `server.config.json` à côté du serveur, qu'il relit
+quand vous le modifiez ; les variables d'environnement (`PORT`, `BMM_PUBLIC_URL`,
+`BMM_RATE_LIMIT`, `BMM_JOBS=off`…) passent avant.
+
+**Tâches planifiées.** Le générateur demande, par des choix simples, à quelle fréquence vérifier
+les fichiers et sauvegarder `repo.json`, et s'il faut faire tourner le journal. **Avancé** ajoute :
+réécrire les empreintes d'un manifeste non signé quand un fichier a changé (un manifeste signé
+n'est jamais réécrit : réexportez-le depuis BMM), augmenter sa version, votre propre planification
+(un intervalle comme `15m`, `6h`, `1d`, ou une ligne cron comme `0 3 * * *`), une synchronisation
+depuis une source (`git pull`, `rsync`, ou un dossier dans lequel BMM exporte, puis une
+revérification), la limite de requêtes et l'adresse publique. Une planification que BMM ne sait
+pas lire est refusée avant que quoi que ce soit soit écrit. Sur le serveur, la dernière exécution,
+son résultat et la prochaine de chaque tâche s'affichent sur `/status`.
+
+Le dossier contient aussi `README-SERVER.md` et `README-SERVER.fr.md` (adresses, configuration,
+HTTPS derrière Caddy ou nginx), une unité systemd et un script de démarrage Windows dans
+`bmm-server/`, et un auto-test : `node bmm-server/selftest.js`. Rien dans `bmm-server/` n'est
+jamais servi.
+
 ## Panneau d'admin & monitoring
 
 L'hébergement s'accompagne de deux outils côté hôte, tous deux sur l'écran Dépôt Serveur :

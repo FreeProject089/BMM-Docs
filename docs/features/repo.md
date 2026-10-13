@@ -263,6 +263,37 @@ account, since that is the only case where a signed identity exists.
 or any host that serves files: the repo is then just files, and no BMM has to stay open.
 See also [Hosting it without BMM](../reference/repo-format.md#7-hosting-it-without-bmm).
 
+### The standalone mini-server
+
+**Mini-server** (an advanced tool on the Server Repo screen) writes a folder that serves the repo
+on its own, on another machine: a script edition (v1 or v2, Node.js downloaded if missing) or a
+Node.js + Express one, with Docker files if you ask for them. Every edition now ships the same
+extras, close to what BMM's built-in server does:
+
+| Address | What |
+|---|---|
+| `/repo.json`, mod files | `ETag`, `Last-Modified`, `304 Not Modified`, `Range` (resumed downloads), `HEAD` |
+| `/feed.xml` | The Atom feed of the repo, the same file name as the built-in server, behind the same password |
+| `/status` | A status page with no outside resource, light or dark with the system: repo name, version, format version, file count and size, last update, feed link, an **Open in BMM** button (`bmm://repo/connect?url=…`) and the scheduled tasks |
+| `/status.json`, `/health` | The same as JSON; `200` while `repo.json` is readable (Docker and systemd use it) |
+
+The download password goes to `access.json` in every edition; subscribers send it as
+`X-Repo-Password` or `?password=`. A rate limit per address, the log, the public address and the
+jobs are in `server.config.json` beside the server, which it re-reads when you edit it;
+environment variables (`PORT`, `BMM_PUBLIC_URL`, `BMM_RATE_LIMIT`, `BMM_JOBS=off`…) win over it.
+
+**Scheduled tasks.** The generator asks, in plain choices, how often to check the files and to
+back up `repo.json`, and whether to rotate the log. **Advanced** adds: rewrite the hashes of an
+unsigned manifest when a file changed (a signed one is never rewritten: re-export it from BMM),
+bump its version, your own schedule (an interval such as `15m`, `6h`, `1d`, or a cron line such
+as `0 3 * * *`), a sync from a source (`git pull`, `rsync`, or a folder BMM exports into, then a
+rescan), the rate limit and the public address. A schedule BMM cannot read is refused before
+anything is written. On the server, each task's last run, result and next run show on `/status`.
+
+The folder also carries `README-SERVER.md` and `README-SERVER.fr.md` (addresses, configuration,
+HTTPS behind Caddy or nginx), a systemd unit and a Windows start-at-boot script in `bmm-server/`,
+and a self-test: `node bmm-server/selftest.js`. Nothing in `bmm-server/` is ever served.
+
 ## Admin panel & monitoring
 
 Hosting comes with two host-side tools, both on the Server Repo screen:
