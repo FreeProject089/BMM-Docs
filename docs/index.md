@@ -46,6 +46,8 @@ an undo.
 | **[Mapper](features/mapper.md)** | A mod's folders don't match what the game expects. |
 | **[BetterCommunity](features/community.md)** | You want news and posts from the project's blogs. |
 | **[Settings](features/settings.md)** | Themes, updates, storage limits, data export. |
+| **[Activity centre](features/activity.md)** | You want to see, or stop, everything BMM is doing right now. |
+| **[BMM Tools](features/tools.md)** | You want to find duplicates, conflicts, orphans, or check a file or a manifest. |
 
 ## Conflicts, in one paragraph
 

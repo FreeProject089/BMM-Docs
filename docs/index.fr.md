@@ -49,6 +49,8 @@ suppression ; BMM leur offre une annulation.
 | **[Mapper](features/mapper.md)** | Les dossiers d'un mod ne correspondent pas à ce qu'attend le jeu. |
 | **[BetterCommunity](features/community.md)** | Les actus et articles des blogs du projet. |
 | **[Paramètres](features/settings.md)** | Thèmes, mises à jour, limites de disque, export des données. |
+| **[Centre d'activité](features/activity.md)** | Tu veux voir, ou arrêter, tout ce que BMM fait en ce moment. |
+| **[Outils BMM](features/tools.md)** | Tu veux trouver des doublons, des conflits, des orphelins, ou vérifier un fichier ou un manifeste. |
 
 ## Les conflits, en un paragraphe
 

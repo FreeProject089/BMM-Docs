@@ -19,6 +19,29 @@ hand stays at the version you installed, forever, silently.
      data-title="Connecting to a repo and syncing"></div>
 
 
+## Simple by default
+
+The page starts with the guided steps for the two everyday jobs: **syncing** a repo into a
+profile, and **hosting** one. Everything else is in **Advanced tools**: type in **Find a tool**
+to filter them, and BMM remembers which ones you opened last time.
+
+| Tool | What it does |
+|---|---|
+| **Create a repo in one click** | From a profile, a modpack or a folder of mods. BMM writes a signed repo, ready to host. |
+| **Build a repo from profiles** | The full generator: several profiles, identity, seed, archive, bundled server. |
+| **Update an existing repo** | Add or remove mods and profiles without rebuilding everything. |
+| **Include more in a repo** | Plugins, themes, modpacks, automations, mod lists, catalogues. See [Everything else the repo carries](#everything-else-the-repo-carries). |
+| **Manifest only (repo.json)** | Describe mods already hosted somewhere. Nothing is copied. |
+| **Update from the server listing** | Your mods live only on the server: refresh `repo.json` from its folder index. |
+| **Validate a repo** | Manifest, files, hashes, signature and format version, in one readable report. |
+| **Set the repo version** | Change the number subscribers see, and re-sign. |
+| **Preview as subscribers see it** | The card BMM shows after Fetch, from the folder or the running server. |
+| **Share link** | A one-click link and a message to send, with password or key notes when needed. |
+| **Host on a static web host** | GitHub Pages, nginx or any host that serves files: instructions and configuration. |
+| **Publish over SSH** | Upload the repo folder to your own server. See [SSH/SFTP](#getting-the-folder-onto-the-server-sshsftp). |
+| **Server options**, **Who connects**, **Multi-repo hub server** | Port, speed, passwords, keys; monitoring, whitelist and bans; several repos on one port. |
+| **Check for mod updates**, **Sync options** | Updates for installed mods, and how the next sync behaves. |
+
 ## Connecting to a repo
 
 Browse the official and partner list, or paste a repo URL directly. Once connected, the
@@ -38,6 +61,10 @@ it compares what the repo has against what you already have and downloads **only
 files**, so updating a 5 GB repo after a small patch costs a few megabytes, not five gigs. A
 long sync can be **cancelled** mid-flight, and you can cap its download speed so it doesn't
 saturate your connection.
+
+A synced mod keeps the **same id** across re-syncs, renames and re-imports, so its history,
+its links and its place in your profiles follow it. Duplicates left by older BMM versions are
+repaired once, at start-up, after a backup.
 
 ## Update detection
 
@@ -68,6 +95,33 @@ A raw file URL carries no version number, so BMM has nothing to compare. It offe
 re-download** instead of pretending to know. If you want real update detection, link the mod
 to a repo that publishes versions.
 
+## Following a repo
+
+Instead of pressing *Check for mod updates* yourself, you can **follow** a repo: enter its
+address on the sync side, then **Follow this repo**. It joins the **Followed repos** list,
+where each repo has:
+
+| Setting | Choices |
+|---|---|
+| **Check this repo on its schedule** | On, or paused. |
+| **Check** | Every 15 minutes, every hour, every 6 hours, every day or every week. |
+| **When there is an update** | **Tell me** (the default), **Download it**, or **Download and apply it**. |
+
+*Download it* syncs the updated mods' files into their profile. *Download and apply it* also
+turns the enabled ones off and on again in the active profile, so the game gets the new files.
+**Nothing is downloaded or applied while a game is running**: BMM tells you and tries again at
+the next check. **Check now** checks every followed repo at once; **Check** checks one, and
+**Stop following** removes it. Each check is a row in the [activity centre](activity.md).
+
+A check is cheap: BMM asks the server whether `repo.json` changed since last time, and an
+unchanged repo answers « not modified » without sending the manifest again.
+
+:::note[An Atom feed for every repo BMM serves]
+BMM's built-in repo server also serves `feed.xml`, an **Atom feed** of the repo's updates,
+next to `repo.json`. Any feed reader can follow a repo that way, BMM or not, and so can a
+[scheduled task](scheduler.md) with an `on feed` trigger.
+:::
+
 ## Hosting your own repo
 
 You can turn your own mods into a repo other people sync from. The Host tab is split in two:
@@ -75,11 +129,8 @@ You can turn your own mods into a repo other people sync from. The Host tab is s
 
 ### Three ways to produce the manifest
 
-!!! note "How the Host tab is laid out"
-    The **Generate** card is split into numbered sections you open one at a time (profiles ·
-    output & identity · distribution · include more & publish over SSH), and **Manifest only**
-    the same way. Every card on the tab folds from the chevron in its header. In *Distribution*,
-    **Compress as .zip** only packs the repo; bundling a **standalone server** is a separate,
+!!! note "Archive and compression options"
+    In **Build a repo from profiles**, **Compress as .zip** only packs the repo; bundling a **standalone server** is a separate,
     optional tick inside it (the API's `zipOutput` and `generateServer` flags are independent
     for the same reason — a plain archive is named `BMM-Repo-*`, one with a server
     `BMM-Standalone-Server-*`). A **Compression** picker beside those boxes chooses the method
@@ -90,16 +141,16 @@ You can turn your own mods into a repo other people sync from. The Host tab is s
     scheduler action, `/api/repo/gen` and `/api/repo/gen-now`, the script generator, the CLI
     (`generate-repo --zip-mods --compression zstd`) and the `bmm_generate_repo` MCP tool. The
     file stays an ordinary `.zip` whatever you pick; only Deflate is guaranteed to open in every
-    third-party unzipper. The **multi-repo hub** — one Node server and dashboard for all
-    your repos — is its own card in the *Serve the files* step.
+    third-party unzipper. The **multi-repo hub** (one Node server and dashboard for all
+    your repos) is its own tool, **Multi-repo hub server**.
 
 They are alternatives — pick the one that matches where your mods already are.
 
 | Route | What it does | Use it when |
 |---|---|---|
-| **Full export** | Copies every mod into an output folder alongside the manifest. | Starting from scratch; the mods are on this machine. |
+| **Create a repo in one click** / **Build a repo from profiles** | Copies every mod into an output folder alongside the manifest (from a folder of mods, the one-click tool describes them where they are instead). | Starting from scratch; the mods are on this machine. |
 | **Manifest only** | Writes just `repo.json` for folders BMM can read here — one, several, or a set of profiles. **Nothing is copied.** | The mods are already where you want them. |
-| **Update from the server** | Reads what your server holds — over HTTP, or over SFTP on an SSH machine — and writes the manifest without pulling the repo back. | The mods live only on the server. |
+| **Update from the server listing** | Reads what your server holds — over HTTP, or over SFTP on an SSH machine — and writes the manifest without pulling the repo back. | The mods live only on the server. |
 
 Whichever you use, the manifest lists every mod, its version, per-file SHA-256 hashes (plus
 4 MB block hashes on large files) and any changelog, and is **signed with your creator key** —
@@ -127,7 +178,8 @@ subscribers see an update rather than an unrelated repo, and you are told what w
 **changed** and **removed**. That last one matters: a mistyped path writes a perfectly valid
 manifest describing an empty server.
 
-There are no version numbers to bump; changes are detected by hash.
+You do not have to bump a version: changes are detected by hash. When you want subscribers
+to see a new number, **Set the repo version** changes it and re-signs the manifest.
 
 *Update from the server* goes further: it compares the listing's sizes and timestamps against
 your last manifest and downloads only what actually changed, reusing the recorded hash for
@@ -191,6 +243,25 @@ and verified offline, and it matches every identifier that account holds — its
 linked creator ids and its linked Discord ids — so banning the account follows the person
 rather than one of their handles. Account entries apply only when the repo requires an
 account, since that is the only case where a signed identity exists.
+
+### Checking it before you publish
+
+- **Validate a repo** reads `repo.json`, re-hashes every file it lists, and checks the
+  signature and the format version, in one pass with progress and **Cancel**. Nothing is
+  written. Run again, it only re-reads the files that changed.
+- **Preview as subscribers see it** shows the card BMM displays after Fetch.
+- **Share link** gives a one-click link and a ready message, with the password or key notes
+  a protected repo needs.
+- A manifest written by an older BMM shows its **format version**, and **Convert…** brings it
+  up to date: it always shows a dry run of every change first, asks before writing, keeps the
+  old file as a `.bak` and re-signs. A repo written in a newer format than your BMM reads is
+  refused with a clear message. See [Format versions](../reference/repo-format.md#9-format-versions-and-converting-an-old-manifest).
+
+### Hosting without BMM running
+
+**Host on a static web host** gives the files and the configuration for GitHub Pages, nginx
+or any host that serves files: the repo is then just files, and no BMM has to stay open.
+See also [Hosting it without BMM](../reference/repo-format.md#7-hosting-it-without-bmm).
 
 ## Admin panel & monitoring
 

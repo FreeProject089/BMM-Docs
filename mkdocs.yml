@@ -87,6 +87,8 @@ plugins:
             Mapper: Mapper
             BetterCommunity: BetterCommunity
             Settings: Paramètres
+            Activity centre: Centre d'activité
+            BMM Tools: Outils BMM
             Command palette & shortcuts: Palette de commandes & raccourcis
             GitHub rate limits & the Personal Access Token: Limites GitHub et le jeton d'accès personnel
             Start-up screen & announcements: Écran de démarrage & annonces
@@ -159,6 +161,8 @@ nav:
       - features/community.md
       - features/feedback.md
       - features/settings.md
+      - features/activity.md
+      - features/tools.md
       - features/command-palette.md
       - features/launch-deck.md
       - features/launch-packs.md
