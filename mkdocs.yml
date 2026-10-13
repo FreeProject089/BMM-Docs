@@ -203,6 +203,7 @@ nav:
       - reference/troubleshooting.md
       - reference/github-pat.md
       - reference/credits.md
+      - reference/translation-variables.md
 
 extra:
   # Session replays (.bmmreplay). false = build the site WITHOUT them: every replay embed is
