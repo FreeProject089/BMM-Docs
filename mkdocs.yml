@@ -192,6 +192,7 @@ nav:
       - reference/repo-format.md
       - reference/passphrases.md
       - reference/catalog-index.md
+      - reference/catalog-format.md
       - reference/commands.md
       - reference/links-and-updates.md
       - reference/app-cfg.md
