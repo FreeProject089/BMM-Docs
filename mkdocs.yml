@@ -18,31 +18,50 @@ theme:
   # where the PDF plugin is not loaded at all.
   custom_dir: overrides
   language: en
-  # The app's own icon, copied straight from src-tauri/icons/ — logo.png was a 156-byte
-  # 64x64 placeholder (a flat orange square) and the favicon pointed at it too. The .ico
-  # carries several sizes, which is what a browser tab actually wants.
-  logo: assets/logo.png
+  # The header logo is the brand TILE (frontend/assets/brand/bmm-logo-tile.svg): the plain
+  # mark is black + yellow and its black half vanishes on the dark header. The tile carries
+  # its own light rounded square, so it reads on both schemes. logo.png stays for the PDF
+  # tooling; the .ico carries several sizes, which is what a browser tab actually wants.
+  logo: assets/bmm-logo-tile.svg
   favicon: assets/favicon.ico
+  # System fonts, not Google Fonts: Material's default `font:` loads Roboto from
+  # fonts.googleapis.com on every page view — an outside request on a site whose privacy page
+  # says BMM makes none it doesn't need. The stacks themselves are in assets/extra.css.
+  font: false
   icon:
     repo: fontawesome/brands/github
+    admonition:
+      tip: material/lightbulb-on-outline
+      note: material/pencil-outline
+      warning: material/alert-outline
+      danger: material/alert-octagon-outline
+      info: material/information-outline
+      example: material/flask-outline
+      question: material/help-circle-outline
+  # BMM is yellow (#ffcc00) on near-black (#121315). The palette names below are only
+  # Material's fallbacks — assets/extra.css sets the real values per scheme, and keeps the
+  # yellow a FILL (buttons, rails, badges) with dark text on it, never yellow text on white.
   palette:
-    # BMM is an orange-on-dark app; the docs follow it, and default to the reader's OS choice.
     - media: "(prefers-color-scheme)"
       toggle: { icon: material/brightness-auto, name: Follow system / Suivre le système }
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: blue
-      accent: light blue
+      primary: custom
+      accent: custom
       toggle: { icon: material/brightness-7, name: Dark mode / Mode sombre }
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue
-      accent: light blue
+      primary: custom
+      accent: custom
       toggle: { icon: material/brightness-4, name: Light mode / Mode clair }
   features:
     # No navigation.instant: it breaks mkdocs-static-i18n's language switcher (the build
     # warns, and the FR/EN toggle stops following you page to page). Instant nav isn't
     # worth losing the switcher on a bilingual site.
+    # Tabs: the four top sections become header tabs, so the sidebar lists one section at a
+    # time instead of ~70 pages. On a phone the tabs fold back into the drawer.
+    - navigation.tabs
+    - navigation.path
     - navigation.tracking
     - navigation.sections
     - navigation.top
@@ -50,6 +69,7 @@ theme:
     - search.suggest
     - search.highlight
     - content.code.copy
+    - content.tabs.link
     - content.action.edit
     - toc.follow
 
@@ -136,6 +156,11 @@ markdown_extensions:
       anchor_linenums: true
   - attr_list
   - md_in_html
+  # :material-…: / :octicons-…: shortcodes become INLINE SVG at build time (the icon set ships
+  # inside mkdocs-material) — the home page's feature cards use them. No font, no request.
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - tables
   - toc:
       permalink: true

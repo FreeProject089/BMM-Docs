@@ -1,262 +1,497 @@
 /* ==========================================================================
    BetterModsManager — Documentation theme
-   Brand-matched to BMM + BetterCommunity (BCWEB): blue on deep navy.
-   Overrides MkDocs-Material tokens for BOTH the light (default) and dark
-   (slate) schemes, so every component — nav, code, tables, admonitions, and
-   the inline .bmmreplay player — picks up the brand automatically.
+   BMM's own brand: yellow #ffcc00 on near-black #121315.
+
+   The one rule this file is built around: the yellow is a FILL, never an ink
+   on a light background. #ffcc00 on white is 1.5:1 — unreadable — so in the
+   light scheme the yellow only ever appears as a surface (buttons, rails,
+   badges, icon tiles, underlines) with dark text on it, and any text that
+   wants to "be the accent" uses a deep amber ink (#7a5600, 6.6:1 on white).
+   In the dark scheme yellow text on #121315 is 12.3:1 and is used freely.
+
+   Everything is expressed as Material tokens per scheme, so nav, code,
+   tables, admonitions, mermaid diagrams and the inline .bmmreplay player
+   pick the brand up without per-component colour rules.
    ========================================================================== */
 
 :root {
-  --bmm-blue:        #3b82f6;
-  --bmm-blue-2:      #2563eb;
-  --bmm-blue-dark:   #1e3a8a;
-  --bmm-blue-light:  #60a5fa;
+  --bmm-yellow:      #ffcc00;
+  --bmm-yellow-hi:   #ffd633;
+  --bmm-yellow-lo:   #e6b800;
+  --bmm-ink:         #121315;   /* text ON the yellow, and the brand dark */
   --bmm-radius:      12px;
-}
+  --bmm-radius-sm:   8px;
 
-/* Primary + accent for every scheme (set on body so it wins over Material's
-   [data-md-color-primary] block regardless of load order — the shipped file
-   did the same for orange). */
-body {
-  --md-primary-fg-color:        var(--bmm-blue);
-  --md-primary-fg-color--light: var(--bmm-blue-light);
-  --md-primary-fg-color--dark:  var(--bmm-blue-dark);
-  --md-accent-fg-color:         var(--bmm-blue-light);
+  /* System font stacks (theme.font is false in mkdocs.yml: no Google Fonts). */
+  --md-text-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+                         "Noto Sans", Arial, sans-serif;
+  --md-code-font-family: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono",
+                         Consolas, "Liberation Mono", Menlo, monospace;
 }
+body, input { font-family: var(--md-text-font-family); }
+code, kbd, pre { font-family: var(--md-code-font-family); }
 
-/* ── Dark scheme → BMM navy (bg #0d1117, panels #161b22) ── */
-[data-md-color-scheme="slate"] {
-  --md-default-bg-color:            #0d1117;
-  --md-default-bg-color--light:     #161b22;
-  --md-default-bg-color--lighter:   #1c2333;
-  --md-code-bg-color:               #161b22;
-  --md-default-fg-color:            #e6edf3;
-  --md-default-fg-color--light:     #b6c2cf;
-  --md-default-fg-color--lighter:   rgba(230, 237, 243, 0.35);
-  --md-default-fg-color--lightest:  rgba(230, 237, 243, 0.10);
-  --md-typeset-a-color:             var(--bmm-blue-light);
-  --md-footer-bg-color:             #0a0d12;
-  --md-footer-bg-color--dark:       #080a0e;
-}
-[data-md-color-scheme="slate"] .md-header,
-[data-md-color-scheme="slate"] .md-tabs {
-  background-color: #0d1117;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  color: #e6edf3;
-}
-
-/* ── Light scheme: a blue gradient header, blue links ── */
+/* ── Light scheme ──────────────────────────────────────────────────────── */
 [data-md-color-scheme="default"] {
-  --md-typeset-a-color: var(--bmm-blue-2);
-}
-[data-md-color-scheme="default"] .md-header,
-[data-md-color-scheme="default"] .md-tabs {
-  background: linear-gradient(90deg, var(--bmm-blue-dark) 0%, var(--bmm-blue) 100%);
+  --md-default-bg-color:            #ffffff;
+  --md-default-fg-color:            #18191c;
+  --md-default-fg-color--light:     rgba(24, 25, 28, .72);
+  --md-default-fg-color--lighter:   rgba(24, 25, 28, .46);
+  --md-default-fg-color--lightest:  rgba(24, 25, 28, .09);
+
+  --md-primary-fg-color:            #121315;  /* the header: brand dark in BOTH schemes */
+  --md-primary-fg-color--light:     #2a2c30;
+  --md-primary-fg-color--dark:      #0b0c0d;
+  --md-primary-bg-color:            #ffffff;
+  --md-primary-bg-color--light:     rgba(255, 255, 255, .72);
+
+  --md-accent-fg-color:             #7a5600;  /* hover/focus INK: amber, 6.6:1 on white */
+  --md-accent-fg-color--transparent: rgba(255, 204, 0, .16);
+  --md-accent-bg-color:             #121315;
+  --md-accent-bg-color--light:      rgba(18, 19, 21, .7);
+
+  --md-typeset-color:               #18191c;
+  --md-typeset-a-color:             #7a5600;
+  --md-typeset-mark-color:          rgba(255, 204, 0, .38);
+  --md-code-bg-color:               #f4f4f5;
+  --md-code-fg-color:               #2b2d31;
+  --md-footer-bg-color:             #121315;
+  --md-footer-bg-color--dark:       #0b0c0d;
+
+  --bmm-surface:     #f7f7f8;
+  --bmm-border:      rgba(18, 19, 21, .11);
+  --bmm-accent-ink:  #7a5600;
+  --bmm-shadow:      0 1px 2px rgba(18, 19, 21, .05), 0 4px 16px rgba(18, 19, 21, .06);
+  --bmm-shadow-hi:   0 2px 4px rgba(18, 19, 21, .06), 0 12px 32px rgba(18, 19, 21, .10);
+  --bmm-link-line:   rgba(230, 184, 0, .75);
+  color-scheme: light;
 }
 
-/* ── Typography ── */
+/* ── Dark scheme ───────────────────────────────────────────────────────── */
+[data-md-color-scheme="slate"] {
+  --md-hue: 225;
+  --md-default-bg-color:            #121315;
+  --md-default-bg-color--light:     #17181b;
+  --md-default-bg-color--lighter:   #1d1f23;
+  --md-default-bg-color--lightest:  #26282d;
+  --md-default-fg-color:            #e8e8ea;
+  --md-default-fg-color--light:     rgba(232, 232, 234, .72);
+  --md-default-fg-color--lighter:   rgba(232, 232, 234, .44);
+  --md-default-fg-color--lightest:  rgba(232, 232, 234, .09);
+
+  --md-primary-fg-color:            #0d0e10;
+  --md-primary-fg-color--light:     #1d1f23;
+  --md-primary-fg-color--dark:      #08090a;
+  --md-primary-bg-color:            #f2f2f3;
+  --md-primary-bg-color--light:     rgba(242, 242, 243, .7);
+
+  --md-accent-fg-color:             #ffcc00;
+  --md-accent-fg-color--transparent: rgba(255, 204, 0, .12);
+  --md-accent-bg-color:             #121315;
+  --md-accent-bg-color--light:      rgba(18, 19, 21, .7);
+
+  --md-typeset-color:               #e8e8ea;
+  --md-typeset-a-color:             #ffcc00;
+  --md-typeset-mark-color:          rgba(255, 204, 0, .28);
+  --md-code-bg-color:               #1a1b1e;
+  --md-code-fg-color:               #e2e2e6;
+  --md-footer-bg-color:             #0d0e10;
+  --md-footer-bg-color--dark:       #08090a;
+
+  --bmm-surface:     #17181b;
+  --bmm-border:      rgba(255, 255, 255, .08);
+  --bmm-accent-ink:  #ffcc00;
+  --bmm-shadow:      0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  --bmm-shadow-hi:   0 2px 6px rgba(0, 0, 0, .35), 0 14px 36px rgba(0, 0, 0, .4);
+  --bmm-link-line:   rgba(255, 204, 0, .35);
+  color-scheme: dark;
+}
+
+body { background-color: var(--md-default-bg-color); }
+::selection { background: rgba(255, 204, 0, .35); color: inherit; }
+
+/* ── Header + tabs: the brand dark bar, a yellow hairline under it ─────── */
+.md-header {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  box-shadow: none;
+}
+.md-header--shadow { box-shadow: 0 1px 0 rgba(255, 255, 255, .06), 0 4px 18px rgba(0, 0, 0, .25); }
+.md-header__button.md-logo { padding: .3rem; margin: .2rem .3rem .2rem .2rem; }
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg { height: 1.7rem; width: auto; border-radius: 7px; }
+.md-header__topic:first-child { font-weight: 800; letter-spacing: -.01em; }
+
+.md-tabs {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  border-bottom: 2px solid var(--bmm-yellow);
+}
+.md-tabs__item { height: 2.6rem; padding-left: .2rem; padding-right: .2rem; }
+.md-tabs__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .75rem;
+  padding: 0 .55rem .55rem;
+  font-size: .7rem;
+  font-weight: 600;
+  opacity: 1;
+  color: rgba(255, 255, 255, .66);
+  border-bottom: 3px solid transparent;
+  transition: color .12s, border-color .12s;
+}
+.md-tabs__link:hover,
+.md-tabs__link:focus { color: #fff; }
+.md-tabs__item--active .md-tabs__link {
+  color: #fff;
+  border-bottom-color: var(--bmm-yellow);
+}
+/* One icon per top section, drawn with a mask so it takes the tab's colour. Matched by
+   position, so it is language-independent (the FR tabs are the same four, translated). */
+.md-tabs__link::before {
+  content: "";
+  width: .9rem;
+  height: .9rem;
+  flex: 0 0 auto;
+  background: currentColor;
+  -webkit-mask: no-repeat center / contain var(--bmm-tab-icon);
+  mask: no-repeat center / contain var(--bmm-tab-icon);
+}
+.md-tabs__item:nth-child(1) { --bmm-tab-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27zM5.64 12.5l-3.83-1.63 6.1-2.77C7 9.460 6.22 10.93 5.64 12.5M19.22 4c.28 0 .53 0 .74.05.17 1.39-.02 4.25-3.3 7.53-1.7 1.71-3.73 3.020-6.01 3.89l-2.15-2.1c.92-2.31 2.23-4.34 3.92-6.03C15.18 4.58 17.64 4 19.22 4m0-2c-1.98 0-4.98.69-8.220 3.93-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.38.38.89.61 1.42.61.23 0 .47-.06.7-.15A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61S20.7 2 19.22 2m-4.68 7.46c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.830 0c.77.78.78 2.050 0 2.830s-2.05.78-2.83 0M6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22zM2 22h1.41l4.77-4.76-1.42-1.41L2 20.59zm0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76z"/></svg>'); }
+.md-tabs__item:nth-child(2) { --bmm-tab-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 13.5c0 1.76-1.3 3.22-3 3.46V20a2 2 0 0 1-2 2h-3.8v-.3a2.7 2.7 0 0 0-2.7-2.7c-1.5 0-2.7 1.21-2.7 2.7v.3H4a2 2 0 0 1-2-2v-3.8h.3C3.79 16.2 5 15 5 13.5s-1.21-2.7-2.7-2.7H2V7a2 2 0 0 1 2-2h3.04c.24-1.7 1.7-3 3.46-3s3.22 1.3 3.46 3H17a2 2 0 0 1 2 2v3.04c1.7.24 3 1.7 3 3.46M17 15h1.5a1.5 1.5 0 0 0 1.5-1.5 1.5 1.5 0 0 0-1.5-1.5H17V7h-5V5.5A1.5 1.5 0 0 0 10.5 4 1.5 1.5 0 0 0 9 5.5V7H4v2.12c1.76.68 3 2.38 3 4.38s-1.25 3.7-3 4.38V20h2.12a4.7 4.7 0 0 1 4.38-3c2 0 3.7 1.25 4.38 3H17z"/></svg>'); }
+.md-tabs__item:nth-child(3) { --bmm-tab-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.9 18.45c1.35 0 2.45-1.1 2.45-2.45s-1.1-2.45-2.45-2.45c-1.36 0-2.45 1.1-2.45 2.45s1.09 2.45 2.45 2.45m5.2-1.77 1.48 1.16c.13.11.17.29.08.45l-1.4 2.42a.35.35 0 0 1-.43.15l-1.74-.7c-.36.28-.76.51-1.180.69l-.27 1.85c-.02.17-.17.3-.34.3h-2.8c-.18 0-.32-.13-.35-.3l-.26-1.85c-.43-.18-.82-.41-1.18-.69l-1.75.7c-.15.06-.34 0-.42-.15l-1.4-2.42a.35.35 0 0 1 .08-.45l1.48-1.16-.05-.68.05-.69-1.48-1.15a.35.35 0 0 1-.08-.45l1.4-2.42c.08-.16.27-.22.42-.16l1.75.71c.36-.28.75-.52 1.18-.69l.26-1.86c.03-.16.17-.29.35-.29h2.8c.17 0 .32.13.34.29l.27 1.86c.42.17.82.41 1.18.69l1.74-.71c.17-.06.34 0 .43.16l1.4 2.42c.09.15.05.34-.08.45l-1.48 1.15.05.69zM6.69 8.07c.87 0 1.57-.7 1.57-1.57s-.7-1.58-1.57-1.58A1.58 1.58 0 0 0 5.11 6.5c0 .87.71 1.57 1.58 1.57m3.34-1.13.97.74c.07.07.09.19.03.29l-.9 1.56c-.05.1-.17.14-.27.1l-1.12-.45-.74.44-.19 1.19c-.02.11-.11.19-.22.19h-1.8c-.12 0-.21-.08-.23-.19L5.4 9.62l-.76-.44-1.14.45c-.09.04-.2 0-.26-.1l-.9-1.56c-.06-.1-.03-.22.05-.29l.95-.74-.03-.44.03-.44-.95-.74a.23.23 0 0 1-.05-.29l.9-1.56c.06-.1.17-.14.26-.1l1.13.45.77-.44.16-1.19c.02-.11.11-.19.23-.19h1.8c.11 0 .2.08.22.19L8 3.38l.74.44 1.12-.45c.1-.04.22 0 .27.1l.9 1.56c.06.1.04.22-.03.29l-.97.74.03.44z"/></svg>'); }
+.md-tabs__item:nth-child(4) { --bmm-tab-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.050.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5M12 8v11.5c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5"/></svg>'); }
+
+/* Search field on the dark bar */
+.md-search__form { border-radius: var(--bmm-radius-sm); background-color: rgba(255, 255, 255, .08); }
+.md-search__form:hover { background-color: rgba(255, 255, 255, .13); }
+
+/* ── Typography ────────────────────────────────────────────────────────── */
+.md-typeset { font-size: .8rem; line-height: 1.7; }
 .md-typeset h1 {
+  margin-bottom: .9em;
+  font-size: 2.1em;
   font-weight: 800;
-  letter-spacing: -0.015em;
-  background: linear-gradient(90deg, var(--bmm-blue), var(--bmm-blue-light));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  color: var(--md-default-fg-color);
 }
 .md-typeset h2 {
+  margin-top: 2em;
+  padding-bottom: .35em;
+  font-size: 1.45em;
   font-weight: 750;
-  letter-spacing: -0.01em;
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
-  padding-bottom: 0.3em;
+  letter-spacing: -.015em;
+  border-bottom: 1px solid var(--bmm-border);
 }
-.md-typeset h3 { font-weight: 700; }
-.md-typeset a { text-decoration: none; }
-.md-typeset a:hover { text-decoration: underline; }
+.md-typeset h3 { margin-top: 1.6em; font-size: 1.15em; font-weight: 700; letter-spacing: -.005em; }
+.md-typeset h4 { font-weight: 700; }
+.md-typeset .headerlink { color: var(--md-default-fg-color--lighter); }
+.md-typeset .headerlink:hover,
+.md-typeset :target > .headerlink { color: var(--bmm-accent-ink); }
 
-/* ── Links / nav active state ── */
-.md-nav__link--active,
-.md-nav__item .md-nav__link--active { color: var(--bmm-blue); font-weight: 700; }
-.md-nav__link:hover { color: var(--bmm-blue-light); }
+/* Prose links: amber ink (light) / yellow (dark), with a yellow underline as the "fill". */
+.md-typeset a {
+  text-decoration: underline;
+  text-decoration-color: var(--bmm-link-line);
+  text-decoration-thickness: .1em;
+  text-underline-offset: .18em;
+  transition: color .12s, text-decoration-color .12s;
+}
+.md-typeset a:hover,
+.md-typeset a:focus { color: var(--md-default-fg-color); text-decoration-color: var(--bmm-yellow); }
+.md-typeset a.headerlink,
+.md-typeset a.md-button,
+.md-typeset .grid.cards a,
+.md-typeset .md-annotation a,
+.md-typeset .bmm-pdf-download a { text-decoration: none; }
 
-/* ── Buttons ── */
+[dir] .md-typeset blockquote {
+  border-left: 4px solid var(--bmm-yellow);
+  border-radius: 0 var(--bmm-radius-sm) var(--bmm-radius-sm) 0;
+  padding: .5em 1em;
+  background: var(--bmm-surface);
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset hr { border-bottom-color: var(--bmm-border); }
+.md-typeset img { border-radius: 6px; }
+
+/* Screenshots (any content image ending in .png from the screenshots folder) */
+.md-typeset img[src*="screenshots/"] {
+  border: 1px solid var(--bmm-border);
+  border-radius: var(--bmm-radius);
+  box-shadow: var(--bmm-shadow-hi);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
 .md-typeset .md-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+  padding: .6em 1.25em;
+  border: 1.5px solid var(--bmm-border);
   border-radius: 10px;
-  font-weight: 600;
-  transition: transform .12s ease, box-shadow .12s ease;
+  color: var(--md-default-fg-color);
+  background: transparent;
+  font-weight: 650;
+  transition: transform .12s ease, box-shadow .12s ease, background-color .12s, border-color .12s;
 }
-.md-typeset .md-button:hover { transform: translateY(-1px); }
-.md-typeset .md-button--primary {
-  background-color: var(--bmm-blue);
-  border-color: var(--bmm-blue);
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+.md-typeset .md-button:hover,
+.md-typeset .md-button:focus {
+  color: var(--md-default-fg-color);
+  background-color: var(--md-default-fg-color--lightest);
+  border-color: var(--md-default-fg-color--lighter);
+  transform: translateY(-1px);
 }
+.md-typeset .md-button--primary,
+.md-typeset .md-button--primary:hover,
+.md-typeset .md-button--primary:focus {
+  color: var(--bmm-ink);
+  background-color: var(--bmm-yellow);
+  border-color: var(--bmm-yellow);
+  box-shadow: 0 4px 16px rgba(255, 204, 0, .28);
+}
+.md-typeset .md-button--primary:hover,
+.md-typeset .md-button--primary:focus { background-color: var(--bmm-yellow-hi); border-color: var(--bmm-yellow-hi); }
+.md-typeset .md-button .twemoji svg { width: 1.15em; height: 1.15em; }
+.md-typeset .md-button:focus-visible { outline: 2px solid var(--bmm-yellow); outline-offset: 2px; }
 
-/* ── Admonitions / collapsibles — rounder, softly raised ── */
+/* ── Admonitions / collapsibles ────────────────────────────────────────── */
 .md-typeset .admonition,
 .md-typeset details {
-  border-radius: var(--bmm-radius);
-  border-left-width: 3px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+  border-width: 1px 1px 1px 4px;
+  border-radius: var(--bmm-radius-sm);
+  box-shadow: none;
+  font-size: .78rem;
 }
 .md-typeset .admonition-title,
-.md-typeset summary { font-weight: 700; }
+.md-typeset summary { font-weight: 700; border-top-right-radius: var(--bmm-radius-sm); }
+.md-typeset details:not([open]) > summary { border-bottom-right-radius: var(--bmm-radius-sm); }
 
-/* ── Code ── */
+/* ── Code ──────────────────────────────────────────────────────────────── */
 .md-typeset pre > code { border-radius: 10px; }
-.md-typeset code { border-radius: 5px; padding: 0.15em 0.4em; }
-.md-typeset .highlight { border-radius: 10px; }
+.md-typeset .highlight,
+.md-typeset .highlighttable { border-radius: 10px; }
+.md-typeset .highlight pre,
+.md-typeset pre:not(.mermaid) { border: 1px solid var(--bmm-border); border-radius: 10px; }
+.md-typeset .highlight pre { margin: 0; }
+.md-typeset .highlight { margin: 1em 0; }
+.md-typeset code { border-radius: 5px; padding: .1em .38em; font-size: .86em; }
+.md-typeset :not(pre) > code { border: 1px solid var(--bmm-border); }
+.md-typeset a > code { color: inherit; }
+.md-typeset .tabbed-set { border-radius: 10px; }
+.md-typeset .tabbed-labels > label { font-weight: 650; }
+.md-typeset .tabbed-labels::before { background: var(--bmm-yellow); height: 3px; }
+.md-typeset kbd { border-radius: 6px; }
 
-/* ── Tables ── */
+/* ── Tables ────────────────────────────────────────────────────────────── */
 .md-typeset table:not([class]) {
-  border-radius: var(--bmm-radius);
+  border: 1px solid var(--bmm-border);
+  border-radius: var(--bmm-radius-sm);
   overflow: hidden;
-  border: 1px solid var(--md-default-fg-color--lightest);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+  font-size: .74rem;
+  box-shadow: none;
 }
 .md-typeset table:not([class]) th {
-  background: var(--md-default-bg-color--light);
+  background: var(--bmm-surface);
   font-weight: 700;
+  border-bottom: 1px solid var(--bmm-border);
 }
+/* Two-column "label | value" tables are written with an empty header row (| | |); don't
+   draw that row as a blank grey band. */
+.md-typeset table:not([class]) thead:not(:has(th:not(:empty))) { display: none; }
+.md-typeset table:not([class]) td { border-top-color: var(--bmm-border); vertical-align: top; }
+.md-typeset table:not([class]) tbody tr:hover { background: var(--md-accent-fg-color--transparent); box-shadow: none; }
 
-/* ── Content cards (Material grid cards, if used) ── */
+/* ── Content cards (Material `grid cards`) ─────────────────────────────── */
+.md-typeset .grid { gap: .8rem; }
 .md-typeset .grid.cards > :is(ul, ol) > li,
 .md-typeset .grid > .card {
+  border: 1px solid var(--bmm-border);
   border-radius: var(--bmm-radius);
+  background: var(--md-default-bg-color);
+  padding: 1rem 1.1rem;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
-.md-typeset .grid.cards > :is(ul, ol) > li:hover {
+.md-typeset .grid.cards > :is(ul, ol) > li:hover,
+.md-typeset .grid > .card:hover {
   transform: translateY(-2px);
-  border-color: var(--bmm-blue);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border-color: var(--bmm-yellow);
+  box-shadow: var(--bmm-shadow-hi);
 }
+.md-typeset .grid.cards > :is(ul, ol) > li > hr { margin: .6em 0; border-color: transparent; }
+.md-typeset .grid.cards a { color: var(--md-default-fg-color); font-weight: 700; }
+.md-typeset .grid.cards a:hover { color: var(--bmm-accent-ink); }
 
-/* ── Search accent + selection ── */
-::selection { background: rgba(59, 130, 246, 0.30); }
-
-/* ── Replay player brand polish (it already themes off Material vars) ── */
-.bmm-replay {
-  border-radius: 14px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+/* An icon on a yellow tile — the accent as a fill, dark glyph on it, in both schemes. */
+.md-typeset .bmm-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-right: .55rem;
+  vertical-align: middle;
+  border-radius: 10px;
+  background: var(--bmm-yellow);
+  color: var(--bmm-ink);
 }
-.bmm-replay-poster { min-height: 220px; }
-.bmm-replay-play { background: var(--bmm-blue); }
-.bmm-replay-play:hover { background: var(--bmm-blue-2); }
+.md-typeset .bmm-ico svg { width: 1.2rem; height: 1.2rem; max-height: none; fill: currentColor; }
 
-/* ── Sidebar: make the sections readable as sections ──────────────────────
+/* ── Sidebar ───────────────────────────────────────────────────────────────
    With navigation.sections Material renders a section label that looks almost
-   exactly like the pages under it — same size, same colour, same indent — so a
-   36-page nav reads as one long undifferentiated list. These give each section
-   a header treatment and a visible group, and put the current page on a rail. */
-
-/* The section title itself: small, spaced, quiet — a label, not a link. */
+   exactly like the pages under it, so a long nav reads as one undifferentiated
+   list. These give each section a header treatment and a visible group, and put
+   the current page on a yellow rail. */
+.md-nav { font-size: .72rem; }
+.md-nav__title { font-weight: 800; }
 .md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav__link,
 .md-nav--primary > .md-nav__list > .md-nav__item--section > label.md-nav__link {
   margin: 1.1rem 0 .3rem;
-  font-size: .62rem;
-  font-weight: 700;
+  font-size: .6rem;
+  font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
-  color: var(--md-default-fg-color--light);
+  color: var(--md-default-fg-color--lighter);
   opacity: 1;
 }
-.md-nav--primary > .md-nav__list > .md-nav__item--section:first-child > .md-nav__link {
-  margin-top: .2rem;
-}
-/* A hairline above every section but the first, so the groups actually separate. */
+.md-nav--primary > .md-nav__list > .md-nav__item--section:first-child > .md-nav__link { margin-top: .2rem; }
 .md-nav--primary > .md-nav__list > .md-nav__item--section + .md-nav__item--section {
-  border-top: 1px solid var(--md-default-fg-color--lightest);
+  border-top: 1px solid var(--bmm-border);
   padding-top: .1rem;
 }
-
-/* The pages inside a section, hung off a guide line. */
 .md-nav--primary > .md-nav__list > .md-nav__item--section > .md-nav {
   margin-left: .4rem;
   padding-left: .55rem;
-  border-left: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 1px solid var(--bmm-border);
 }
 .md-nav--primary .md-nav__item .md-nav__link {
   border-radius: 6px;
-  padding: .18rem .4rem;
+  padding: .2rem .45rem;
+  color: var(--md-default-fg-color--light);
   transition: background-color .12s, color .12s;
 }
-.md-nav--primary .md-nav__item .md-nav__link:hover {
+.md-nav--primary .md-nav__item .md-nav__link:hover,
+.md-nav--primary .md-nav__item .md-nav__link:focus {
+  color: var(--md-default-fg-color);
   background-color: var(--md-default-fg-color--lightest);
 }
-
-/* Current page: an accent rail on the guide line, not just bolder text. */
-.md-nav--primary .md-nav__item .md-nav__link--active {
-  background-color: color-mix(in srgb, var(--bmm-blue) 12%, transparent);
-  box-shadow: inset 2px 0 0 var(--bmm-blue);
+.md-nav--primary .md-nav__item .md-nav__link--active,
+.md-nav--primary .md-nav__item .md-nav__link--active:hover {
+  color: var(--md-default-fg-color);
+  font-weight: 700;
+  background-color: var(--md-accent-fg-color--transparent);
+  box-shadow: inset 3px 0 0 var(--bmm-yellow);
 }
 
-/* The table of contents on the right gets the same guide line, so both rails
-   read as the same kind of thing. */
-.md-nav--secondary .md-nav__list { border-left: 1px solid var(--md-default-fg-color--lightest); padding-left: .55rem; }
-.md-nav--secondary .md-nav__link--active { color: var(--bmm-blue); font-weight: 700; }
+/* The table of contents on the right: the same guide line, the active entry in the accent ink. */
+.md-nav--secondary .md-nav__title { color: var(--md-default-fg-color--lighter); text-transform: uppercase; letter-spacing: .08em; font-size: .6rem; }
+.md-nav--secondary .md-nav__list { border-left: 1px solid var(--bmm-border); padding-left: .55rem; }
+.md-nav--secondary .md-nav__link { color: var(--md-default-fg-color--light); }
+.md-nav--secondary .md-nav__link:hover { color: var(--md-default-fg-color); }
+.md-nav--secondary .md-nav__link--active { color: var(--bmm-accent-ink); font-weight: 700; }
+
+/* Breadcrumbs (navigation.path) */
+.md-path { font-size: .66rem; }
+.md-path__link { color: var(--md-default-fg-color--lighter); }
+.md-path__link:hover { color: var(--md-default-fg-color); }
+
+/* Footer prev/next */
+.md-footer { color: #f2f2f3; }
+.md-footer__link:hover { opacity: 1; }
+.md-footer__link:hover .md-footer__title { color: var(--bmm-yellow); }
+.md-footer-meta { background-color: var(--md-footer-bg-color--dark); }
+
+/* Back-to-top + misc */
+.md-top { background-color: var(--md-default-bg-color); color: var(--md-default-fg-color--light); box-shadow: var(--bmm-shadow); }
+.md-top:hover { background-color: var(--bmm-yellow); color: var(--bmm-ink); }
+.md-typeset .md-content__button { color: var(--md-default-fg-color--lighter); }
+
+/* Mermaid: nodes on a yellow tint, outlined in the accent ink */
+.mermaid { --md-mermaid-node-bg-color: var(--md-accent-fg-color--transparent); --md-mermaid-node-fg-color: var(--bmm-accent-ink); }
+
+/* Mobile drawer: its title bar takes the header colour */
+@media screen and (max-width: 76.2344em) {
+  .md-nav--primary .md-nav__title[for="__drawer"] { background-color: var(--md-primary-fg-color); color: var(--md-primary-bg-color); }
+  .md-nav--primary .md-nav__item--active > .md-nav__link { color: var(--md-default-fg-color); }
+  .md-nav--primary .md-nav__link--active { color: var(--bmm-accent-ink); }
+}
+
+/* ── Replay player: the brand colours live in assets/rrweb/bmm-replay.css (loaded after
+   this file); only the frame is tuned here. */
+.bmm-replay {
+  border-radius: var(--bmm-radius);
+  box-shadow: var(--bmm-shadow-hi);
+}
+.bmm-replay-poster { min-height: 220px; }
+.bmm-replay-play:hover,
+.bmm-replay-toggle:hover { background: var(--bmm-yellow-hi); }
 
 /* ── The "download the PDF" button ────────────────────────────────────────────
-   Injected at the top of every page by overrides/main.html.
+   Injected at the top of every page by overrides/main.html. A quiet toolbar row
+   aligned right, so it never competes with the page title (or the home hero).
 
    Every selector here is prefixed with .md-typeset on purpose. The button lives
    inside <article class="md-content__inner md-typeset">, and Material has
    `.md-typeset a { color: var(--md-typeset-a-color) }` — specificity 0,1,1,
    which beats a bare `.bmm-pdf-download__btn` at 0,1,0. So the label took the
-   link colour and came out blue on a blue fill; in the light scheme the two were
-   close enough that the button looked empty. */
+   link colour and came out in the accent on an accent fill. */
 .md-typeset .bmm-pdf-download {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: .7rem;
   flex-wrap: wrap;
-  margin: 0 0 1.4rem;
+  margin: 0 0 .8rem;
 }
 
 .md-typeset .bmm-pdf-download__btn {
   display: inline-flex;
   align-items: center;
   gap: .4rem;
-  padding: .4rem .9rem;
-  border-radius: .2rem;
-  font-size: .7rem;
-  font-weight: 700;
+  padding: .3rem .7rem;
+  border: 1px solid var(--bmm-border);
+  border-radius: 999px;
+  font-size: .64rem;
+  font-weight: 650;
   line-height: 1.4;
   text-decoration: none;
-  /* Fixed pair, not theme variables: this is a filled button, and it has to keep
-     its contrast in both schemes. White on #1d4ed8 is 8.6:1. */
-  color: #fff;
-  background: #1d4ed8;
-  transition: background .15s;
+  color: var(--md-default-fg-color--light);
+  background: var(--bmm-surface);
+  transition: background .15s, color .15s, border-color .15s;
 }
 
 .md-typeset .bmm-pdf-download__btn::before {
   /* A download arrow, drawn rather than pulled from an icon font — this stylesheet
      loads on every page and should not add a request for one glyph. */
   content: "";
-  width: .85rem;
-  height: .85rem;
+  width: .8rem;
+  height: .8rem;
   flex: 0 0 auto;
   background: currentColor;
   -webkit-mask: no-repeat center / contain url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>');
   mask: no-repeat center / contain url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>');
 }
 
-.md-typeset .bmm-pdf-download__btn:hover { background: #1e40af; }
-.md-typeset .bmm-pdf-download__btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+/* Hover: the yellow fill with dark text — never yellow text. */
+.md-typeset .bmm-pdf-download__btn:hover,
+.md-typeset .bmm-pdf-download__btn:focus { color: var(--bmm-ink); background: var(--bmm-yellow); border-color: var(--bmm-yellow); }
+.md-typeset .bmm-pdf-download__btn:focus-visible { outline: 2px solid var(--bmm-yellow); outline-offset: 2px; }
 
 .md-typeset .bmm-pdf-download__alt {
-  font-size: .64rem;
-  color: var(--md-default-fg-color--light);
+  font-size: .62rem;
+  color: var(--md-default-fg-color--lighter);
   text-decoration: none;
   border-bottom: 1px dotted currentColor;
 }
 
-.md-typeset .bmm-pdf-download__alt:hover { color: var(--md-accent-fg-color); }
+.md-typeset .bmm-pdf-download__alt:hover { color: var(--md-default-fg-color); }
 
 @media print {
   /* It is already the PDF. */
   .md-typeset .bmm-pdf-download { display: none; }
 }
-
 
 /* ── B.MD 2.0 blocks (tools/md_directives.py rewrites :::timeline, :::stats, :::faq… to these) ── */
 .md-typeset .bmd-timeline { margin: 0 0 1.2em; --ev: var(--md-accent-fg-color); }
@@ -310,7 +545,7 @@ body {
 .md-typeset .bmd-version-tag { font-family: var(--md-code-font-family); font-weight: 800; font-size: .75rem; padding: .1em .5em; border-radius: .4rem; background: var(--md-code-bg-color); }
 .md-typeset .bmd-version-date { color: var(--md-default-fg-color--light); font-size: .7rem; }
 .md-typeset .bmd-version-body > :last-child { margin-bottom: 0; }
-.md-typeset .bmd-badge { display: inline-block; font-size: .6rem; font-weight: 800; padding: .15em .55em; border-radius: 999px; background: var(--md-accent-fg-color); color: #fff; text-transform: uppercase; letter-spacing: .04em; }
+.md-typeset .bmd-badge { display: inline-block; font-size: .6rem; font-weight: 800; padding: .15em .55em; border-radius: 999px; background: var(--bmm-yellow); color: var(--bmm-ink); text-transform: uppercase; letter-spacing: .04em; }
 .md-typeset details.bmd-spoiler { border: 1px dashed var(--md-default-fg-color--lighter); border-radius: .6rem; margin: 0 0 1.2em; }
 .md-typeset details.bmd-spoiler > summary { cursor: pointer; padding: .5em .9em; font-weight: 700; color: var(--md-default-fg-color--light); list-style: none; }
 .md-typeset details.bmd-spoiler > summary::before { content: '👁 '; }
@@ -380,3 +615,129 @@ body {
 .md-typeset .bmd-webonly { font-size: .9em; color: var(--md-default-fg-color--light); border-bottom: 1px dotted currentColor; cursor: help; }
 .md-typeset .bmd-btn.bmd-webonly { display: inline-block; padding: .15em .7em; border: 1px solid var(--md-default-fg-color--lightest); border-radius: 8px; }
 .md-typeset .bmd-webonly-block { margin: 1em 0; padding: .6em .9em; border: 1px dashed var(--md-default-fg-color--lightest); border-radius: 12px; font-size: .9em; color: var(--md-default-fg-color--light); }
+
+/* ── Home page (docs/index.md, docs/index.fr.md) ───────────────────────────
+   The hero is the brand dark in BOTH schemes: the yellow button is a fill on it,
+   the text on it is white. Below it: the "New in 1.0.2" panel with its screenshot
+   gallery, and the per-screen feature cards (.grid.cards + .bmm-ico). */
+.md-typeset .bmm-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.6rem;
+  margin: 0 0 1.6rem;
+  padding: 2.4rem 2.4rem 2.2rem;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 18px;
+  color: #f2f2f3;
+  background:
+    radial-gradient(80% 130% at 100% 0%, rgba(255, 204, 0, .20) 0%, transparent 55%),
+    radial-gradient(60% 90% at 0% 100%, rgba(255, 204, 0, .07) 0%, transparent 60%),
+    #121315;
+  box-shadow: var(--bmm-shadow-hi);
+}
+.md-typeset .bmm-hero__logo {
+  display: block;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+}
+.md-typeset .bmm-hero h1 {
+  margin: 0 0 .25em;
+  font-size: 2.6em;
+  color: #fff;
+}
+.md-typeset .bmm-hero h1 .headerlink { display: none; }
+.md-typeset .bmm-hero > p { margin: 0; }
+/* The home's hero spans the full column: the floated "edit this page" icon would narrow it. */
+.md-content__inner:has(.bmm-hero) > .md-content__button { display: none; }
+.md-typeset .bmm-hero__body > :last-child { margin-bottom: 0; }
+.md-typeset .bmm-hero__tagline {
+  max-width: 36em;
+  margin: 0 0 1.3em;
+  font-size: 1.05em;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .78);
+}
+.md-typeset .bmm-hero__actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.md-typeset .bmm-hero__actions p { display: contents; }
+.md-typeset .bmm-hero .md-button { margin: 0; }
+.md-typeset .bmm-hero .md-button:not(.md-button--primary) { color: #fff; border-color: rgba(255, 255, 255, .24); }
+.md-typeset .bmm-hero .md-button:not(.md-button--primary):hover,
+.md-typeset .bmm-hero .md-button:not(.md-button--primary):focus { color: #fff; background-color: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .45); }
+.md-typeset .bmm-hero__meta { margin: 1.2em 0 0; font-size: .68rem; color: rgba(255, 255, 255, .55); }
+
+.md-typeset .bmm-hero-shot { margin: 0 0 2rem; }
+.md-typeset .bmm-hero-shot img { display: block; width: 100%; }
+
+/* "New in 1.0.2" */
+.md-typeset .bmm-new {
+  margin: 0 0 2rem;
+  padding: 1.2rem 1.4rem 1.3rem;
+  border: 1px solid var(--bmm-border);
+  border-radius: 16px;
+  background: var(--bmm-surface);
+}
+.md-typeset .bmm-new > p:first-of-type { margin-top: 0; }
+.md-typeset .bmm-badge-new {
+  display: inline-block;
+  margin-right: .4em;
+  padding: .2em .7em;
+  border-radius: 999px;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  vertical-align: .1em;
+  color: var(--bmm-ink);
+  background: var(--bmm-yellow);
+}
+.md-typeset .bmm-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.md-typeset .bmm-gallery figure { margin: 0; max-width: none; }
+.md-typeset .bmm-gallery img { display: block; width: 100%; }
+.md-typeset .bmm-gallery figcaption {
+  max-width: none;
+  margin: .6em 0 0;
+  font-size: .68rem;
+  font-style: normal;
+  text-align: left;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Feature cards: two columns on a laptop, three on a wide screen */
+.md-typeset .bmm-features.grid.cards > ul { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+.md-typeset .bmm-features.grid.cards > ul > li > p:first-child { display: flex; align-items: center; margin: 0; }
+.md-typeset .bmm-features.grid.cards > ul > li > p:last-child { margin: .55em 0 0; color: var(--md-default-fg-color--light); font-size: .74rem; line-height: 1.55; }
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .bmm-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.6rem 1.2rem 1.4rem;
+    margin-left: -.4rem;
+    margin-right: -.4rem;
+    border-radius: 14px;
+  }
+  .md-typeset .bmm-hero__logo { width: 4rem; height: 4rem; border-radius: 15px; }
+  .md-typeset .bmm-hero h1 { font-size: 1.6em; }
+  .md-typeset .bmm-hero__actions .md-button { flex: 1 1 auto; justify-content: center; }
+  .md-typeset .bmm-gallery { grid-template-columns: minmax(0, 1fr); }
+  .md-typeset .bmm-new { padding: 1rem; }
+}
+
+@media print {
+  .md-typeset .bmm-hero { display: block; padding: 0; border: 0; background: none; box-shadow: none; color: inherit; }
+  .md-typeset .bmm-hero h1 { color: inherit; }
+  .md-typeset .bmm-hero__logo { width: 3rem; height: 3rem; box-shadow: none; }
+  .md-typeset .bmm-hero__tagline, .md-typeset .bmm-hero__meta { color: inherit; }
+  .md-typeset .bmm-hero__actions { display: none; }
+  .md-typeset .bmm-new { background: none; }
+  .md-typeset .grid.cards > ul > li { box-shadow: none; transform: none; }
+}

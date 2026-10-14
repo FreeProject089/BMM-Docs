@@ -20,11 +20,11 @@
   min-height: 180px;
   padding: 28px 20px;
   text-align: center;
+  /* Always the brand dark, in both schemes: the title on it is white by design, so it
+     must not follow the light scheme's pale code background. A yellow glow, not ink. */
   background:
-    radial-gradient(120% 120% at 50% 0%,
-      var(--md-primary-fg-color, #3f51b5) 0%,
-      transparent 60%),
-    var(--md-code-bg-color, #1e1e2a);
+    radial-gradient(120% 120% at 50% 0%, rgba(255, 204, 0, .22) 0%, transparent 60%),
+    #121315;
 }
 
 .bmm-replay-play {
@@ -36,8 +36,9 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  color: #fff;
-  background: var(--md-accent-fg-color, #4051b5);
+  /* BMM yellow is a fill: dark glyph on it, in both schemes. */
+  color: #121315;
+  background: #ffcc00;
   box-shadow: 0 6px 22px rgba(0,0,0,.35);
   transition: transform .12s ease, box-shadow .12s ease;
 }
@@ -47,8 +48,9 @@
 .bmm-replay-title {
   font-weight: 700;
   font-size: .95rem;
-  color: var(--md-primary-bg-color, #fff);
+  color: #fff;
 }
+.bmm-replay-poster .bmm-replay-hint { color: rgba(255, 255, 255, .7); }
 .bmm-replay-hint,
 .bmm-replay-loading,
 .bmm-replay-error {
@@ -95,8 +97,8 @@
   flex: 0 0 auto;
   border: none; border-radius: 8px;
   cursor: pointer;
-  color: var(--md-default-bg-color, #fff);
-  background: var(--md-accent-fg-color, #4051b5);
+  color: #121315;
+  background: #ffcc00;
 }
 /* Secondary control buttons (restart, speed, fullscreen) */
 .bmm-replay-restart,
@@ -126,7 +128,7 @@
 
 .bmm-replay-seek {
   flex: 1 1 auto;
-  accent-color: var(--md-accent-fg-color, #4051b5);
+  accent-color: #e6b800;
   cursor: pointer;
 }
 
