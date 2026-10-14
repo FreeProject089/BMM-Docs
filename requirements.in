@@ -42,4 +42,6 @@ weasyprint==70.0
 # build instead of shipping. See tools/check_pdf.py.
 # 5.1.0 -> 6.16.2 (2026-09-25): 2 HIGH DoS advisories. check_pdf.py only uses PdfReader,
 # .pages and extract_text(); both versions give the same verdicts on a 301-page build.
-pypdf==6.16.2
+# 6.16.2 -> 6.20.1 (2026-10-14): 8 HIGH DoS advisories (CVE-2026-102993 to 103000, fixed by
+# 6.19.0). Same three calls, same check_pdf.py verdicts.
+pypdf==6.20.1
