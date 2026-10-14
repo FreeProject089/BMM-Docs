@@ -4,9 +4,12 @@
 # headless Chrome prints that page to PDF — Chrome runs the page's JS, so the 28 Mermaid
 # diagrams render (WeasyPrint could not, it needed a pre-render hook).
 #
-#   python -m mkdocs build -f mkdocs.pdf-chrome.yml
-#   chrome --headless --no-pdf-header-footer --print-to-pdf=pdf/bettermodsmanager.pdf \
-#          file:///<abs>/site/print_page/index.html
+#   python tools/build_pdf_chrome.py        # pdf/bettermodsmanager.pdf (EN) + .fr.pdf (FR)
+#
+# Do not build this file directly for a book: with the i18n plugin below, print-site writes ONE
+# /print_page/ and the French pass overwrites it, so the « English » book comes out French.
+# build_pdf_chrome.py builds each language as its own site that INHERITs this file and replaces
+# the plugin list (search + print-site, no i18n). The plugins below only matter for a by-hand build.
 #
 # The interactive .bmmreplay players don't appear in a static PDF (as with any PDF of
 # interactive content) — they are a web-only feature.

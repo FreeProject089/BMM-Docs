@@ -30,16 +30,19 @@ On `master`, the **deploy** job publishes the site to GitHub Pages. It is the on
 serves for it, generated from `requirements.in`. Edit `requirements.in`, then regenerate:
 
 ```bash
-uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes -o requirements.txt
+uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes --no-strip-extras -o requirements.txt
 ```
 
 `--universal` keeps the lock valid on Windows too: platform-only packages such as `colorama` are
-listed with their markers.
+listed with their markers. `--no-strip-extras` keeps `fonttools[woff]==…` in the lock: without it,
+the pip a Python 3.12 venv ships (23.2) refuses WeasyPrint's `fonttools[woff]` extra in hash mode
+as soon as a newer fonttools is published.
 
 - **Secrets:** none. **Variables:** none.
 - **Run it locally:** `pip install -r requirements.txt`, then `mkdocs build --strict`. The PDF needs
   the pango and harfbuzz libraries listed in the workflow, or use `python tools/build_pdf_chrome.py`
-  on Windows.
+  on Windows (English and French books, each built as its own single-language site;
+  `--theme dark`, `--lang en|fr`).
 
 ## Security (`security.yml`)
 

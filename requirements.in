@@ -3,7 +3,13 @@
 # `pip install -r requirements.txt` refuses a package that changed under the same version.
 # After editing this file, regenerate (Linux, macOS or Windows alike; the lock is universal):
 #
-#   uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes -o requirements.txt
+#   uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes --no-strip-extras -o requirements.txt
+#
+# --no-strip-extras is not optional. WeasyPrint asks for `fonttools[woff]>=4.59.2`; without the
+# flag the lock says `fonttools==…` only, and pip older than 23.3 (the one a Python 3.12 venv
+# ships, 23.2.1) treats the extra as an unpinned requirement of its own: `pip install
+# --require-hashes` failed on Windows the day a newer fonttools was published (2026-10-14,
+# 4.66.1). With the flag the lock carries `fonttools[woff]==…`, which every pip accepts.
 #
 # The security workflow (.github/workflows/security.yml) scans requirements.txt with Trivy,
 # so a transitive package is audited as well as the ones named here.
@@ -21,6 +27,10 @@ mkdocs-material==9.7.7
 pymdown-extensions==11.0.2
 mkdocs-static-i18n==1.2.3
 mkdocs-with-pdf==0.9.3
+# The GTK-free PDF (tools/build_pdf_chrome.py, mkdocs.pdf-chrome.yml) folds the site into one
+# /print_page/ with this plugin. It was installed by hand next to the lock, so the Windows PDF
+# path could not run from `pip install --require-hashes -r requirements.txt` alone (2026-10-14).
+mkdocs-print-site-plugin==2.9
 # 11.0.0 -> 12.3.0 (2026-09-25): 13 HIGH advisories (heap writes / DoS on crafted images).
 # WeasyPrint 70 is itself tested against Pillow >= 12.1 (its `test` extra).
 Pillow==12.3.0

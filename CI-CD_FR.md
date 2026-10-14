@@ -31,16 +31,19 @@ Sur `master`, le job **deploy** publie le site sur GitHub Pages. C'est le seul j
 que PyPI sert pour lui, généré depuis `requirements.in`. Modifie `requirements.in`, puis régénère :
 
 ```bash
-uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes -o requirements.txt
+uv pip compile requirements.in --universal --python-version 3.12 --generate-hashes --no-strip-extras -o requirements.txt
 ```
 
 `--universal` garde le lock valable aussi sous Windows : les paquets propres à une plateforme, comme
-`colorama`, y figurent avec leurs marqueurs.
+`colorama`, y figurent avec leurs marqueurs. `--no-strip-extras` garde `fonttools[woff]==…` dans le
+lock : sans lui, le pip livré avec un venv Python 3.12 (23.2) refuse l'extra `fonttools[woff]` de
+WeasyPrint en mode hash dès qu'une version plus récente de fonttools est publiée.
 
 - **Secrets :** aucun. **Variables :** aucune.
 - **En local :** `pip install -r requirements.txt`, puis `mkdocs build --strict`. Le PDF a besoin des
   bibliothèques pango et harfbuzz listées dans le workflow ; sous Windows, utilise plutôt
-  `python tools/build_pdf_chrome.py`.
+  `python tools/build_pdf_chrome.py` (livres anglais et français, chacun construit comme un site
+  d'une seule langue ; `--theme dark`, `--lang en|fr`).
 
 ## Security (`security.yml`)
 

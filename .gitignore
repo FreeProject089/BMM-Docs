@@ -7,3 +7,5 @@ pdf/
 
 # The dark Chrome PDF builds into its own site_dir so it never overwrites the light one.
 .pdf-chrome-dark-site/
+# build_pdf_chrome.py: one single-language docs tree, config and site per language and theme.
+.pdf-chrome-build/
