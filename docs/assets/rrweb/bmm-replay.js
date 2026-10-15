@@ -56,7 +56,15 @@
 
       fetch(src).then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
+        // A long recording is stored gzipped under the same name (1f 8b): read either form.
+        return r.arrayBuffer().then(function (buf) {
+          const u = new Uint8Array(buf);
+          if (u.length > 2 && u[0] === 0x1f && u[1] === 0x8b) {
+            if (typeof DecompressionStream === 'undefined') throw new Error('this browser cannot unpack the recording');
+            return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
+          }
+          return JSON.parse(new TextDecoder().decode(u));
+        });
       }).then(function (data) {
         const events = Array.isArray(data) ? data : (data && data.events);
         if (!events || events.length < 2) throw new Error('no events');
