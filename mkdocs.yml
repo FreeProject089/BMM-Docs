@@ -107,6 +107,9 @@ plugins:
             Mapper: Mapper
             BetterCommunity: BetterCommunity
             Settings: Paramètres
+            Customise navigation: Personnaliser la navigation
+            Change history & release notes: Historique des changements & notes de version
+            Translation studio: Studio de traduction
             Activity centre: Centre d'activité
             BMM Tools: Outils BMM
             Command palette & shortcuts: Palette de commandes & raccourcis
@@ -186,6 +189,9 @@ nav:
       - features/community.md
       - features/feedback.md
       - features/settings.md
+      - features/navigation.md
+      - features/history.md
+      - features/translation-studio.md
       - features/activity.md
       - features/tools.md
       - features/command-palette.md
