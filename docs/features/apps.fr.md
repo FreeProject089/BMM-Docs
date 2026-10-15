@@ -18,6 +18,17 @@ la version que tu as, et les lance — sans que tu gères les téléchargements 
      data-title="Installer une application depuis le catalogue"></div>
 
 
+
+<!-- story:catalogues -->
+![Trouver des applis et du contenu dans les catalogues](../../assets/gifs/catalogues.gif)
+
+*Trouver des applis et du contenu dans les catalogues. L’App Catalog : parcourir et chercher, les détails d’une appli, d’où vient la liste, et son propre catalogue construit dans l’onglet Créer.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/catalogues.bmmreplay"
+     data-title="Trouver des applis et du contenu dans les catalogues"></div>
+<!-- /story:catalogues -->
+
 ## Lire une carte
 
 Chaque app montre l'essentiel d'un coup d'œil : une vignette, sa **catégorie** (jeu,

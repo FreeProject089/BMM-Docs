@@ -27,6 +27,17 @@ version.
      data-title="Accorder une permission et utiliser un plugin"></div>
 
 
+
+<!-- story:build-plugin -->
+![Créer un plugin avec une liste de mods](../../assets/gifs/build-plugin.gif)
+
+*Créer un plugin avec une liste de mods. Plugins & API → Créer : un plugin qui fournit une liste de mods, ses permissions, l’aperçu en direct et le plugin enregistré sur ce PC.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/build-plugin.bmmreplay"
+     data-title="Créer un plugin avec une liste de mods"></div>
+<!-- /story:build-plugin -->
+
 ## Les onglets
 
 **Plugins & API** a six onglets :

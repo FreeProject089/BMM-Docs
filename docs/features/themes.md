@@ -28,6 +28,17 @@ look — then export it as a file someone else imports in one click.
      data-title="Restyling BMM with the theme editor"></div>
 
 
+
+<!-- story:make-it-yours -->
+![Make BMM yours](../../assets/gifs/make-it-yours.gif)
+
+*Make BMM yours. A theme made in the theme editor, a navigation bar rearranged with a custom page of your own, and a string translated in the translation studio.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/make-it-yours.bmmreplay"
+     data-title="Make BMM yours"></div>
+<!-- /story:make-it-yours -->
+
 ## The mark each theme wears
 
 Every theme carries a **brand mark**. The built-in ones that use the **BMM logo** are Graphite, Pure

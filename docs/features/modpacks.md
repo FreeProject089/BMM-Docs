@@ -17,6 +17,17 @@ on or off.
      data-title="Building and applying a modpack"></div>
 
 
+
+<!-- story:share-setup -->
+![Share a setup with friends](../../assets/gifs/share-setup.gif)
+
+*Share a setup with friends. The profile becomes a modpack, the modpack is hosted as a Server Repo on the LAN, a friend follows it by its address and syncs.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/share-setup.bmmreplay"
+     data-title="Share a setup with friends"></div>
+<!-- /story:share-setup -->
+
 ## Modpack or profile?
 
 They solve different problems, and using the wrong one is the usual confusion:

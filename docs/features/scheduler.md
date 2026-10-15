@@ -34,6 +34,17 @@ without you driving it.
      data-title="Building a scheduled task"></div>
 
 
+
+<!-- story:automate -->
+![Automate the chores](../../assets/gifs/automate.gif)
+
+*Automate the chores. A scheduled task that checks the followed repos and backs up the profiles every evening, previewed before it is saved.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/automate.bmmreplay"
+     data-title="Automate the chores"></div>
+<!-- /story:automate -->
+
 ## A task has three parts
 
 **Trigger → rules → action.** The trigger asks *when*, the rules ask *whether*, the action is

@@ -28,6 +28,17 @@ l'allure de l'app — puis de l'exporter en un fichier que quelqu'un importe en 
      data-title="Restyler BMM avec l'éditeur de thèmes"></div>
 
 
+
+<!-- story:make-it-yours -->
+![Personnaliser BMM](../../assets/gifs/make-it-yours.gif)
+
+*Personnaliser BMM. Un thème créé dans l’éditeur de thèmes, une barre de navigation réorganisée avec une page personnalisée, et une chaîne traduite dans le studio de traduction.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/make-it-yours.bmmreplay"
+     data-title="Personnaliser BMM"></div>
+<!-- /story:make-it-yours -->
+
 ## La marque que porte chaque thème
 
 Chaque thème porte une **marque**. Parmi les thèmes intégrés, ceux qui utilisent le **logo BMM**

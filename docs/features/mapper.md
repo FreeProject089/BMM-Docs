@@ -17,6 +17,17 @@ fixes that without you unzipping anything by hand.
      data-title="Remapping a badly-packaged mod"></div>
 
 
+
+<!-- story:fix-a-mod -->
+![Fix a badly packaged mod](../../assets/gifs/fix-a-mod.gif)
+
+*Fix a badly packaged mod. A mod whose archive puts its files one folder too deep: the Mapper shows where they would land, the root is moved, the result checked and the mod updated.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/fix-a-mod.bmmreplay"
+     data-title="Fix a badly packaged mod"></div>
+<!-- /story:fix-a-mod -->
+
 ## When you need it
 
 The symptom is always the same: **you install a mod, and the game acts like it isn't there.**

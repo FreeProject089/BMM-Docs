@@ -11,6 +11,17 @@ itself.
 *Click **Play** above to watch a real BMM session, reconstructed in your browser — not a
 video, the actual interface replayed.*
 
+
+<!-- story:create-tutorial -->
+![Write an interactive tutorial](../../assets/gifs/create-tutorial.gif)
+
+*Write an interactive tutorial. A tutorial of your own for your friends: steps that point at the interface, a check that waits for an action, tried out, then exported.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/create-tutorial.bmmreplay"
+     data-title="Write an interactive tutorial"></div>
+<!-- /story:create-tutorial -->
+
 ## Keyboard shortcuts
 
 BMM ships with five shortcuts out of the box, all `Ctrl` + a key. They jump to the right

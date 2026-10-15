@@ -18,6 +18,17 @@ version you have, and launches them — without you managing downloads by hand.
      data-title="Installing an app from the catalog"></div>
 
 
+
+<!-- story:catalogues -->
+![Find apps and content in the catalogues](../../assets/gifs/catalogues.gif)
+
+*Find apps and content in the catalogues. The App Catalog: browse and search, an app’s details, where the list comes from, and a catalogue of your own built in the Create tab.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/catalogues.bmmreplay"
+     data-title="Find apps and content in the catalogues"></div>
+<!-- /story:catalogues -->
+
 ## Reading a card
 
 Each app shows the essentials at a glance: a thumbnail, its **category** (game, utility, or

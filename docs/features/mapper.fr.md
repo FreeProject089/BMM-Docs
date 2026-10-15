@@ -17,6 +17,17 @@ Mapper corrige ça sans que tu dézippes quoi que ce soit à la main.
      data-title="Recartographier un mod mal packagé"></div>
 
 
+
+<!-- story:fix-a-mod -->
+![Réparer un mod mal empaqueté](../../assets/gifs/fix-a-mod.gif)
+
+*Réparer un mod mal empaqueté. Un mod dont l’archive range ses fichiers un dossier trop bas : le Mapper montre où ils arriveraient, la racine est déplacée, le résultat vérifié et le mod mis à jour.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/fix-a-mod.bmmreplay"
+     data-title="Réparer un mod mal empaqueté"></div>
+<!-- /story:fix-a-mod -->
+
 ## Quand en as-tu besoin
 
 Le symptôme est toujours le même : **tu installes un mod, et le jeu fait comme s'il n'existait

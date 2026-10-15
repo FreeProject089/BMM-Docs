@@ -17,6 +17,17 @@ active ou désactive le pack.
      data-title="Créer et appliquer un modpack"></div>
 
 
+
+<!-- story:share-setup -->
+![Partager une config avec des amis](../../assets/gifs/share-setup.gif)
+
+*Partager une config avec des amis. Le profil devient un modpack, le modpack est hébergé en Server Repo sur le réseau local, un ami le suit par son adresse et se synchronise.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/share-setup.bmmreplay"
+     data-title="Partager une config avec des amis"></div>
+<!-- /story:share-setup -->
+
 ## Modpack ou profil ?
 
 Ils résolvent des problèmes différents, et se tromper est la confusion habituelle :

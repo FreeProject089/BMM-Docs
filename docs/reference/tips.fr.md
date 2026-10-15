@@ -11,6 +11,17 @@ Parcours-la une fois ; elle se rentabilise vite.
 *Clique sur **Lecture** ci-dessus pour voir une vraie session BMM, reconstruite dans ton
 navigateur — pas une vidéo, l'interface réelle rejouée.*
 
+
+<!-- story:create-tutorial -->
+![Écrire un tutoriel interactif](../../assets/gifs/create-tutorial.gif)
+
+*Écrire un tutoriel interactif. Un tutoriel à vous pour vos amis : des étapes qui pointent l’interface, une vérification qui attend une action, l’essai, puis l’export.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/create-tutorial.bmmreplay"
+     data-title="Écrire un tutoriel interactif"></div>
+<!-- /story:create-tutorial -->
+
 ## Raccourcis clavier
 
 BMM est livré avec cinq raccourcis, tous `Ctrl` + une touche. Ils sautent au bon écran et

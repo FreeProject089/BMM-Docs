@@ -36,6 +36,17 @@ sans que vous la pilotiez.
      data-title="Créer une tâche planifiée"></div>
 
 
+
+<!-- story:automate -->
+![Automatiser les corvées](../../assets/gifs/automate.gif)
+
+*Automatiser les corvées. Une tâche planifiée qui vérifie les repos suivis et sauvegarde les profils chaque soir, prévisualisée avant d’être enregistrée.*
+
+<div class="bmm-replay"
+     data-src="../../assets/replays/automate.bmmreplay"
+     data-title="Automatiser les corvées"></div>
+<!-- /story:automate -->
+
 ## Une tâche a trois parties
 
 **Déclencheur → règles → action.** Le déclencheur demande *quand*, les règles demandent *si*,
