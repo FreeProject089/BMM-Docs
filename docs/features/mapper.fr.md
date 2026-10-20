@@ -1,5 +1,9 @@
 # Mapper
 
+:::tip[Tu préfères pas à pas ?]
+La version « tâche » de cette page est [Réparer un mod que le jeu ignore](../guide/fix-a-mod.md) : de courtes étapes, ce que tu dois voir, une image et un bouton Montre-moi.
+:::
+
 !!! tip "Ouvrir dans BMM"
 
     L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
@@ -19,7 +23,7 @@ Mapper corrige ça sans que tu dézippes quoi que ce soit à la main.
 
 
 <!-- story:fix-a-mod -->
-![Réparer un mod mal empaqueté](../../assets/gifs/fix-a-mod.gif)
+![Réparer un mod mal empaqueté](../assets/gifs/fix-a-mod.gif)
 
 *Réparer un mod mal empaqueté. Un mod dont l’archive range ses fichiers un dossier trop bas : le Mapper montre où ils arriveraient, la racine est déplacée, le résultat vérifié et le mod mis à jour.*
 

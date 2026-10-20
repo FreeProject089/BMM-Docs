@@ -1,5 +1,9 @@
 # Bibliothèque
 
+:::tip[Tu préfères pas à pas ?]
+La version « tâche » de cette page est [Installer ton premier mod](../guide/install-first-mod.md) : de courtes étapes, ce que tu dois voir, une image et un bouton Montre-moi.
+:::
+
 !!! tip "Ouvrir dans BMM"
 
     L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.

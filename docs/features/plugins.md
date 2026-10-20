@@ -29,7 +29,7 @@ for a release.
 
 
 <!-- story:build-plugin -->
-![Build a plugin with a mod list](../../assets/gifs/build-plugin.gif)
+![Build a plugin with a mod list](../assets/gifs/build-plugin.gif)
 
 *Build a plugin with a mod list. Plugins & API → Create: a plugin that ships a list of mods, its permissions, the live preview, and the plugin saved on this PC.*
 

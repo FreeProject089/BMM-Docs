@@ -61,7 +61,7 @@ If you're new, read this page. It's short, and it explains the one idea the rest
 is built on. Skipping it is why people get lost on screen three.
 
 !!! tip "Two ways to read these docs"
-    The **Getting started** and **Features** sections teach you how to *use* BMM. The new
+    The **Getting started**, **[Step by step](guide/index.md)** (one page per task, with a picture and a Show me button in the app) and **Features** sections teach you how to *use* BMM. The new
     **[How it works](how-it-works/index.md)** section is for the curious and for contributors —
     it explains *why* BMM behaves the way it does, with diagrams. Read whichever half you came for.
 

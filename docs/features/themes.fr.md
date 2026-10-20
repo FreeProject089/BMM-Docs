@@ -30,7 +30,7 @@ l'allure de l'app — puis de l'exporter en un fichier que quelqu'un importe en 
 
 
 <!-- story:make-it-yours -->
-![Personnaliser BMM](../../assets/gifs/make-it-yours.gif)
+![Personnaliser BMM](../assets/gifs/make-it-yours.gif)
 
 *Personnaliser BMM. Un thème créé dans l’éditeur de thèmes, une barre de navigation réorganisée avec une page personnalisée, et une chaîne traduite dans le studio de traduction.*
 

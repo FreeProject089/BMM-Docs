@@ -3,9 +3,15 @@
 Three steps. Do them in order — the second one is the one people skip, and it's the one that
 matters.
 
+:::tip[Rather follow one task at a time?]
+The **Step by step** section has a page per job, each with a picture and a Show me button:
+[Create a profile](../guide/create-profile.md), [Install your first mod](../guide/install-first-mod.md),
+[Fix a conflict](../guide/fix-a-conflict.md). Start from the [list of tasks](../guide/index.md).
+:::
+
 
 <!-- story:new-game -->
-![Set up a new game](../../assets/gifs/new-game.gif)
+![Set up a new game](../assets/gifs/new-game.gif)
 
 *Set up a new game. A profile for Northwind Saga, three mods added from their archives, switched on, the conflict they make settled, and the files in the game folder.*
 

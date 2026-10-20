@@ -13,7 +13,7 @@ navigateur — pas une vidéo, l'interface réelle rejouée.*
 
 
 <!-- story:create-tutorial -->
-![Écrire un tutoriel interactif](../../assets/gifs/create-tutorial.gif)
+![Écrire un tutoriel interactif](../assets/gifs/create-tutorial.gif)
 
 *Écrire un tutoriel interactif. Un tutoriel à vous pour vos amis : des étapes qui pointent l’interface, une vérification qui attend une action, l’essai, puis l’export.*
 

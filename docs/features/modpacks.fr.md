@@ -1,5 +1,9 @@
 # Modpacks
 
+:::tip[Tu préfères pas à pas ?]
+La version « tâche » de cette page est [Partager un modpack](../guide/share-a-modpack.md) : de courtes étapes, ce que tu dois voir, une image et un bouton Montre-moi.
+:::
+
 !!! tip "Ouvrir dans BMM"
 
     L'app a une version plus courte de cette page, juste à côté des boutons qui font le travail.
@@ -19,7 +23,7 @@ active ou désactive le pack.
 
 
 <!-- story:share-setup -->
-![Partager une config avec des amis](../../assets/gifs/share-setup.gif)
+![Partager une config avec des amis](../assets/gifs/share-setup.gif)
 
 *Partager une config avec des amis. Le profil devient un modpack, le modpack est hébergé en Server Repo sur le réseau local, un ami le suit par son adresse et se synchronise.*
 

@@ -1,5 +1,9 @@
 # Conflicts
 
+:::tip[Prefer it step by step?]
+The task version of this page is [Fix a conflict](../guide/fix-a-conflict.md): short steps, what you should see, a picture and a Show me button.
+:::
+
 [↗ Open this in the BMM app](bmm://docs/open?article=conflicts){ .md-button .md-button--primary }
 
 Two mods are in **conflict** when they ship the same file. Some managers let one silently overwrite

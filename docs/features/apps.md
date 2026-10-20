@@ -20,7 +20,7 @@ version you have, and launches them — without you managing downloads by hand.
 
 
 <!-- story:catalogues -->
-![Find apps and content in the catalogues](../../assets/gifs/catalogues.gif)
+![Find apps and content in the catalogues](../assets/gifs/catalogues.gif)
 
 *Find apps and content in the catalogues. The App Catalog: browse and search, an app’s details, where the list comes from, and a catalogue of your own built in the Create tab.*
 

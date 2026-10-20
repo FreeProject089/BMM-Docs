@@ -13,7 +13,7 @@ video, the actual interface replayed.*
 
 
 <!-- story:create-tutorial -->
-![Write an interactive tutorial](../../assets/gifs/create-tutorial.gif)
+![Write an interactive tutorial](../assets/gifs/create-tutorial.gif)
 
 *Write an interactive tutorial. A tutorial of your own for your friends: steps that point at the interface, a check that waits for an action, tried out, then exported.*
 

@@ -30,7 +30,7 @@ look — then export it as a file someone else imports in one click.
 
 
 <!-- story:make-it-yours -->
-![Make BMM yours](../../assets/gifs/make-it-yours.gif)
+![Make BMM yours](../assets/gifs/make-it-yours.gif)
 
 *Make BMM yours. A theme made in the theme editor, a navigation bar rearranged with a custom page of your own, and a string translated in the translation studio.*
 

@@ -14,7 +14,7 @@ toutes les actions. Tape quelques lettres, déplace-toi avec <kbd>↑</kbd> / <k
 
 
 <!-- story:everyday -->
-![Les raccourcis du quotidien](../../assets/gifs/everyday.gif)
+![Les raccourcis du quotidien](../assets/gifs/everyday.gif)
 
 *Les raccourcis du quotidien. La palette de commandes trouve un mod et lance une commande, BMM Tools mesure le disque, un launch pack démarre le jeu avec ses outils, et la doc répond sans quitter l’app.*
 

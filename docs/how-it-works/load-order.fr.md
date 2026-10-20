@@ -1,5 +1,9 @@
 # Ordre d'activation
 
+:::tip[Tu préfères pas à pas ?]
+La version « tâche » de cette page est [Activer et ordonner les mods](../guide/activate-and-order.md) : de courtes étapes, ce que tu dois voir, une image et un bouton Montre-moi.
+:::
+
 [↗ Ouvrir dans l'app BMM](bmm://docs/open?article=load-order){ .md-button .md-button--primary }
 
 Deux mods actifs qui fournissent le même fichier ne fusionnent pas : BMM copie des fichiers, donc

@@ -1,5 +1,9 @@
 # Activation order
 
+:::tip[Prefer it step by step?]
+The task version of this page is [Activate and order mods](../guide/activate-and-order.md): short steps, what you should see, a picture and a Show me button.
+:::
+
 [↗ Open this in the BMM app](bmm://docs/open?article=load-order){ .md-button .md-button--primary }
 
 Two active mods that ship the same file do not merge: BMM copies files, so one of them is what the

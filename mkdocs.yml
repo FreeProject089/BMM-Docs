@@ -92,6 +92,7 @@ plugins:
           build: true
           nav_translations:
             Getting started: Premiers pas
+            Step by step: Pas à pas
             Features: Fonctionnalités
             How it works: Comment ça marche
             Reference: Référence
@@ -146,6 +147,9 @@ markdown_extensions:
   - admonition
   - pymdownx.keys      # keyboard keys: ++ctrl+k++ renders styled <kbd> chips (matches the in-app docs' :kbd[…])
   - pymdownx.details
+  # `- [ ] step` lists on the guide pages: a checkbox the page script (assets/guide.js) makes tickable.
+  - pymdownx.tasklist:
+      custom_checkbox: true
   # Mermaid diagrams: `\`\`\`mermaid` fences render as interactive SVG (Material's native
   # support). Used across the "How it works" section to show BMM's internals visually.
   - pymdownx.superfences:
@@ -174,6 +178,16 @@ nav:
       - getting-started/install.md
       - getting-started/first-launch.md
       - getting-started/migrating.md
+  - Step by step:
+      - guide/index.md
+      - guide/install-first-mod.md
+      - guide/create-profile.md
+      - guide/activate-and-order.md
+      - guide/fix-a-conflict.md
+      - guide/fix-a-mod.md
+      - guide/share-a-modpack.md
+      - guide/follow-a-repo.md
+      - guide/update-bmm.md
   - Features:
       - features/library.md
       - features/modlist.md
@@ -258,3 +272,4 @@ extra_css:
 extra_javascript:
   - assets/rrweb/rrweb.min.js
   - assets/rrweb/bmm-replay.js
+  - assets/guide.js

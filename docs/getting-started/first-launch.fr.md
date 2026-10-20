@@ -2,9 +2,15 @@
 
 Trois étapes. Dans l'ordre — la deuxième est celle qu'on saute, et c'est celle qui compte.
 
+:::tip[Tu préfères une tâche à la fois ?]
+La section **Pas à pas** a une page par tâche, chacune avec une image et un bouton Montre-moi :
+[Créer un profil](../guide/create-profile.md), [Installer ton premier mod](../guide/install-first-mod.md),
+[Régler un conflit](../guide/fix-a-conflict.md). Pars de la [liste des tâches](../guide/index.md).
+:::
+
 
 <!-- story:new-game -->
-![Installer un nouveau jeu](../../assets/gifs/new-game.gif)
+![Installer un nouveau jeu](../assets/gifs/new-game.gif)
 
 *Installer un nouveau jeu. Un profil pour Northwind Saga, trois mods ajoutés depuis leurs archives, activés, le conflit qu’ils créent réglé, et les fichiers dans le dossier du jeu.*
 

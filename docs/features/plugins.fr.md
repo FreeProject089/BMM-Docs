@@ -29,7 +29,7 @@ version.
 
 
 <!-- story:build-plugin -->
-![Créer un plugin avec une liste de mods](../../assets/gifs/build-plugin.gif)
+![Créer un plugin avec une liste de mods](../assets/gifs/build-plugin.gif)
 
 *Créer un plugin avec une liste de mods. Plugins & API → Créer : un plugin qui fournit une liste de mods, ses permissions, l’aperçu en direct et le plugin enregistré sur ce PC.*
 

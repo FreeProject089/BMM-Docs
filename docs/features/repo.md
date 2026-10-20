@@ -1,5 +1,9 @@
 # Server Repo
 
+:::tip[Prefer it step by step?]
+The task version of this page is [Follow a repo](../guide/follow-a-repo.md): short steps, what you should see, a picture and a Show me button.
+:::
+
 !!! tip "Open in BMM"
 
     The app has a shorter version of this page, sitting next to the buttons that do the work.

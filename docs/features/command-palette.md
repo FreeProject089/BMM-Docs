@@ -13,7 +13,7 @@ move with <kbd>↑</kbd> / <kbd>↓</kbd>, and press <kbd>Enter</kbd> to run.
 
 
 <!-- story:everyday -->
-![Everyday shortcuts](../../assets/gifs/everyday.gif)
+![Everyday shortcuts](../assets/gifs/everyday.gif)
 
 *Everyday shortcuts. The command palette finds a mod and runs a command, BMM Tools measures the disk, a launch pack starts the game with its tools, and the docs answer a question without leaving the app.*
 

@@ -19,7 +19,7 @@ mods, where to get them, and in what order*.
 
 
 <!-- story:share-list -->
-![Share a mod list and an order](../../assets/gifs/share-list.gif)
+![Share a mod list and an order](../assets/gifs/share-list.gif)
 
 *Share a mod list and an order. An activation order settled and kept as a named list with its share code; the mods exported as a .MM list, imported into another profile with the plan of what is new, installed, and switched on in the saved order.*
 

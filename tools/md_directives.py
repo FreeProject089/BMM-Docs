@@ -106,6 +106,23 @@ def _kbd(md: str) -> str:
     return "\n".join(out)
 
 
+# `[Show me](show:view/profiles)`: a button in the BMM app (the in-app Help hub turns it into one, see
+# frontend/src/docs/doc-actions.ts for what it may do). On the website there is no app to drive, so it
+# becomes a labelled chip that says so instead of a link that goes nowhere.
+_SHOW = re.compile(r"\[([^\]]+)\]\(show:[^)\s]*\)")
+
+
+def _show(md: str) -> str:
+    out = []
+    fenced = False
+    for line in md.split("\n"):
+        if _FENCE.match(line.strip()):
+            fenced = not fenced
+        out.append(line if fenced else _SHOW.sub(
+            lambda m: '<span class="bmm-show" title="A button in the BMM app: Help &amp; other opens it for you">%s</span>' % m.group(1), line))
+    return "\n".join(out)
+
+
 # ── B.MD 2.0 blocks ───────────────────────────────────────────────────────────
 # The website's newer blocks, rewritten to HTML that `md_in_html` keeps parsing markdown
 # inside (`markdown="1"`), styled by assets/extra.css under `.bmd-*`. Same shapes as the app's
@@ -460,6 +477,8 @@ def on_page_markdown(markdown, page=None, config=None, **kwargs):  # mkdocs hook
         markdown = strip_replays(markdown)
     if ":kbd[" in markdown:
         markdown = _kbd(markdown)
+    if "](show:" in markdown:
+        markdown = _show(markdown)
     if any(tok in markdown for tok in _INLINE_TOKENS):
         markdown = _inline_2(markdown)
     if ":::" not in markdown:

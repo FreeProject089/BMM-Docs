@@ -1,5 +1,9 @@
 # Modpacks
 
+:::tip[Prefer it step by step?]
+The task version of this page is [Share a modpack](../guide/share-a-modpack.md): short steps, what you should see, a picture and a Show me button.
+:::
+
 !!! tip "Open in BMM"
 
     The app has a shorter version of this page, sitting next to the buttons that do the work.
@@ -19,7 +23,7 @@ on or off.
 
 
 <!-- story:share-setup -->
-![Share a setup with friends](../../assets/gifs/share-setup.gif)
+![Share a setup with friends](../assets/gifs/share-setup.gif)
 
 *Share a setup with friends. The profile becomes a modpack, the modpack is hosted as a Server Repo on the LAN, a friend follows it by its address and syncs.*
 

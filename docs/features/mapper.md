@@ -1,5 +1,9 @@
 # Mapper
 
+:::tip[Prefer it step by step?]
+The task version of this page is [Fix a mod the game ignores](../guide/fix-a-mod.md): short steps, what you should see, a picture and a Show me button.
+:::
+
 !!! tip "Open in BMM"
 
     The app has a shorter version of this page, sitting next to the buttons that do the work.
@@ -19,7 +23,7 @@ fixes that without you unzipping anything by hand.
 
 
 <!-- story:fix-a-mod -->
-![Fix a badly packaged mod](../../assets/gifs/fix-a-mod.gif)
+![Fix a badly packaged mod](../assets/gifs/fix-a-mod.gif)
 
 *Fix a badly packaged mod. A mod whose archive puts its files one folder too deep: the Mapper shows where they would land, the root is moved, the result checked and the mod updated.*
 

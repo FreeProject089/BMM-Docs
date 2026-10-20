@@ -20,7 +20,7 @@ la version que tu as, et les lance — sans que tu gères les téléchargements 
 
 
 <!-- story:catalogues -->
-![Trouver des applis et du contenu dans les catalogues](../../assets/gifs/catalogues.gif)
+![Trouver des applis et du contenu dans les catalogues](../assets/gifs/catalogues.gif)
 
 *Trouver des applis et du contenu dans les catalogues. L’App Catalog : parcourir et chercher, les détails d’une appli, d’où vient la liste, et son propre catalogue construit dans l’onglet Créer.*
 

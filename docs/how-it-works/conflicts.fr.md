@@ -1,5 +1,9 @@
 # Conflits
 
+:::tip[Tu préfères pas à pas ?]
+La version « tâche » de cette page est [Régler un conflit](../guide/fix-a-conflict.md) : de courtes étapes, ce que tu dois voir, une image et un bouton Montre-moi.
+:::
+
 [↗ Ouvrir dans l'app BMM](bmm://docs/open?article=conflicts){ .md-button .md-button--primary }
 
 Deux mods sont en **conflit** quand ils livrent le même fichier. Certains gestionnaires laissent l'un

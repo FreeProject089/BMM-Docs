@@ -741,3 +741,20 @@ body { background-color: var(--md-default-bg-color); }
   .md-typeset .bmm-new { background: none; }
   .md-typeset .grid.cards > ul > li { box-shadow: none; transform: none; }
 }
+
+/* ── Step by step pages ─────────────────────────────────────────────────────────
+   A « Show me » link is a button inside the BMM app (Help & other). On the website it is only a
+   label, so it is drawn as a chip that does not look pressable. The yellow stays a FILL. */
+.md-typeset .bmm-show {
+  display: inline-block; padding: .05em .7em; margin: .1em .2em .1em 0; border-radius: 999px;
+  font-size: .82em; font-weight: 700; white-space: nowrap; cursor: help;
+  background: var(--md-default-fg-color--lightest); color: var(--md-default-fg-color);
+  border: 1px dashed var(--md-default-fg-color--lighter);
+}
+.md-typeset .bmm-show::before { content: "\25B6\00a0"; font-size: .8em; }
+/* Ticked steps: dimmed, struck through, like the in-app guide. */
+.md-typeset .task-list-item:has(input:checked) { opacity: .62; }
+.md-typeset .task-list-item:has(input:checked) > :not(label) { text-decoration: line-through; }
+.md-typeset .task-list-control input { cursor: pointer; }
+.md-typeset .bmm-ck-count { font-size: .8em; font-weight: 700; color: var(--md-default-fg-color--light); margin: .6em 0 -.2em; }
+.md-typeset img[src$=".gif"] { cursor: pointer; }
