@@ -73,7 +73,7 @@ Ces clés contiennent des accolades montrées telles quelles au lecteur. Rien n�
 
 ## Toutes les clés avec variables
 
-1275 clés, regroupées par leur premier segment. Le texte est le texte français, raccourci.
+1279 clés, regroupées par leur premier segment. Le texte est le texte français, raccourci.
 
 ### activity
 
@@ -252,6 +252,10 @@ Ces clés contiennent des accolades montrées telles quelles au lecteur. Rien n�
 | `bcv2.legal.revision` | `{r}` | révision {r} |
 | `bcv2.legal.shipped` | `{v}` | vous avez accepté la version {v} |
 | `bcv2.legal.version` | `{v}` | Version {v} |
+| `bcv2.server.probeFail` | `{reason}` `{root}` | La v2 ne répond pas sur {root} ({reason}). |
+| `bcv2.server.probeOk` | `{ms}` `{root}` `{status}` | La v2 répond sur {root} : {status} ({ms} ms). |
+| `bcv2.server.sessionFellBack` | `{reason}` | La v2 a été demandée mais n’a pas répondu au démarrage ({reason}) : cette session utilise la v1. |
+| `bcv2.server.sessionV2` | `{root}` | Cette session utilise la v2 ({root}). |
 
 ### bench
 

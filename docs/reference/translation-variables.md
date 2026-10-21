@@ -73,7 +73,7 @@ These keys contain braces that are shown to the reader as they are. Nothing is f
 
 ## Every key with variables
 
-1275 keys, grouped by their first segment. The text is the English one, shortened.
+1279 keys, grouped by their first segment. The text is the English one, shortened.
 
 ### activity
 
@@ -252,6 +252,10 @@ These keys contain braces that are shown to the reader as they are. Nothing is f
 | `bcv2.legal.revision` | `{r}` | revision {r} |
 | `bcv2.legal.shipped` | `{v}` | you accepted version {v} |
 | `bcv2.legal.version` | `{v}` | Version {v} |
+| `bcv2.server.probeFail` | `{reason}` `{root}` | v2 does not answer at {root} ({reason}). |
+| `bcv2.server.probeOk` | `{ms}` `{root}` `{status}` | v2 answers at {root}: {status} ({ms} ms). |
+| `bcv2.server.sessionFellBack` | `{reason}` | v2 was asked for but did not answer at start ({reason}): this session uses v1. |
+| `bcv2.server.sessionV2` | `{root}` | This session uses v2 ({root}). |
 
 ### bench
 
