@@ -53,6 +53,3 @@ Le serveur intégré de BMM est disponible tant que BMM est ouvert et que le por
 
 [Suivre un dépôt](follow-a-repo.md) est le côté de l'ami. Détails : [Modpacks](../features/modpacks.md), [Dépôt Serveur](../features/repo.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/share-setup.bmmreplay"
-     data-title="Regarde : un profil devient un modpack, un dépôt, et la synchro d'un ami"></div>

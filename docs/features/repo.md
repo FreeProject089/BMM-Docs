@@ -18,9 +18,7 @@ hand stays at the version you installed, forever, silently.
 
 > Browse Server Repositories — official and partner server repositories.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/repo.bmmreplay"
-     data-title="Connecting to a repo and syncing"></div>
+![Connecting to a repo and syncing](../assets/gifs/guide-follow.gif)
 
 
 ## Simple by default

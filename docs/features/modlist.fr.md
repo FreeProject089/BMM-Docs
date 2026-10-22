@@ -12,9 +12,6 @@ La définition de BMM lui-même :
 Toute la différence est là. Un modpack dit *quels mods* ; une liste `.MM` dit *quels mods,
 où les prendre, et dans quel ordre*.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/modlist.bmmreplay"
-     data-title="Exporter et importer une liste .MM"></div>
 
 
 
@@ -23,9 +20,6 @@ où les prendre, et dans quel ordre*.
 
 *Partager une liste de mods et un ordre. Un ordre d’activation réglé et gardé en liste nommée avec son code de partage ; les mods exportés en liste .MM, importés dans un autre profil avec le plan de ce qui est nouveau, installés, puis activés dans l’ordre enregistré.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/share-list.bmmreplay"
-     data-title="Partager une liste de mods et un ordre"></div>
 <!-- /story:share-list -->
 
 ## Le partage

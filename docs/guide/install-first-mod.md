@@ -44,6 +44,3 @@ so a large library does not cost disk space you are not using.
 [Activate and order mods](activate-and-order.md), then [Fix a conflict](fix-a-conflict.md) when two mods meet.
 Details of the screen: [Library](../features/library.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/new-game.bmmreplay"
-     data-title="Watch the whole story: a new game from the first mod to the game folder"></div>

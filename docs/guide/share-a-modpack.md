@@ -56,6 +56,3 @@ be up all day, host the files on a static web host, or use the standalone mini-s
 
 [Follow a repo](follow-a-repo.md) is the friend's side. Details: [Modpacks](../features/modpacks.md), [Server Repo](../features/repo.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/share-setup.bmmreplay"
-     data-title="Watch it: a profile becomes a modpack, a repo, and a friend's sync"></div>

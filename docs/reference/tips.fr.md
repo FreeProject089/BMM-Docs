@@ -4,9 +4,6 @@ Les fonctionnalités ont leur propre page. Celle-ci parle des *interactions* —
 touches et petites commodités qu'on ne devine pas tant que quelqu'un ne les montre pas.
 Parcours-la une fois ; elle se rentabilise vite.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/bmm-demo.bmmreplay"
-     data-title="Une session BMM enregistrée"></div>
 
 *Clique sur **Lecture** ci-dessus pour voir une vraie session BMM, reconstruite dans ton
 navigateur — pas une vidéo, l'interface réelle rejouée.*
@@ -17,9 +14,6 @@ navigateur — pas une vidéo, l'interface réelle rejouée.*
 
 *Écrire un tutoriel interactif. Un tutoriel à vous pour vos amis : des étapes qui pointent l’interface, une vérification qui attend une action, l’essai, puis l’export.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/create-tutorial.bmmreplay"
-     data-title="Écrire un tutoriel interactif"></div>
 <!-- /story:create-tutorial -->
 
 ## Raccourcis clavier

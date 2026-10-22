@@ -23,9 +23,6 @@ look — then export it as a file someone else imports in one click.
     picked under the old name stays applied. The table of old and new ids is in
     [Make your own theme](making-themes.md#renamed-in-104).
 
-<div class="bmm-replay"
-     data-src="../assets/replays/themes.bmmreplay"
-     data-title="Restyling BMM with the theme editor"></div>
 
 
 
@@ -34,9 +31,6 @@ look — then export it as a file someone else imports in one click.
 
 *Make BMM yours. A theme made in the theme editor, a navigation bar rearranged with a custom page of your own, and a string translated in the translation studio.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/make-it-yours.bmmreplay"
-     data-title="Make BMM yours"></div>
 <!-- /story:make-it-yours -->
 
 ## The mark each theme wears

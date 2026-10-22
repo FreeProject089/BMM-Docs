@@ -10,7 +10,7 @@
    In the dark scheme yellow text on #121315 is 12.3:1 and is used freely.
 
    Everything is expressed as Material tokens per scheme, so nav, code,
-   tables, admonitions, mermaid diagrams and the inline .bmmreplay player
+   tables, admonitions, mermaid diagrams
    pick the brand up without per-component colour rules.
    ========================================================================== */
 
@@ -417,16 +417,6 @@ body { background-color: var(--md-default-bg-color); }
   .md-nav--primary .md-nav__item--active > .md-nav__link { color: var(--md-default-fg-color); }
   .md-nav--primary .md-nav__link--active { color: var(--bmm-accent-ink); }
 }
-
-/* ── Replay player: the brand colours live in assets/rrweb/bmm-replay.css (loaded after
-   this file); only the frame is tuned here. */
-.bmm-replay {
-  border-radius: var(--bmm-radius);
-  box-shadow: var(--bmm-shadow-hi);
-}
-.bmm-replay-poster { min-height: 220px; }
-.bmm-replay-play:hover,
-.bmm-replay-toggle:hover { background: var(--bmm-yellow-hi); }
 
 /* ── The "download the PDF" button ────────────────────────────────────────────
    Injected at the top of every page by overrides/main.html. A quiet toolbar row

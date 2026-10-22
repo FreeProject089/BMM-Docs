@@ -22,9 +22,6 @@ version.
     propre token, et ne fait que ce que tu lui as accordé. Relis ces autorisations dans
     **Plugins → Permissions**.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/plugins.bmmreplay"
-     data-title="Accorder une permission et utiliser un plugin"></div>
 
 
 
@@ -33,9 +30,6 @@ version.
 
 *Créer un plugin avec une liste de mods. Plugins & API → Créer : un plugin qui fournit une liste de mods, ses permissions, l’aperçu en direct et le plugin enregistré sur ce PC.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/build-plugin.bmmreplay"
-     data-title="Créer un plugin avec une liste de mods"></div>
 <!-- /story:build-plugin -->
 
 ## Les onglets

@@ -15,9 +15,6 @@ The **Step by step** section has a page per job, each with a picture and a Show 
 
 *Set up a new game. A profile for Northwind Saga, three mods added from their archives, switched on, the conflict they make settled, and the files in the game folder.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/new-game.bmmreplay"
-     data-title="Set up a new game"></div>
 <!-- /story:new-game -->
 
 ## 1. Create a profile

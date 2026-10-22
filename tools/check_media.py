@@ -6,9 +6,8 @@ was honest but ugly. Removing it makes the docs *claim* each clip shows what its
 — so something has to keep that claim true. This does, without failing the build: media is
 recorded over time, and a red CI on every unshot clip would just get ignored.
 
-Two things give a stand-in away, and neither needs a human to look:
+One thing gives a stand-in away, and it needs no human to look:
 
-  Replays  — thirteen files with the same SHA-256 are one recording copied thirteen times.
   Screens  — a 900x420 PNG of a near-uniform dark rectangle is the generated placeholder,
              not a screenshot. Real UI has hundreds of distinct colours; the stand-in has a
              handful.
@@ -20,36 +19,15 @@ Run: python tools/check_media.py            (report)
 from __future__ import annotations
 
 import argparse
-import hashlib
 import sys
-from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-REPLAYS = ROOT / "docs" / "assets" / "replays"
 SCREENS = ROOT / "docs" / "assets" / "screens"
 
 # Below this many distinct colours, a 900x420 PNG is the empty call-out template rather than
 # a captured interface. Measured: the generated placeholders sit in the low tens.
 COLOUR_FLOOR = 256
-
-
-def check_replays() -> list[str]:
-    by_hash: dict[str, list[str]] = defaultdict(list)
-    for f in sorted(REPLAYS.glob("*.bmmreplay")):
-        by_hash[hashlib.sha256(f.read_bytes()).hexdigest()].append(f.name)
-
-    stand_ins = []
-    for names in by_hash.values():
-        if len(names) > 1:
-            stand_ins.extend(names)
-
-    print(f"replays: {sum(len(v) for v in by_hash.values())} file(s), "
-          f"{len(by_hash)} distinct recording(s)")
-    for digest, names in sorted(by_hash.items(), key=lambda kv: -len(kv[1])):
-        if len(names) > 1:
-            print(f"  ! {len(names)} identical ({digest[:12]}): {', '.join(names)}")
-    return stand_ins
 
 
 def check_screens() -> list[str]:
@@ -79,7 +57,7 @@ def main() -> int:
                     help="exit 1 when anything is still a stand-in")
     args = ap.parse_args()
 
-    pending = check_replays() + check_screens()
+    pending = check_screens()
 
     print()
     if not pending:

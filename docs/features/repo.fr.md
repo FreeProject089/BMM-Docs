@@ -19,9 +19,7 @@ silence.
 
 > Parcourir les dépôts serveur — dépôts officiels et partenaires.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/repo.bmmreplay"
-     data-title="Se connecter à un dépôt et synchroniser"></div>
+![Se connecter à un dépôt et synchroniser](../assets/gifs/guide-follow.gif)
 
 
 ## Simple par défaut
