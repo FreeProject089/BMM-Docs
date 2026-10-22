@@ -142,6 +142,8 @@ plugins:
 # parsing (same authoring syntax as the in-app docs). See tools/md_directives.py.
 hooks:
   - tools/md_directives.py
+  # ```bmms fences: a Pygments lexer for BMMScript, so those blocks are highlighted (site and PDFs).
+  - tools/bmms_lexer.py
 
 markdown_extensions:
   - admonition

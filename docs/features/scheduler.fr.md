@@ -137,7 +137,7 @@ plutôt qu'empilée.
 
 En BMMScript, les trois s'écrivent :
 
-```
+```bmms
 task "Réparer après la synchro de nuit" {
     after task "t-42" failed
 }

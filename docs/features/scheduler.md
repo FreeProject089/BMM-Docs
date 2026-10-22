@@ -125,7 +125,7 @@ skipped rather than stacked.
 
 In BMMScript the three are written:
 
-```
+```bmms
 task "Repair after the nightly sync" {
     after task "t-42" failed
 }
