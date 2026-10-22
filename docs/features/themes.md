@@ -16,12 +16,12 @@ Not a light/dark switch. BMM ships **fourteen** built-in themes — nine dark on
 own colours, the logo in place of Tasky) — and an editor that can rebuild the app's entire
 look — then export it as a file someone else imports in one click.
 
-!!! note "Renamed in 1.0.3"
+!!! note "Renamed in 1.0.4"
 
     Six built-in themes that were named after other products have neutral names now: Indigo,
     Neon, Clay, Arctic, Charcoal and Cobalt. Only the name and the id changed; a theme you
     picked under the old name stays applied. The table of old and new ids is in
-    [Make your own theme](making-themes.md#renamed-in-103).
+    [Make your own theme](making-themes.md#renamed-in-104).
 
 <div class="bmm-replay"
      data-src="../assets/replays/themes.bmmreplay"
