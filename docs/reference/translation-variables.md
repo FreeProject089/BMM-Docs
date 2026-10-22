@@ -33,11 +33,11 @@ when a translation and the code disagree. It cannot go out of date.
 | `{label}` | a short title |
 | `{path}` | a file or folder path |
 | `{version}` | a version number |
+| `{error}` | an error message |
 | `{host}` | a server name |
 | `{profile}` | a profile name |
 | `{file}` | a file name |
 | `{mod}` | a mod name |
-| `{error}` | an error message |
 | `{url}` | a web address |
 | `{x}` | a list or a detail the code inserts |
 | `{time}` | a time |
@@ -73,7 +73,7 @@ These keys contain braces that are shown to the reader as they are. Nothing is f
 
 ## Every key with variables
 
-1279 keys, grouped by their first segment. The text is the English one, shortened.
+1284 keys, grouped by their first segment. The text is the English one, shortened.
 
 ### activity
 
@@ -252,10 +252,6 @@ These keys contain braces that are shown to the reader as they are. Nothing is f
 | `bcv2.legal.revision` | `{r}` | revision {r} |
 | `bcv2.legal.shipped` | `{v}` | you accepted version {v} |
 | `bcv2.legal.version` | `{v}` | Version {v} |
-| `bcv2.server.probeFail` | `{reason}` `{root}` | v2 does not answer at {root} ({reason}). |
-| `bcv2.server.probeOk` | `{ms}` `{root}` `{status}` | v2 answers at {root}: {status} ({ms} ms). |
-| `bcv2.server.sessionFellBack` | `{reason}` | v2 was asked for but did not answer at start ({reason}): this session uses v1. |
-| `bcv2.server.sessionV2` | `{root}` | This session uses v2 ({root}). |
 
 ### bench
 
@@ -451,6 +447,10 @@ These keys contain braces that are shown to the reader as they are. Nothing is f
 
 | Key | Variables | Text |
 |---|---|---|
+| `dev.export.crashDumpFail` | `{error}` | The crash dump could not be written: {error} |
+| `dev.export.failed` | `{what}` | Could not save ({what}) |
+| `dev.export.openFail` | `{error}` | Could not open the folder: {error} |
+| `dev.export.saved` | `{what}` | Saved ({what}) |
 | `dev.label.rules` | `{n}` | {n} rules |
 | `dev.label.shownOf` | `{n}` `{shown}` | {shown} of {n} |
 | `dev.msg.rustFailed` | `{why}` | Could not read the Rust logs: {why} |
@@ -710,6 +710,11 @@ These keys contain braces that are shown to the reader as they are. Nothing is f
 | `mod.idCopied` | `{id}` | ID copied: {id} |
 | `mod.importConfirmDesc` | `{name}` | Do you want to download and install &lt;strong&gt;{name}&lt;/strong&gt; ? |
 | `mod.installed` | `{name}` | "{name}" installed successfully! |
+| `mod.protectedFolder.osError` | `{error}` | Windows said: {error} |
+| `mod.protectedFolder.todo` | `{root}` | Restart BMM as administrator (Windows asks for your permission), move the game out of {root}, or point the pr… |
+| `mod.protectedFolder.warning` | `{root}` | This game folder is inside {root}: BMM must run as administrator to activate mods there. |
+| `mod.protectedFolder.what` | `{game}` | BMM could not write to {game}. Nothing was changed: the activation stopped before copying, or put back what i… |
+| `mod.protectedFolder.why` | `{root}` | Windows only lets a program running as administrator write inside {root}, and BMM runs with your normal right… |
 | `mod.removed` | `{name}` | "{name}" permanently deleted. |
 | `mod.removedOnly` | `{name}` | "{name}" removed from list. |
 | `mod.removeTagConfirm` | `{name}` | Are you sure you want to remove the tag {name} from this mod? |
