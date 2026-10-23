@@ -46,6 +46,3 @@ repo, check its layout again: an update brings back the author's folders.
 
 Fill in the mod's details (name, version, author) so you can find it later. Details: [Mapper](../features/mapper.md), [How the Mapper works](../how-it-works/mapper.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/fix-a-mod.bmmreplay"
-     data-title="Watch it: a mod one folder too deep, fixed in the Mapper"></div>

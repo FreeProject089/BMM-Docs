@@ -4,9 +4,6 @@ Les Paramètres forment une longue page, mais la plupart se règlent une fois po
 tour commence par la poignée qui change la *sensation* de BMM, puis parcourt le reste section
 par section pour que rien ne reste un mystère.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/settings.bmmreplay"
-     data-title="Un tour des Paramètres"></div>
 
 
 ## Trouver un réglage

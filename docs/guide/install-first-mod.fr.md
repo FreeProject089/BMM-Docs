@@ -43,6 +43,3 @@ Un `.zip` reste zippé. BMM le décompresse dans un cache temporaire seulement q
 [Activer et ordonner les mods](activate-and-order.md), puis [Régler un conflit](fix-a-conflict.md) quand deux mods se rencontrent.
 Détails de l'écran : [Bibliothèque](../features/library.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/new-game.bmmreplay"
-     data-title="Regarde toute l'histoire : un nouveau jeu, du premier mod au dossier du jeu"></div>

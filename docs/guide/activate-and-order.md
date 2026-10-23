@@ -47,6 +47,3 @@ there is applied at once. The `#N` badge on each active card is its position.
 
 [Fix a conflict](fix-a-conflict.md). Details: [Activation order](../how-it-works/load-order.md), [Library](../features/library.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/share-list.bmmreplay"
-     data-title="Watch it: settle an order, keep it as a list, share it"></div>

@@ -6,7 +6,7 @@ the site: `docs/how-it-works/ci-cd.md`.) Français : [CI-CD_FR.md](CI-CD_FR.md).
 
 | Workflow | File | Starts on | Blocks on |
 |---|---|---|---|
-| Docs | `.github/workflows/docs.yml` | push to `master`, every pull request, by hand | a replay that is an LFS pointer or missing, stale screenshot annotations, a broken link (`mkdocs build --strict`), a missing browser, a truncated PDF |
+| Docs | `.github/workflows/docs.yml` | push to `master`, every pull request, by hand | stale screenshot annotations, a broken link (`mkdocs build --strict`), a missing browser, a truncated PDF |
 | Security | `.github/workflows/security.yml` | push to `master`, every pull request, Monday 04:23 UTC, by hand | a secret in the history, or a Semgrep / Trivy finding at or above the threshold |
 
 Every action is pinned to a full commit SHA with its tag in a comment. Every Docker image is pinned
@@ -16,7 +16,7 @@ to a digest. Each workflow starts from `permissions: {}`, and each job asks only
 
 The **build** job has `contents: read`. It:
 
-1. checks out with `lfs: true` and checks the replays;
+1. checks out the repository;
 2. installs the toolchain with `pip install --require-hashes -r requirements.txt`;
 3. checks the annotations (`python tools/annotate.py --check`);
 4. builds the site with `mkdocs build --strict`;
@@ -50,7 +50,7 @@ as soon as a newer fonttools is published.
 |---|---|---|---|
 | Gate self-test | `node --test` | `.github/scripts/security-gate.test.mjs` | the gate itself is wrong |
 | Secrets | Gitleaks 8.30.1 | the whole git history | any finding not reviewed in `.gitleaks.toml` / `.gitleaksignore`, or zero commits read |
-| SAST | Semgrep 1.178.0 | the whole checkout: `tools/`, `pdf_event_hook.py`, the replay player JS, the workflows | a finding at or above the Semgrep threshold |
+| SAST | Semgrep 1.178.0 | the whole checkout: `tools/`, `pdf_event_hook.py`, the workflows | a finding at or above the Semgrep threshold |
 | Dependencies | Trivy 0.74.0 | the `requirements.txt` lock, so every transitive package | a finding at or above the Trivy threshold |
 | Upload SARIF to code scanning | `codeql-action/upload-sarif` | the three SARIF files | an upload that fails on a repository that supports code scanning |
 | PR comment | `gh api` | the three verdicts | never fails a pull request by itself |

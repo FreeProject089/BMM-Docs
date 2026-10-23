@@ -142,6 +142,8 @@ plugins:
 # parsing (same authoring syntax as the in-app docs). See tools/md_directives.py.
 hooks:
   - tools/md_directives.py
+  # ```bmms fences: a Pygments lexer for BMMScript, so those blocks are highlighted (site and PDFs).
+  - tools/bmms_lexer.py
 
 markdown_extensions:
   - admonition
@@ -256,20 +258,15 @@ nav:
       - reference/translation-variables.md
 
 extra:
-  # Session replays (.bmmreplay). false = build the site WITHOUT them: every replay embed is
-  # dropped from the pages, no .bmmreplay is copied into the site and the rrweb player is not
-  # loaded (tools/md_directives.py). BMM_DOCS_REPLAYS=off|on in the environment overrides this
-  # line, for a CI build that should differ from the file.
-  bmm_replays: true
+  # BMM Docs shows GIFs, not session replays: no .bmmreplay is shipped and no rrweb player is
+  # loaded. false also makes tools/md_directives.py drop any stray `:::replay` / bmm-replay
+  # embed that someone adds by mistake. BMM_DOCS_REPLAYS=on overrides this for an experiment.
+  bmm_replays: false
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/FreeProject089
 extra_css:
   - assets/extra.css
-  - assets/rrweb/rrweb.min.css
-  - assets/rrweb/bmm-replay.css
 
 extra_javascript:
-  - assets/rrweb/rrweb.min.js
-  - assets/rrweb/bmm-replay.js
   - assets/guide.js

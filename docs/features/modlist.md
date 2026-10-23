@@ -12,9 +12,6 @@ BMM's own definition:
 That's the difference in one line. A modpack says *which mods*; a `.MM` list says *which
 mods, where to get them, and in what order*.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/modlist.bmmreplay"
-     data-title="Exporting and importing a .MM list"></div>
 
 
 
@@ -23,9 +20,6 @@ mods, where to get them, and in what order*.
 
 *Share a mod list and an order. An activation order settled and kept as a named list with its share code; the mods exported as a .MM list, imported into another profile with the plan of what is new, installed, and switched on in the saved order.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/share-list.bmmreplay"
-     data-title="Share a mod list and an order"></div>
 <!-- /story:share-list -->
 
 ## Sharing

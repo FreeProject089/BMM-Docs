@@ -29,9 +29,6 @@ without you driving it.
     timestamps, so they are guessable. The registered task is the one caller that can prove
     it is not a page.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/scheduler.bmmreplay"
-     data-title="Building a scheduled task"></div>
 
 
 
@@ -40,9 +37,6 @@ without you driving it.
 
 *Automate the chores. A scheduled task that checks the followed repos and backs up the profiles every evening, previewed before it is saved.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/automate.bmmreplay"
-     data-title="Automate the chores"></div>
 <!-- /story:automate -->
 
 ## A task has three parts
@@ -131,7 +125,7 @@ skipped rather than stacked.
 
 In BMMScript the three are written:
 
-```
+```bmms
 task "Repair after the nightly sync" {
     after task "t-42" failed
 }

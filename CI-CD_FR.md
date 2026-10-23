@@ -6,7 +6,7 @@ documentés dans le site : `docs/how-it-works/ci-cd.fr.md`.) English: [CI-CD.md]
 
 | Workflow | Fichier | Se lance sur | Bloque sur |
 |---|---|---|---|
-| Docs | `.github/workflows/docs.yml` | push sur `master`, chaque pull request, à la main | un replay qui est un pointeur LFS ou qui manque, des annotations de captures périmées, un lien cassé (`mkdocs build --strict`), un navigateur absent, un PDF tronqué |
+| Docs | `.github/workflows/docs.yml` | push sur `master`, chaque pull request, à la main | des annotations de captures périmées, un lien cassé (`mkdocs build --strict`), un navigateur absent, un PDF tronqué |
 | Security | `.github/workflows/security.yml` | push sur `master`, chaque pull request, lundi 04:23 UTC, à la main | un secret dans l'historique, ou un résultat Semgrep / Trivy au seuil ou au-dessus |
 
 Chaque action est épinglée par SHA de commit complet, avec son tag en commentaire. Chaque image
@@ -17,7 +17,7 @@ que ce qu'il utilise.
 
 Le job **build** a `contents: read`. Il :
 
-1. fait le checkout avec `lfs: true` et vérifie les replays ;
+1. fait le checkout du dépôt ;
 2. installe l'outillage avec `pip install --require-hashes -r requirements.txt` ;
 3. vérifie les annotations (`python tools/annotate.py --check`) ;
 4. construit le site avec `mkdocs build --strict` ;
@@ -51,7 +51,7 @@ WeasyPrint en mode hash dès qu'une version plus récente de fonttools est publi
 |---|---|---|---|
 | Gate self-test | `node --test` | `.github/scripts/security-gate.test.mjs` | le gate lui-même est faux |
 | Secrets | Gitleaks 8.30.1 | tout l'historique git | un résultat non revu dans `.gitleaks.toml` / `.gitleaksignore`, ou zéro commit lu |
-| SAST | Semgrep 1.178.0 | tout le checkout : `tools/`, `pdf_event_hook.py`, le JS du lecteur de replays, les workflows | un résultat au seuil Semgrep ou au-dessus |
+| SAST | Semgrep 1.178.0 | tout le checkout : `tools/`, `pdf_event_hook.py`, les workflows | un résultat au seuil Semgrep ou au-dessus |
 | Dépendances | Trivy 0.74.0 | le lock `requirements.txt`, donc chaque paquet transitif | un résultat au seuil Trivy ou au-dessus |
 | Envoi SARIF vers code scanning | `codeql-action/upload-sarif` | les trois fichiers SARIF | un envoi qui échoue sur un dépôt qui accepte le code scanning |
 | Commentaire de PR | `gh api` | les trois verdicts | n'échoue jamais une pull request à lui seul |

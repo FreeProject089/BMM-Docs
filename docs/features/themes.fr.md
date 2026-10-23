@@ -23,9 +23,6 @@ l'allure de l'app — puis de l'exporter en un fichier que quelqu'un importe en 
     un thème choisi sous l'ancien nom reste appliqué. La table des anciens et nouveaux ids est
     dans [Créer son propre thème](making-themes.md#renommes-en-104).
 
-<div class="bmm-replay"
-     data-src="../assets/replays/themes.bmmreplay"
-     data-title="Restyler BMM avec l'éditeur de thèmes"></div>
 
 
 
@@ -34,9 +31,6 @@ l'allure de l'app — puis de l'exporter en un fichier que quelqu'un importe en 
 
 *Personnaliser BMM. Un thème créé dans l’éditeur de thèmes, une barre de navigation réorganisée avec une page personnalisée, et une chaîne traduite dans le studio de traduction.*
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/make-it-yours.bmmreplay"
-     data-title="Personnaliser BMM"></div>
 <!-- /story:make-it-yours -->
 
 ## La marque que porte chaque thème

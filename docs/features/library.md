@@ -15,9 +15,7 @@ The **Library** is where every mod you own lives — installed or not, from any 
 only ever learn one screen in BMM, make it this one: everything else (profiles, modpacks,
 lists) is a different way of arranging what the Library holds.
 
-<div class="bmm-replay"
-     data-src="../assets/replays/library.bmmreplay"
-     data-title="Adding a mod and enabling it"></div>
+![Adding a mod and enabling it](../assets/gifs/guide-add-mods.gif)
 
 
 ## Adding your first mod

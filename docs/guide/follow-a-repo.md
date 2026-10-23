@@ -49,6 +49,3 @@ game gets the new files. Use it once you trust the repo's owner.
 
 [Update BMM](update-bmm.md) keeps the app itself current. Details: [Server Repo](../features/repo.md), [How syncing works](../how-it-works/sync-repos.md).
 
-<div class="bmm-replay"
-     data-src="../../assets/replays/share-setup.bmmreplay"
-     data-title="Watch it: join, sync and follow, then the next update arrives"></div>
